@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>python元组 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">python元组</h1>
+<article class="post markdown-style">
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">1 # 元组，元素不可被修改，不能被增加或者删除</span><br><span class="line"> 2 # tuple</span><br><span class="line"> 3 # tu = (11,22,33,44,)</span><br><span class="line"> 4 # tu.count(22),获取指定元素在元组中出现的次数</span><br><span class="line"> 5 # tu.index(22)</span><br><span class="line"> 6 # 1. 书写格式</span><br><span class="line"> 7 # tu = (111,&quot;alex&quot;,(11,22),[(33,44)],True,33,44,)</span><br><span class="line"> 8 # 一般写元组的时候，推荐在最后加入 ,</span><br><span class="line"> 9 # 元素不可被修改，不能被增加或者删除</span><br><span class="line">10 # 2. 索引</span><br><span class="line">11 # v = tu[0]</span><br><span class="line">12 # print(v)</span><br><span class="line">13 </span><br><span class="line">14 # 3. 切片</span><br><span class="line">15 # v = tu[0:2]</span><br><span class="line">16 # print(v)</span><br><span class="line">17 </span><br><span class="line">18 # 4. 可以被for循环，可迭代对象</span><br><span class="line">19 # for item in tu:</span><br><span class="line">20 #     print(item)</span><br><span class="line">21 </span><br><span class="line">22 # 5. 转换</span><br><span class="line">23 s = &quot;asdfasdf0&quot;</span><br><span class="line">24 li = [&quot;asdf&quot;,&quot;asdfasdf&quot;]</span><br><span class="line">25 tu = (&quot;asdf&quot;,&quot;asdf&quot;,)</span><br><span class="line">26 </span><br><span class="line">27 # v = tuple(s)</span><br><span class="line">28 # print(v)</span><br><span class="line">29 </span><br><span class="line">30 # v = tuple(li)</span><br><span class="line">31 # print(v)</span><br><span class="line">32 </span><br><span class="line">33 # v = list(tu)</span><br><span class="line">34 # print(v)</span><br><span class="line">35 </span><br><span class="line">36 # v = &quot;_&quot;.join(tu)</span><br><span class="line">37 # print(v)</span><br><span class="line">38 </span><br><span class="line">39 # li = [&quot;asdf&quot;,&quot;asdfasdf&quot;]</span><br><span class="line">40 # li.extend((11,22,33,))</span><br><span class="line">41 # print(li)</span><br><span class="line">42 </span><br><span class="line">43 # 6.元组的一级元素不可修改/删除/增加</span><br><span class="line">44 tu = (111,&quot;alex&quot;,(11,22),[(33,44)],True,33,44,)</span><br><span class="line">45 # # 元组，有序。</span><br><span class="line">46 # v = tu[3][0][0]</span><br><span class="line">47 # print(v)</span><br><span class="line">48 # v=tu[3]</span><br><span class="line">49 # print(v)</span><br><span class="line">50 tu[3][0] = 567</span><br><span class="line">51 print(tu)</span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2017/12/27/myarticle35/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2017/12/24/myarticle33/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

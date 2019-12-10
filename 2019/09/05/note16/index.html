@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>vue3.0的变化 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">vue3.0的变化</h1>
+<article class="post markdown-style">
+  <p>vue最主要的特点就是响应式机制、模板、以及对象式的组件声明语法，而3.0对这三部分都做了更改。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1. 响应式（数据的双向绑定）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">2.0的响应式</span><br><span class="line"></span><br><span class="line">　　基于Object.defineProperty中的set和get方法实现</span><br><span class="line"></span><br><span class="line">　　兼容主流浏览器和ie9以上的ie浏览器，</span><br><span class="line"></span><br><span class="line">　　能够监听数据对象的变化，</span><br><span class="line"></span><br><span class="line">　　但是监听不到对象属性的增删、数组元素和长度的变化，</span><br><span class="line"></span><br><span class="line">　　同时会在vue初始化的时候把所有的Observer都建立好，才能观察到数据对象属性的变化。</span><br></pre></td></tr></table></figure>
+
+<p>　　<strong>3.0的响应式</strong></p>
+<p>　　采用了ES2015的Proxy来代替Object.defineProperty，</p>
+<p>　　可以做到监听对象属性的增删和数组元素和长度的修改，</p>
+<p>　　还可以监听Map、Set、WeakSet、WeakMap，</p>
+<p>　　同时还实现了惰性的监听，</p>
+<p>　　不会在初始化的时候创建所有的Observer，而是会在用到的时候才去监听。</p>
+<p>　　但是，虽然主流的浏览器都支持Proxy，ie系列却还是不兼容，</p>
+<p>　　所以针对ie11，vue3.0决定做单独的适配，暴露出来的api一样，但是底层实现还是Object.defineProperty</p>
+<h3 id="2-模板"><a href="#2-模板" class="headerlink" title="2.模板"></a>2.模板</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">模板方面没有大的变更，只改了作用域插槽，</span><br><span class="line"></span><br><span class="line">2.x的机制导致作用域插槽变了，父组件会重新渲染，</span><br><span class="line"></span><br><span class="line">3.0把作用域插槽改成了函数的方式，这样只会影响子组件的重新渲染，提升了渲染的性能。</span><br><span class="line"></span><br><span class="line">同时，对于render函数的方面，vue3.0也会进行一系列更改来方便习惯直接使用api来生成vdom的开发者。</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-对象式的组件声明方式"><a href="#3-对象式的组件声明方式" class="headerlink" title="3. 对象式的组件声明方式"></a>3. 对象式的组件声明方式</h3><p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vue2.x中的组件是通过声明的方式传入一系列option，和TypeScript的结合需要通过一些装饰器的方式来做，虽然能实现功能，但是比较麻烦。</span><br><span class="line"></span><br><span class="line">3.0修改了组件的声明方式，改成了类式的写法，这样使得和TypeScript的结合变得很容易。</span><br><span class="line"></span><br><span class="line">此外，vue3.0的源码也改用了TypeScript来写。</span><br><span class="line">其实当代码的功能复杂之后，必须有一个静态类型系统来做一些辅助管理，如React使用的Flow，Angular使用的TypeScript。</span><br><span class="line">现在vue3.0也全面改用TypeScript来重写了，更是使得对外暴露的api更容易结合TypeScript。静态类型系统对于复杂代码的维护确实很有必要。</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<h2 id="其他的一些东西"><a href="#其他的一些东西" class="headerlink" title="其他的一些东西"></a>其他的一些东西</h2><p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">vue3.0的改变是全面的，上面只涉及到主要的3个方面，还有一些其他的更改：</span><br><span class="line"></span><br><span class="line">支持自定义渲染器，从而使得weex可以通过自定义渲染器的方式来扩展，而不是直接fork源码来改的方式。</span><br><span class="line"></span><br><span class="line">支持Fragment（多个根节点）和Protal（在dom其他部分渲染组建内容）组件，针对一些特殊的场景做了处理。</span><br><span class="line"></span><br><span class="line">基于treeshaking优化，提供了更多的内置功能</span><br></pre></td></tr></table></figure>
+
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2019/09/28/note17/">prev</a>
+    
+
+    
+    <p>last update time 2019-10-30</p>
+    
+    
+        <a class="extend next post-next" href="/2019/08/20/note15/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

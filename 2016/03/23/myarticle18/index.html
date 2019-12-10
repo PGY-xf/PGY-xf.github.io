@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>linux命令随记 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">linux命令随记</h1>
+<article class="post markdown-style">
+  <p>1.当再Hadoop平台上跑代码的时候，可能会发现有些job是需要被kill重新跑的，此刻，如果一个一个手动去删除会很缓慢，此刻需要使用一个简单的脚本来实现自动全部删除操作：</p>
+<p>for i in <code>hadoop job -list | grep -w tvapk| awk &#39;{print $1}&#39; | grep job_</code>;<br>do hadoop job -kill $i;<br>done</p>
+<p>-—————————————————</p>
+<p>上述命令中，grep －w tvapk的意思是精确定位是tvapk用户所带来的job，然后利用awk打印出，同时由于job都是同样的样式，循环执行删除即可。</p>
+<p>2.有些时候我们在客户端操作代码，一旦客户端断网或者其他原因导致不能使用，此刻需要用到了Linux中的重定向知识：</p>
+<p>/dev/null</p>
+<p>如果想要正常输出和错误信息都不显示，则要把标准输出和标准错误都重定向到/dev/null， 例如：</p>
+<p># ls 1&gt;/dev/null 2&gt;/dev/null</p>
+<p>还有一种做法是将错误重定向到标准输出，然后再重定向到 /dev/null，例如：</p>
+<p># ls &gt;/dev/null 2&gt;&amp;1</p>
+<p>注意：此处的顺序不能更改，否则达不到想要的效果，此时先将标准输出重定向到 /dev/null，然后将标准错误重定向到标准输出，由于标准输出已经重定向到了/dev/null，因此标准错误也会重定向到/dev/null，于是一切静悄悄:-)</p>
+<p>由于使用nohup时，会自动将输出写入nohup.out文件中，如果文件很大的话，nohup.out就会不停的增大，这是我们不希望看到的，因此，可以利用/dev/null来解决这个问题。</p>
+<p>nohup ./program &gt;/dev/null 2&gt;log &amp;</p>
+<p>如果错误信息也不想要的话：</p>
+<p>nohup ./program &gt;/dev/null 2&gt;&amp;1 &amp;</p>
+<p> 简单点，如果想让任务在后台上跑起来，同时将原本输出在客户端的数据保存在文件里，可以这样实现：</p>
+<p>/usr/bin/nohup /usr/bin/sh  /home/tvapk/xxx.sh &gt;/home/tvapk/log.out 2&gt;&amp;1 &amp;</p>
+<p>上述分四个部分，第一部分是nohup命令，第二部分是sh命令，第三部分是sh文件的位置，第四部分是重定向标准输出到一个文件，同时保证该进程在后台运行。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2016/05/13/myarticle19/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-03</p>
+    
+    
+        <a class="extend next post-next" href="/2016/02/23/myarticle17/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

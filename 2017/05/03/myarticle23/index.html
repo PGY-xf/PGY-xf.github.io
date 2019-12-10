@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>区块链技术汇总 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">区块链技术汇总</h1>
+<article class="post markdown-style">
+  <h3 id="本文转自：区块链、比特币与拜占庭将军问题"><a href="#本文转自：区块链、比特币与拜占庭将军问题" class="headerlink" title="本文转自：区块链、比特币与拜占庭将军问题"></a>本文转自：<a href="http://www.cnblogs.com/charlesblc/p/6272785.html" target="_blank" rel="noopener">区块链、比特币与拜占庭将军问题</a></h3><p>首先，<strong>不要把比特币当成一种货币，而是一个总账。</strong>它是个电子总账，<strong>网络上的每一个参与者的电脑都会有一份总账的备份，并且所有的备份都是在实时的持续的更新、对账、以及同步着</strong>。</p>
+<p>每一个参与者都能在这本总帐里记上一笔，这一笔记录着一定数量的币从一个参与者那里被发送到另一个参与者那里，并且每一条这样的记录都接着就实时的广播到网络了，所以在每一台电脑上的每一分份拷贝都是几乎同时更新的，并且所有的总账拷贝都保持着同步。<strong>这本公开的分布式的总账的官方叫法是“区块链（blockchain）”，并且它使用了BT技术以保证所有的拷贝都是同步的。</strong></p>
+<p><strong>并且尽管单个哈希值用现在的计算机可以几乎即时的计算出来，但只有一个前13个字符是0的哈希值结果可以被比特币系统接受成为“工作量证明”。这样一个13个0的哈希值是极其不可能与罕见的，并且在当前需要花费整个比特币网络大约10分钟的时间来找到一个。在一台网络中的机器随机的找到一个有效哈希值之前，上十亿个的无效值会被计算出来，这就是减慢信息传递速率并使得整个系统可用的“工作量证明”。</strong></p>
+<p><strong>那台发现下一个有效哈希值的机器（或者说在我们类比中的城邦），把所有的之前的信息放到一起，附上它自己的，以及它的签名/印章/诸如此类，并向网络中的其他机器广播出去。只要其他网络中的机器接收到并验证通过了这个13个0的哈希值和附着在上面的信息，他们就会停止他们当下的计算，使用新的信息更新他们的总账拷贝，然后把新更新的总账/区块链作为哈希算法的输入，再次开始计算哈希值。哈希计算竞赛从一个新的开始点重新开始。如此这般，网络持续同步着，所有网络上的电脑都使用着同一版本的总账。</strong></p>
+<p><strong>最后，在个人向网络输入一笔交易的时候，他们使用内嵌在比特币客户端的标准公钥加密工具来同时他们的私钥以及接收者的公钥来为这笔交易签名。这对应于拜占庭将军问题中他们用来签名和验证消息时使用的“印章”。因此，哈希计算速率的限制，加上公钥加密，使得一个不可信网络变成了一个可信的网络，使得所有参与者可以在某些事情上达成一致（比如说攻击时间、或者一系列的交易、域名记录、政治投票系统、或者任何其他的需要分布式协议的地方）。</strong></p>
+<p>这一解决方案在一系列的历史事件发生之前是不可能的，这些事件有：</p>
+<ol>
+<li>互联网的创造</li>
+<li>公钥加密算法的发明</li>
+<li>点对点Bitorrent(BT)协议的发明。BT协议最开始是开发来用于在网络上的相对小的用户子集之间共享许多文件的，<strong>但比特币用它来在所有用户之间共享单个文件。</strong></li>
+<li>人们意识到，<strong>在系统中添加一个简单的时间延迟，同时使用公钥加密算法以验证每笔交易，可以解决这个问题。</strong></li>
+</ol>
+<p><strong>可以推广到任何核心问题是在分布式网络上缺乏信任的领域。如我们已经提到乐的，人们正在为互联网建设一个分布式的域名系统，以及为政治选举建设分布式的投票系统（还没有网站）。如果人们认为单纯的文件分享搅乱了这个世界，那么比特币解决方案和协议才刚刚打开洪水的闸门。</strong></p>
+<p><strong>PS：现在比特币，对交易速度是有限制的，防止区块过大（现在区块限制1M左右），大约每秒不多于7笔，每天60万笔。而现在峰值是每天7万笔。</strong></p>
+<p><strong>当我在2011**</strong>年开始使用比特币的时候，我的比特币软件花了一天的时间来下载从2009<strong><strong>年起源开始到2011</strong></strong>年的所有比特币交易记录。到了2013<strong>**年，如果客户端连续几天没有开启运行的话，它每次启动就得花几个小时来赶上最近几天的交易记录的进度。</strong></p>
+<h2 id="下面这个系列，讲了区块链技术："><a href="#下面这个系列，讲了区块链技术：" class="headerlink" title="下面这个系列，讲了区块链技术："></a>下面这个系列，讲了区块链技术：</h2><p>上：<a href="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxcheckurl?requrl=http%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzI4ODAzOTU3MQ%3D%3D%26mid%3D401450836%26idx%3D1%26sn%3D79b1025416e5be931773b815a740388d%26mpshare%3D1%26scene%3D1%26srcid%3D01110RlnlO8PpyOssXi6IV3l%23rd&skey=%40crypt_ea1f4abf_0525ff673140f60d1b9cdecdb85a8d43&deviceid=e609797641867772&pass_ticket=emQXwcL3%252BfF3AdJcJJQF4lRK55yy52sdODe2IyTh2L4EslX4ytjdQhIUYGclxqhl&opcode=2&scene=1&username=@498990ac2633ec02a1db9f2ca0fe09794f71386d1969b9e679e4df82b5f6661a" target="_blank" rel="noopener">Link</a>    中：<a href="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxcheckurl?requrl=http%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzI4ODAzOTU3MQ%3D%3D%26mid%3D401450836%26idx%3D2%26sn%3De4677f92c527387fbd6d584f7f5ba6ad%26mpshare%3D1%26scene%3D1%26srcid%3D0111OjKX3qGB9WGxgJza1tgj%23rd&skey=%40crypt_ea1f4abf_0525ff673140f60d1b9cdecdb85a8d43&deviceid=e609797641867772&pass_ticket=emQXwcL3%252BfF3AdJcJJQF4lRK55yy52sdODe2IyTh2L4EslX4ytjdQhIUYGclxqhl&opcode=2&scene=1&username=@498990ac2633ec02a1db9f2ca0fe09794f71386d1969b9e679e4df82b5f6661a" target="_blank" rel="noopener">Link</a>    下：<a href="https://wx.qq.com/cgi-bin/mmwebwx-bin/webwxcheckurl?requrl=http%3A%2F%2Fmp.weixin.qq.com%2Fs%3F__biz%3DMzI4ODAzOTU3MQ%3D%3D%26mid%3D401450836%26idx%3D3%26sn%3D8d55c37c08633d3606172f61d6f95667%26mpshare%3D1%26scene%3D1%26srcid%3D0111cVnPYTytgmFachPxv3K7%23rd&skey=%40crypt_ea1f4abf_0525ff673140f60d1b9cdecdb85a8d43&deviceid=e609797641867772&pass_ticket=emQXwcL3%252BfF3AdJcJJQF4lRK55yy52sdODe2IyTh2L4EslX4ytjdQhIUYGclxqhl&opcode=2&scene=1&username=@498990ac2633ec02a1db9f2ca0fe09794f71386d1969b9e679e4df82b5f6661a" target="_blank" rel="noopener">Link</a></p>
+<h2 id="先看上《区块链与银行家（上篇：拜占庭将军问题）》"><a href="#先看上《区块链与银行家（上篇：拜占庭将军问题）》" class="headerlink" title="先看上《区块链与银行家（上篇：拜占庭将军问题）》"></a>先看上《区块链与银行家（上篇：拜占庭将军问题）》</h2><p>简单来说，这条新闻告诉我们目前央行正在探索用比特币的底层技术——区块链（Blockchain）来发行央行自己的数字货币的可行性。无独有偶，大洋彼岸的纳斯达克也在进行着自己的区块链实验。2015年12月30日，纳斯达克宣布初创公司Chain通过区块链技术交易平台Linq向私人投资者发行了该公司的股份[3]。 在声明中，纳斯达克称Chain是第一家通过Linq平台完成私募证券交易的公司。纳斯达克的首席执行官Bob Greifeld表示：</p>
+<p>『通过这次对区块链技术的初次应用，我们开启了一项进程，它有可能从根本上为现有的资本市场交易系统带来深刻的变革。』</p>
+<p>事实上不仅是央行和纳斯达克，上图中这些诸如高盛、花旗、瑞银、西联汇款等银行和金融机构也都已经参与到了区块链技术的投资和研究之中[4]。</p>
+<p>比特币是一种去中心化的加密数字货币（Crypto-Currency），其创始人中本聪（Satoshi Nakamoto）于2008年11月1日发表了一篇题为《比特币：一种点对点的电子现金系统》[5]，论文中详细阐述了如何在陌生人之间建立一套去中心化的电子支付系统。2009年1月3日，中本聪开发出了比特币客户端，并采集了第一批的50枚比特币， 比特币由此诞生。2009年10月5日出现了最早的交易所汇率：1美元＝1309.03比特币[6]，此后随着价格的飙升，比特币吸引到了越来越多的关注。</p>
+<p>既然数字货币的构想早已出现，那为什么过去的30年间一直没有成功的数字货币诞生呢？这就牵涉到一些技术方面的讨论。首先我们要知道理想的加密数字货币一定是分布式的，所谓的分布式，又叫去中心化，指的是整个系统的运行不依赖于某一个或某几个中心节点。</p>
+<p>关于两种系统的比较，《海星模式》一书中有一个精彩的比喻：</p>
+<p>『如果砍掉一只蜘蛛的脑袋，毫无疑问它会死亡；但是砍掉海星的一条腿，它却还会长出一条新腿，就连那只砍掉的腿也会长成一个全新的海星。』</p>
+<p>由此可见道德风险和法律问题对数字货币来说都是致命的，而这些又无法通过计算机程序来轻易解决，因此分布式系统才是数字货币的理想选择。但是建立一个分布式的交易系统，在技术上却要比集中式困难许多，因为在这一过程中需要克服一个通信领域里的经典问题——拜占庭将军问题（Byzantine Generals Problem）。</p>
+<p>拜占庭将军问题（以下简称“共识问题”）的正式表述是：如何在一个不基于信任的分布式网络中就信息达成共识？（注意这与两军问题的区别。在上一篇文章有讲）</p>
+<p>由于四个人的决策都是独立做出的，因此最终的选择结果就有256种可能，而只有当三人以上都恰好选择了同一时间的时候，共识才被达成，而这样的结果才64种，也就是说达成共识的概率仅为1/4。这还只是四位将军的情况，如果将军的人数是10人，100人，1000人呢？我们稍加计算就可以发现随着人数的增加，达成共识的希望会变得越来越渺茫。</p>
+<h2 id="再看中《区块链与银行家（中篇：区块链技术简介）》"><a href="#再看中《区块链与银行家（中篇：区块链技术简介）》" class="headerlink" title="再看中《区块链与银行家（中篇：区块链技术简介）》"></a>再看中《区块链与银行家（中篇：区块链技术简介）》</h2><p>有一个人有仲裁权 ＝ 有一个人 ＋ 有仲裁权</p>
+<p>这个看似多余的分割中其实包含了解决共识问题的关键思路。球场上的犯规裁判说了算，法庭上的胜负法官说了算，虽然我们对由某个人或某个组织垄断仲裁权这样的安排习以为常，但是大家有没有想过这样一个问题：谁规定了仲裁权必须和某个个体绑定在一起了？当你意识到这个问题的时候就已经非常接近中本聪的答案了</p>
+<p>区块链技术给出的解决方案非常简单：保留仲裁权，但不将其与某一个节点绑定，而是每次记账的时候将仲裁权随机分配给全网中的某个节点，然后其他节点跟随该节点完成记账任务。这样一来既能轻松地就账本达成共识，又因为没人知道下次记账谁说了算，系统的去中心化特征也被保留了。</p>
+<p>那么我们可以再来看一下区块链技术在比特币系统中具体是如何实现的。</p>
+<p>在比特币系统中每时每刻都会产生许多交易，这些交易一经产生就向全网广播，以保证每个节点都可以收到，但它们并不是零乱地散落在系统中，而是每隔一段时间就会被打包成一个区块（Block）记录到比特币的总账里，将这些区块按时间顺序连接到一起就成了区块链（Blockchain），也就是说区块链一词其实有两层含义，它既是分布式系统中达成共识的技术，在比特币系统中也特指包含了所有交易的总账。比特币的代码是开源的，任何人都可以在自己的电脑上下载并运行客户端，从而使自己的电脑成为维护比特币网络的一个节点。每个节点都存有一本包含全部交易的总账，并定期将新产生的交易记录到自己的总账里。就像之前提到的，每次记账的时候都会有一个节点带领大家一起完成，那么一个关键的问题就出现了：这个节点是如何选出的？怎么保证该节点不会伪造和篡改交易内容呢？</p>
+<p><img src="https://images2015.cnblogs.com/blog/899685/201701/899685-20170111121303885-235904146.png" alt="img"></p>
+<p>这个目标是通过挖矿（Mining）来实现的。上面就是一个挖矿过程的示意图，图中每个横线代表一笔交易，矩形方框代表包含着许多交易的区块，连在一起就是总账。挖矿过程是通过一个叫做SHA-256的函数实现的，它的功能是输入任意一个文件，返回一个毫无规律的64位16进制数，虚线部分就是每次挖矿时矿工（Miner）需要输入的内容，它由三部分组成：上一个区块的信息，新产生的交易和一个随机数。输入之后SHA-256会返回一个结果，最先得到足够小的64位数的节点会将自己的随机数和SHA-256的结果向全网广播以供其他人验证 。目前这个“足够小”的要求是前17位数全是0， 难度会随着全网算力动态调整以保证约每10分钟产生一个新矿（我的理解，增加0的个数可以直接调整难度和时间）。验证过程就是其他矿工将收到的随机数输入到SHA-256中看能否得到相同的结果，若结果不同，说明发出广播的矿工的账本和大家不一样，有私自伪造和篡改交易的嫌疑，从而导致验证失败，这就保证了只有诚实节点才能挖到新矿。通过验证的节点成为新矿的矿主，它会将作为SHA-256输入内容的新交易打包成新的区块记录到总账中，其他节点也会照做。与此同时新矿主获得两笔奖励，一笔是新区块中所有交易的手续费，目前普遍为每笔0.0001比特币，无论交易金额大小；另外一笔是新发行的比特币，目前是每个新矿发行25枚，该数额每四年减半。每次挖矿结束之后，所有矿工一起投入到下一轮的挖矿比拼之中，每个人挖到矿的概率和自己为比特币系统贡献的算力成正比，总账就是依靠这样一个精巧而公平的挖矿机制不断延续下去的。</p>
+<p>以上就是比特币的运行方式，即使有些地方看不太懂也没有关系，只要你知道它能在没有建立信任的去中心化网络中，让所有节点保存一本相同的总账就可以了。比特币从诞生至今整整七年，尽管宣布比特币已经失败的声音不绝于耳，根据一个叫“比特币讣告”的栏目统计，目前比特币已经被宣告死亡90次了[10]，但整个系统依然运行良好，比特币和它底层的区块链技术都经受住了时间的考验。</p>
+<h2 id="再看下《区块链与银行家（下篇：区块链技术在银行业证券业的应用）》"><a href="#再看下《区块链与银行家（下篇：区块链技术在银行业证券业的应用）》" class="headerlink" title="再看下《区块链与银行家（下篇：区块链技术在银行业证券业的应用）》"></a>再看下《区块链与银行家（下篇：区块链技术在银行业证券业的应用）》</h2><p>付款人——&gt;付款人的银行——&gt;清算机构——&gt;收款人的银行——&gt;收款人</p>
+<p>所以在一个有志气的银行家眼里，理想的支付流程当然是下面这样：</p>
+<p>付款人——&gt;付款人的银行——&gt;收款人的银行——&gt;收款人</p>
+<p>在一个有志气的储户眼里，理想的支付流程当然是下面这样：</p>
+<p>付款人——&gt;收款人</p>
+<h2 id="应用前景"><a href="#应用前景" class="headerlink" title="应用前景"></a>应用前景</h2><p>事实上证券交易也存在着跟支付流程类似的结构：</p>
+<p>买方——&gt;买方的经纪人——&gt;证券交易所——&gt;卖方的经纪人——&gt;卖方</p>
+<p>区块链将在哪些方面提高交易所的效率？在有志气的经纪人和有志气的买卖方眼中理想的交易流程分别是怎样的？对照我们之前的分析，大家应该对这些问题已经心中有数了。</p>
+<p>当然，共识问题中的信息也并不仅限于所有权转移，所有可以数字化的内容理论上都可以被区块链处理，而且目前已经有许多有趣的区块链应用被开发出来了，比如去中心化的微博Twister，去中心化的聊天软件Bitmessage，去中心化的云储存Storj，去中心化的域名系统Dot-Bit等等。它们大都拥有着比特币的鲜明印记：更低的成本，更好的安全性，无法篡改的信息，和海星一般顽强的生命力……</p>
+<p>That will fly, flies at last.</p>
+<p>区块链的更多补充，以及PPT等，也可以看看下面这个页面：</p>
+<p><a href="http://business.sohu.com/20161011/n470006712.shtml" target="_blank" rel="noopener">http://business.sohu.com/20161011/n470006712.shtml</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2017/06/23/myarticle24/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-03</p>
+    
+    
+        <a class="extend next post-next" href="/2017/01/03/myarticle22/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title> [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        
+
+
+
+  <div class="article">
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/05/27/myarticle52/">
+            内核下的模块编译
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>内核中的模块编译如下：
+makefile 文件：
+12345678910111213141516ifneq ($(KERNELRELEASE),) obj-m := param.o else      KDIR := /lib/modules/2.6.32-358.el6.i686/buildall...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-05-27
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/05/04/myarticle51/">
+            进程同步
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>实现一个简单的进程同步程序
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546#include &amp;lt;stdio.h&amp;gt;#include &amp;lt;unistd.h&amp;gt;#inc...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-05-04
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/05/04/myarticle50/">
+            什么是分布式锁及正确使用redis实现分布式锁
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>分布式锁　　分布式锁其实可以理解为：控制分布式系统有序的去对共享资源进行操作，通过互斥来保持一致性。 举个不太恰当的例子：假设共享的资源就是一个房子，里面有各种书，分布式系统就是要进屋看书的人，分布式锁就是保证这个房子只有一个门并且一次只有一个人可以进，而且门只有一把钥匙。然后许多人要去看书，可以，...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-05-04
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/04/24/myarticle49/">
+            大数据概念
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1、什么是大数据基本概念《数据处理》
+在互联网技术发展到现今阶段，大量日常、工作等事务产生的数据都已经信息化，人类产生的数据量相比以前有了爆炸式的增长，以前的传统的数据处理技术已经无法胜任，需求催生技术，一套用来处理海量数据的软件工具应运而生，这就是大数据！
+处理海量数据的核心技术：
+海量数据存储：...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-04-24
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/04/12/myarticle48/">
+            Python
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>遇到的第一个问题：
+1SyntaxError: Non-ASCII character &amp;apos;\xe8&amp;apos; in file D:/PyCharmProject/TempConvert.py on line 2, but no encoding declared; see http://...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-04-12
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/04/04/myarticle47/">
+            整理大型网站架构必知必会的几个服务器知识
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>最近看书及系统开发部署过程中的一些心得，再对照自己之前的从业经验，很多都是听闻而已，当然也有一些已经很熟悉，有的正在搞，有的未来希望可以着手付诸实施，留此存照。
+1、负载均衡服务器负载均衡服务器主要作用是实现某些类型服务器的规模扩展。比如对于系统前端的web服务器和后端的数据库服务器，想通过加服务器...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-04-04
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/03/26/myarticle46/">
+            session一致性的解决方案
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>什么是session？服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文，这个相关信息就是session。这样，当用户在应用程序的Web页之间跳转时，存储在session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。
+session是对http无状态协议...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-03-26
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/03/13/myarticle45/">
+            ORM
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>了解orm,先了解以下概念：
+什么是“持久化”持久（Persistence），即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的数据存储在关系型的数据库中，当然也可以存储在磁盘文件中、XML数据文件中等等。
+什么是 “持久层”持久层（Persistence...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-03-13
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/02/25/myarticle44/">
+            继承
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>继承，在生活中每当听到这个词时，或许脑海中会想到，谁继承了谁的遗产，然后继承者拥有了被继承者留下的哪些东西。要注意的是：基于生活中这种情况，交代了【被继承者】已死亡的事实，而在程序中不会存在【被继承者】已”死亡“的这种说法定义，在程序中讨论继承时，只是用来描述两者之间的关系以及建立了这种继承关系后会...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-02-25
+            </span>
+          
+        </div>
+      </div>
+    
+      <div class="article-item">
+        <h2 class="article-item-header">
+          <a href="/2018/02/24/myarticle43/">
+            gulp 自动化管理工具实现全过程
+          </a>
+        </h2>
+        <div class="article-item-content">
+          
+            <p>1.全局安装gulp
+　　
+1npm install gulp -g
+
+
+
+2.项目内安装gulp
+　　
+1npm install gulp -s
+
+
+
+3.项目根目录新建gulpfile.js
+　　js内代码：
+　　
+1234567891011121314151617181920212223242...</p>
+          
+        </div>
+        <div class="atricle-item-time">
+          
+            <span>
+              2018-02-24
+            </span>
+          
+        </div>
+      </div>
+    
+  </div>
+
+
+
+    <div class="pagenator">
+    
+    
+        <a class="extend prev" href="/page/4">prev</a>
+    
+
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/">1</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/2">2</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/3">3</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/4">4</a>
+        
+    
+        
+            <span class="extend page-item page-item-select">5</span>
+        
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/6">6</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/7">7</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/8">8</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/9">9</a>
+        
+    
+        
+        
+            <a class="extend page-item page-item-normal" href="/page/10">10</a>
+        
+    
+    
+    
+    
+        <a class="extend next" href="/page/6">next</a>
+    
+</div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

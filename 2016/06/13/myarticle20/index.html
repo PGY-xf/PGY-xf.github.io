@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>mongo数据库时间存储的问题 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">mongo数据库时间存储的问题</h1>
+<article class="post markdown-style">
+  <h2 id="题记：项目中要加的内容，可以实现对设备的预定，被某个用户预定后的设备就不能再被其他用户所使用了，用户预定的时候就需要输入预定时间，web前端用到了boostrap的date的一个插件，非常好用，接下来就总结下，mongodb数据库实现后台删除的方法。-参考资料：http-docs-mongoing-com-manual-tutorial-expire-data-html"><a href="#题记：项目中要加的内容，可以实现对设备的预定，被某个用户预定后的设备就不能再被其他用户所使用了，用户预定的时候就需要输入预定时间，web前端用到了boostrap的date的一个插件，非常好用，接下来就总结下，mongodb数据库实现后台删除的方法。-参考资料：http-docs-mongoing-com-manual-tutorial-expire-data-html" class="headerlink" title="题记：项目中要加的内容，可以实现对设备的预定，被某个用户预定后的设备就不能再被其他用户所使用了，用户预定的时候就需要输入预定时间，web前端用到了boostrap的date的一个插件，非常好用，接下来就总结下，mongodb数据库实现后台删除的方法。 参考资料：http://docs.mongoing.com/manual/tutorial/expire-data.html"></a>题记：项目中要加的内容，可以实现对设备的预定，被某个用户预定后的设备就不能再被其他用户所使用了，用户预定的时候就需要输入预定时间，web前端用到了boostrap的date的一个插件，非常好用，接下来就总结下，mongodb数据库实现后台删除的方法。 参考资料：<a href="http://docs.mongoing.com/manual/tutorial/expire-data.html" target="_blank" rel="noopener">http://docs.mongoing.com/manual/tutorial/expire-data.html</a></h2><p>有两种法：</p>
+<h2 id="1-使文档在一定的秒数后过期"><a href="#1-使文档在一定的秒数后过期" class="headerlink" title="1 使文档在一定的秒数后过期"></a>1 使文档在一定的秒数后过期</h2><p>如下操作在 <code>log_events</code> 集合的 <code>createdAt</code> 字段创建了一个索引并指定 <code>expireAfterSeconds</code> 的值为 <code>3600</code> 以使过期时间为 <code>createdAt</code> 指定的时间之后的一小时。</p>
+<p>db.log_events.ensureIndex( { “createdAt”: 1 }, { expireAfterSeconds: 3600 } )</p>
+<p>当向 <code>log_events</code> 集合添加文档时，设置 <code>createdAt</code> 字段为当前时间：</p>
+<p>db.log_events.insert( {<br>   “createdAt”: new Date(),<br>   “logEvent”: 2,<br>   “logMessage”: “Success!”<br>} )</p>
+<h2 id="2-使文档在确定的时钟时间过期"><a href="#2-使文档在确定的时钟时间过期" class="headerlink" title="2 使文档在确定的时钟时间过期"></a>2 使文档在确定的时钟时间过期</h2><p>如下操作在 <code>log_events</code> 集合的 <code>createdAt</code> 字段创建了一个索引并指定 <code>expireAfterSeconds</code> 的值 <code>0</code>。</p>
+<p>对于每个文档，设置 expireAt 的值与文档过期的时间一致。举例来说，如下的 insert() 操作添加了一个将在 2013年7月22号 14:00:00 过期的文档。<br>db.log_events.insert( {<br>   “expireAt”: new Date(‘July 22, 2013 14:00:00’),<br>   “logEvent”: 2,<br>   “logMessage”: “Success!”<br>} )<br>当某文档的 expireAt 字段的值晚于 expireAfterSeconds<code>中指定的秒数时——在本例中也就是</code>0 ，MongoDB会自动从 log_events 集合删除该文档。因此，数据在指定的 expireAt 值过期。</p>
+<p>此外，用java实现上面的第2个方法，如下所示：</p>
+<p>下面的formatDate()这个函数是我自己写一个格式化日期的，因为我在web输入的格式和mongodb要求的格式不同，所以要转成mongodb识别的格式：July 31, 2015 16:00:00</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public String addReserve(String reservename, String reserveip,String starttime, String endtime, String reserver) &#123;  </span><br><span class="line">        </span><br><span class="line"> BasicDBObject date_index = new BasicDBObject(&quot;date&quot;,1);      </span><br><span class="line">   BasicDBObject ensure = new BasicDBObject(&quot;expireAfterSeconds&quot;, 0);     </span><br><span class="line">   collectionReserve.ensureIndex(date_index, ensure);       </span><br><span class="line">   DBObject query1 = new BasicDBObject();      </span><br><span class="line">   String time1 = formatDate(endtime);//time1:July 31, 2015 16:00:00       </span><br><span class="line">   query1.put(&quot;date&quot;,new Date(time1));       </span><br><span class="line">   query1.put(&quot;reservename&quot;, reservename);       </span><br><span class="line">   query1.put(&quot;reserveip&quot;, reserveip);       </span><br><span class="line">  query1.put(&quot;starttime&quot;, starttime);        </span><br><span class="line"> query1.put(&quot;endtime&quot;, endtime);       </span><br><span class="line"> query1.put(&quot;reserver&quot;, reserver);       </span><br><span class="line"> collectionReserve.insert(query1);        </span><br><span class="line">return &quot;success&quot;;    &#125;</span><br></pre></td></tr></table></figure>
+
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2016/07/03/myarticle21/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2016/05/13/myarticle19/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

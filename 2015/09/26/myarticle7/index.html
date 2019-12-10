@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>celery定时任务简单使用 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">celery定时任务简单使用</h1>
+<article class="post markdown-style">
+  <p>celery介绍<br>Celery 是一个强大的分布式任务队列，它可以让任务的执行完全脱离主程序，甚至可以被分配到其他主机上运行。我们通常使用它来实现异步任务（ async task ）和定时任务（ crontab ）。 异步任务比如是发送邮件、或者文件上传, 图像处理等等一些比较耗时的操作 ，定时任务是需要在特定时间执行的任务。它的架构组成如下图：<br> <img src="https://img-blog.csdn.net/20180706143729131?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L1NoeWxsaW4=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="celery架构图"> </p>
+<p>任务队列<br>任务队列是一种跨线程、跨机器工作的一种机制.</p>
+<p>任务队列中包含称作任务的工作单元。有专门的工作进程持续不断的监视任务队列，并从中获得新的任务并处理.</p>
+<p>任务模块<br>包含异步任务和定时任务。其中，异步任务通常在业务逻辑中被触发并发往任务队列，而定时任务由 Celery Beat 进程周期性地将任务发往任务队列。</p>
+<p>消息中间件 Broker<br>Broker ，即为任务调度队列，接收任务生产者发来的消息（即任务），将任务存入队列。 Celery 本身不提供队列服务，官方推荐使用 RabbitMQ 和 Redis 等。</p>
+<p>任务执行单元 Worker<br>Worker 是执行任务的处理单元，它实时监控消息队列，获取队列中调度的任务，并执行它。</p>
+<p>任务结果存储 Backend<br>Backend 用于存储任务的执行结果，以供查询。同消息中间件一样，存储也可使用 RabbitMQ, Redis 和 MongoDB 等。</p>
+<p>使用 Celery 实现异步任务的步骤：<br>(1) 创建一个 Celery 实例<br>(2) 启动 Celery Worker ，通过delay() 或 apply_async()(delay 方法封装了 apply_async, apply_async支持更多的参数 ) 将任务发布到broker<br>(3) 应用程序调用异步任务</p>
+<p>(4)存储结果 （发布的任务需要return才会有结果，否则为空）</p>
+<p>Celery Beat：任务调度器，Beat进程会读取配置文件的内容，周期性地将配置中到期需要执行的任务发送给任务队列</p>
+<p>使用 Celery 实现定时任务的步骤：<br>(1) 创建一个 Celery 实例</p>
+<p>(2) 配置文件中配置任务 ，发布任务 celery A xxx beat</p>
+<p>(3) 启动 Celery Worker</p>
+<p>(4) 存储结果</p>
+<p>celery定时任务简单使用<br>以下是使用celery实现一个定时任务的demo，能够良好的定时执行。</p>
+<ol>
+<li><p>目录结构如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">shylin@shylin:~/Desktop$ tree celery_task</span><br><span class="line">celery_task</span><br><span class="line">├── celeryconfig.py    # celeryconfig配置文件</span><br><span class="line">├── celeryconfig.pyc</span><br><span class="line">├── celery.py   # celery对象</span><br><span class="line">├── celery.pyc</span><br><span class="line">├── epp_scripts   # 任务函数</span><br><span class="line">│   ├── init.py</span><br><span class="line">│   ├── init.pyc</span><br><span class="line">│   ├── test1.py</span><br><span class="line">│   ├── test1.pyc</span><br><span class="line">│   ├── test2.py</span><br><span class="line">│   └── test2.pyc</span><br><span class="line">├── init.py</span><br><span class="line">└── init.pyc</span><br></pre></td></tr></table></figure>
+
+<p>2.celery配置文件 celeryconfig.py</p>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">from __future__ import absolute_import # 拒绝隐式引入，因为celery.py的名字和celery的包名冲突，需要使用这条语句让程序正确地运行</span><br><span class="line">from celery.schedules import crontab</span><br><span class="line"></span><br><span class="line">broker_url = &quot;redis://127.0.0.1:6379/5&quot;  </span><br><span class="line">result_backend = &quot;redis://127.0.0.1:6379/6&quot;</span><br><span class="line"></span><br><span class="line">broker_url = &quot;redis://127.0.0.1:6379/2&quot;   # 使用redis存储任务队列</span><br><span class="line">result_backend = &quot;redis://127.0.0.1:6379/6&quot;  # 使用redis存储结果</span><br><span class="line"></span><br><span class="line">task_serializer = &apos;json&apos;</span><br><span class="line">result_serializer = &apos;json&apos;</span><br><span class="line">accept_content = [&apos;json&apos;]</span><br><span class="line">timezone = &quot;Asia/Shanghai&quot;  # 时区设置</span><br><span class="line">worker_hijack_root_logger = False  # celery默认开启自己的日志，可关闭自定义日志，不关闭自定义日志输出为空</span><br><span class="line">result_expires = 60 * 60 * 24  # 存储结果过期时间（默认1天）</span><br><span class="line"></span><br><span class="line"># 导入任务所在文件</span><br><span class="line">imports = [</span><br><span class="line">    &quot;celery_task.epp_scripts.test1&quot;,  # 导入py文件</span><br><span class="line">    &quot;celery_task.epp_scripts.test2&quot;,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 需要执行任务的配置</span><br><span class="line">beat_schedule = &#123;</span><br><span class="line">    &quot;test1&quot;: &#123;</span><br><span class="line">        &quot;task&quot;: &quot;celery_task.epp_scripts.test1.celery_run&quot;,  #执行的函数</span><br><span class="line">        &quot;schedule&quot;: crontab(minute=&quot;*/1&quot;),   # every minute 每分钟执行 </span><br><span class="line">        &quot;args&quot;: ()  # # 任务函数参数</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &quot;test2&quot;: &#123;</span><br><span class="line">        &quot;task&quot;: &quot;celery_task.epp_scripts.test2.celery_run&quot;,</span><br><span class="line">        &quot;schedule&quot;: crontab(minute=0, hour=&quot;*/1&quot;),   # every minute 每小时执行</span><br><span class="line">        &quot;args&quot;: ()</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&quot;schedule&quot;: crontab（）与crontab的语法基本一致</span><br><span class="line">&quot;schedule&quot;: crontab(minute=&quot;*/10&quot;,  # 每十分钟执行</span><br><span class="line">&quot;schedule&quot;: crontab(minute=&quot;*/1&quot;),   # 每分钟执行</span><br><span class="line">&quot;schedule&quot;: crontab(minute=0, hour=&quot;*/1&quot;),    # 每小时执</span><br></pre></td></tr></table></figure>
+
+<p>3.celery初始化文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># coding:utf-8</span><br><span class="line">from __future__ import absolute_import # 拒绝隐式引入，因为celery.py的名字和celery的包名冲突，需要使用这条语句让程序正确地运行</span><br><span class="line">from celery import Celery</span><br><span class="line"></span><br><span class="line"># 创建celery应用对象</span><br><span class="line">app = Celery(&quot;celery_demo&quot;)</span><br><span class="line"></span><br><span class="line"># 导入celery的配置信息</span><br><span class="line">app.config_from_object(&quot;celery_task.celeryconfig&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>4.任务函数（epp_scripts目录下）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># test1.py</span><br><span class="line">from celery_task.celery import app</span><br><span class="line"></span><br><span class="line">def test11():</span><br><span class="line">    print(&quot;test11----------------&quot;)</span><br><span class="line"></span><br><span class="line">def test22():</span><br><span class="line">    print(&quot;test22--------------&quot;)</span><br><span class="line">    test11()</span><br><span class="line"></span><br><span class="line">@app.task</span><br><span class="line">def celery_run():</span><br><span class="line">    test11()</span><br><span class="line">    test22()</span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    celery_run()</span><br><span class="line">------------------------------------------------------------</span><br><span class="line"># test2.py</span><br><span class="line">from celery_task.celery import app</span><br><span class="line"></span><br><span class="line">def test33():</span><br><span class="line">    print(&quot;test33----------------&quot;)</span><br><span class="line">    # print(&quot;------&quot;*50)</span><br><span class="line"></span><br><span class="line">def test44():</span><br><span class="line">    print(&quot;test44--------------&quot;)</span><br><span class="line">    # print(&quot;------&quot; * 50)</span><br><span class="line">    test33()</span><br><span class="line"></span><br><span class="line">@app.task</span><br><span class="line">def celery_run():</span><br><span class="line">    test33()</span><br><span class="line">    test44()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    celery_run()</span><br></pre></td></tr></table></figure>
+
+<p>5.发布任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 在celery_task同级目录下执行</span><br><span class="line">shylin@shylin:~/Desktop$ celery -A celery_task beat</span><br><span class="line">celery beat v4.2.0 (windowlicker) is starting.</span><br><span class="line">__    -    ... __   -        _</span><br><span class="line">LocalTime -&gt; 2018-06-29 09:42:02</span><br><span class="line">Configuration -&gt;</span><br><span class="line">    . broker -&gt; redis://127.0.0.1:6379/5</span><br><span class="line">    . loader -&gt; celery.loaders.app.AppLoader</span><br><span class="line">    . scheduler -&gt; celery.beat.PersistentScheduler</span><br><span class="line">    . db -&gt; celerybeat-schedule</span><br><span class="line">    . logfile -&gt; [stderr]@%WARNING</span><br><span class="line">    . maxinterval -&gt; 5.00 minutes (300s)</span><br></pre></td></tr></table></figure>
+
+<p>6.执行任务</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># 在celery_task同级目录下执行</span><br><span class="line">shylin@shylin:~/Desktop$ celery -A celery_task worker --loglevel=info</span><br><span class="line"></span><br><span class="line"> -------------- celery@shylin v4.2.0 (windowlicker)</span><br><span class="line">---- **** ----- </span><br><span class="line">--- * ***  * -- Linux-4.15.0-23-generic-x86_64-with-Ubuntu-18.04-bionic 2018-06-29 12:06:53</span><br><span class="line">-- * - **** --- </span><br><span class="line">- ** ---------- [config]</span><br><span class="line">- ** ---------- .&gt; app:         belletone:0x7f5b876f1a10</span><br><span class="line">- ** ---------- .&gt; transport:   redis://127.0.0.1:6379/5</span><br><span class="line">- ** ---------- .&gt; results:     redis://127.0.0.1:6379/6</span><br><span class="line">- *** --- * --- .&gt; concurrency: 8 (prefork)</span><br><span class="line">-- ******* ---- .&gt; task events: OFF (enable -E to monitor tasks in this worker)</span><br><span class="line">--- ***** ----- </span><br><span class="line"> -------------- [queues]</span><br><span class="line">                .&gt; celery           exchange=celery(direct) key=celery</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[tasks]</span><br><span class="line">  . celery_task.epp_scripts.test1.celery_run</span><br><span class="line">  . celery_task.epp_scripts.test2.celery_run</span><br><span class="line"></span><br><span class="line">[2018-06-29 12:06:54,107: INFO/MainProcess] Connected to redis://127.0.0.1:6379/5</span><br><span class="line">[2018-06-29 12:06:54,116: INFO/MainProcess] mingle: searching for neighbors</span><br><span class="line">[2018-06-29 12:06:55,143: INFO/MainProcess] mingle: all alone</span><br><span class="line">[2018-06-29 12:06:55,161: INFO/MainProcess] celery@shylin ready.</span><br><span class="line">[2018-06-29 12:07:00,073: INFO/MainProcess] Received task: celery_task.epp_scripts.test2.celery_run[f4522425-b744-4f1a-8c6c-eb37ab99842b]  </span><br><span class="line">[2018-06-29 12:07:00,075: INFO/MainProcess] Received task: celery_task.epp_scripts.test1.celery_run[3e00aa9c-0947-49b9-8ee4-cc75d6dc37ab]  </span><br><span class="line">[2018-06-29 12:07:00,078: WARNING/ForkPoolWorker-6] test33----------------</span><br><span class="line">[2018-06-29 12:07:00,079: WARNING/ForkPoolWorker-6] test44--------------</span><br><span class="line">[2018-06-29 12:07:00,079: WARNING/ForkPoolWorker-6] test33----------------</span><br><span class="line">[2018-06-29 12:07:00,079: WARNING/ForkPoolWorker-4] test11----------------</span><br><span class="line">[2018-06-29 12:07:00,081: WARNING/ForkPoolWorker-4] test22--------------</span><br><span class="line">[2018-06-29 12:07:00,081: WARNING/ForkPoolWorker-4] test11----------------</span><br><span class="line">[2018-06-29 12:07:00,094: INFO/ForkPoolWorker-6] Task celery_task.epp_scripts.test2.celery_run[f4522425-b744-4f1a-8c6c-eb37ab99842b] succeeded in 0.0169868329995s: None</span><br><span class="line">[2018-06-29 12:07:00,094: INFO/ForkPoolWorker-4] Task celery_task.epp_scripts.test1.celery_run[3e00aa9c-0947-49b9-8ee4-cc75d6dc37ab] succeeded in 0.0161407030009s: None</span><br></pre></td></tr></table></figure>
+
+<p>celery相关命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># 在celery_task同级目录下执行   celery worker/beat xxx</span><br><span class="line">celery -A celery_task beat  # 发布任务</span><br><span class="line">celery -A celery_task worker --loglevel=info  # 执行任务</span><br><span class="line">celery -B -A celery_task worker --loglevel=info  # 合并成一条</span><br><span class="line"></span><br><span class="line">/home/shylin/.virtualenvs/belle/bin/celery -B -A /home/shylin/Desktop/sky_server worker --loglevel=info</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">command= /usr/local/thirdparty/sky_server_env/bin/celery  -B -A celery_task worker</span><br><span class="line">directory=/usr/local/cloud   # celery_task work不确定是否可行？</span><br><span class="line"># 注意修改broker路径</span><br><span class="line"># celery_task放在 /usr/local/cloud/</span><br><span class="line">python -m celeryconfig # 检查配置文件</span><br><span class="line"></span><br><span class="line">nohup /usr/local/thirdparty/sky_server_env/bin/celery  -B -A celery_task worker -l info --workdir=/usr/local/cloud/ &amp;     # 启动命令</span><br></pre></td></tr></table></figure>
+
+<p>定时方式 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from celery.schedules import crontab</span><br><span class="line">from datetime import timedelta</span><br><span class="line">......</span><br><span class="line"></span><br><span class="line">方式一：</span><br><span class="line"> &quot;schedule&quot;: timedelta(seconds=30), # hours=xx,minutes=xx 每小时/每分钟  （此项可以精确到秒）</span><br><span class="line"></span><br><span class="line">方式二：</span><br><span class="line"> &quot;schedule&quot;: crontab(minute=&quot;*/10&quot;),   # every 10 minutes</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"># 后台启动 celery worker进程 </span><br><span class="line">celery multi start work_1 -A appcelery  </span><br><span class="line"># work_1 为woker的名称，可以用来进行对该进程进行管理</span><br><span class="line"></span><br><span class="line"># 多进程相关</span><br><span class="line">celery multi stop WOERNAME      # 停止worker进程,有的时候这样无法停止进程，就需要加上-A 项目名，才可以删掉</span><br><span class="line">celery multi restart WORKNAME        # 重启worker进程</span><br><span class="line"></span><br><span class="line"># 查看进程数</span><br><span class="line">celery status -A celery_task       # 查看该项目运行的进程数   celery_task同级目录下</span><br><span class="line"></span><br><span class="line">执行完毕后会在当前目录下产生一个二进制文件，celerybeat-schedule 。</span><br><span class="line">该文件用于存放上次执行结果：</span><br><span class="line">　　1、如果存在celerybeat-schedule文件，那么读取后根据上一次执行的时间，继续执行。</span><br><span class="line">　　2、如果不存在celerybeat-schedule文件，那么会立即执行一次。</span><br><span class="line">　　3、如果存在celerybeat-schedule文件，读取后，发现间隔时间已过，那么会立即执行。</span><br></pre></td></tr></table></figure>
+
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2015/09/28/myarticle8/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-03</p>
+    
+    
+        <a class="extend next post-next" href="/2015/09/25/myarticle6/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

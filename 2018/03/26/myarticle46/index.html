@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>session一致性的解决方案 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">session一致性的解决方案</h1>
+<article class="post markdown-style">
+  <h1 id="什么是session？"><a href="#什么是session？" class="headerlink" title="什么是session？"></a>什么是session？</h1><p>服务器为每个用户创建一个会话，存储用户的相关信息，以便多次请求能够定位到同一个上下文，这个相关信息就是session。这样，当用户在应用程序的Web页之间跳转时，存储在session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。</p>
+<p>session是对http无状态协议的补充，达到状态保持的目的</p>
+<h1 id="什么是session一致性问题？"><a href="#什么是session一致性问题？" class="headerlink" title="什么是session一致性问题？"></a>什么是session一致性问题？</h1><p><img src="https://img2018.cnblogs.com/blog/1327889/201909/1327889-20190903084822752-282084013.png" alt="session一致性问题"></p>
+<p>假设用户包含登录信息的session都记录在第一台server上，反向代理如果将请求路由到另一台server上，可能就找不到相关信息，而导致用户需要重新登录。</p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><h2 id="1-客户端保存cookie"><a href="#1-客户端保存cookie" class="headerlink" title="1. 客户端保存cookie"></a>1. 客户端保存cookie</h2><p><img src="https://img2018.cnblogs.com/blog/1327889/201909/1327889-20190903084822977-1692429687.png" alt="基于cookie的会话管理"></p>
+<ul>
+<li>优点：</li>
+</ul>
+<ol>
+<li>服务端不需要存储</li>
+</ol>
+<ul>
+<li>缺点：</li>
+</ul>
+<ol>
+<li>每次http请求都携带session，占网络带宽</li>
+<li>数据存储在客户端上，并在网络传输，存在泄漏、篡改等安全隐患</li>
+<li>session存储的数据大小受cookie限制</li>
+</ol>
+<blockquote>
+<p>由于技术不断演进，客户端保存cookie出现了信息全量cookie，cookie存储sessionId和JWT三种方式，他们优缺点各异，可以点击笔者的另一篇博客查看相关介绍</p>
+</blockquote>
+<p><a href="https://www.jianshu.com/p/750eff92d932" target="_blank" rel="noopener">快速了解会话管理三剑客cookie、session和JWT</a></p>
+<h2 id="2-session复制方法"><a href="#2-session复制方法" class="headerlink" title="2. session复制方法"></a>2. session复制方法</h2><p><img src="https://img2018.cnblogs.com/blog/1327889/201909/1327889-20190903084823166-733553527.png" alt="session复制方法"></p>
+<ul>
+<li>思路：<br>多个server之间相互同步session，这样每个server之间都包含全部的session</li>
+<li>优点：</li>
+</ul>
+<ol>
+<li>只需要设定配置，应用程序不需要修改代码</li>
+</ol>
+<ul>
+<li>不足：</li>
+</ul>
+<ol>
+<li>session的同步需要数据传输，占内网带宽，有延时</li>
+<li>所有server都包含所有session数据，数据量受最小内存的sever限制，水平拓展能力差</li>
+</ol>
+<h2 id="3-session中心存储"><a href="#3-session中心存储" class="headerlink" title="3. session中心存储"></a>3. session中心存储</h2><p><img src="https://img2018.cnblogs.com/blog/1327889/201909/1327889-20190903084823346-1301644452.png" alt="session中心存储"></p>
+<ul>
+<li>思路：<br>将session存储在server后端的集中式缓存</li>
+<li>优点：</li>
+</ul>
+<ol>
+<li>没有安全隐患</li>
+<li>可以水平扩展，支持缓存集群或横向拓展</li>
+</ol>
+<ul>
+<li>不足：</li>
+</ul>
+<ol>
+<li>增加了一次网络调用</li>
+<li>需要修改应用代码</li>
+</ol>
+<h2 id="4-session会话粘连"><a href="#4-session会话粘连" class="headerlink" title="4. session会话粘连"></a>4. session会话粘连</h2><p><img src="https://img2018.cnblogs.com/blog/1327889/201909/1327889-20190903084823767-702218849.png" alt="session会话粘连"></p>
+<blockquote>
+<p>session会话粘连：英文原词为”Sticky Sessions”</p>
+</blockquote>
+<ul>
+<li>思路：<br>反向代理层让同一个用户的请求保证落在一台server上呢？</li>
+<li>方法一：四层代理hash。反向代理层使用用户ip来做hash，以保证同一个ip的请求落在同一个server上（更推荐，保证传输层不引入业务层的逻辑）</li>
+<li>方法二：七层代理hash。反向代理使用http协议中的某些业务属性来做hash，例如sid，city_id，user_id等，能够更加灵活的实施hash策略，以保证同一个浏览器用户的请求落在同一个server上</li>
+<li>优点：</li>
+</ul>
+<ol>
+<li>只需要改nginx配置，不需要修改应用代码</li>
+<li>可以支持server水平扩展</li>
+</ol>
+<ul>
+<li>不足：</li>
+</ul>
+<ol>
+<li>server水平扩展，rehash后session重新分布，会有一部分用户路由不到正确的session</li>
+<li>即使hash散列均匀，也不能保证server的负载均匀</li>
+</ol>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/04/04/myarticle47/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-05</p>
+    
+    
+        <a class="extend next post-next" href="/2018/03/13/myarticle45/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

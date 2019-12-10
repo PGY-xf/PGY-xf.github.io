@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>微服务—微服务架构 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">微服务—微服务架构</h1>
+<article class="post markdown-style">
+  <p>一、快速开发实践</p>
+<p>结构、开发方式、持续集成环境、测试策略、部署机制以及监控和告警的实现方式。形成微服务快速开发模板，主要包括4部分：快速开发模板、代码生成工具、持续集成模板以及一键部署工具。</p>
+<p>二、微服务开发流程：</p>
+<p>API<br>代码测试（Rspec）与静态检查（Rubocop*代码风格检查器）<br>Docker映像构建<br>Docker镜像部署<br>持续集成与交付<br>监控与告警<br>日志集成<br>功能迭代</p>
+<p>三、持续集成环境</p>
+<p>代码管理：GitHub</p>
+<p>持续集成服务器：Snap-CI/Bamboo/jenkins/GO</p>
+<p>(1)、持续交付4个阶段</p>
+<p>提交阶段（代码变异、静态检查、运行测试单元）<br>验收阶段（运行集成测试、运行用户行为测试、运行组件测试、运行性能测试）<br>构建阶段（docker）<br>发布阶段（测试环境、类生产环境、生产环境）</p>
+<p>四、日志聚合</p>
+<p>工具：Splunk/LogStash</p>
+<p>Splunk的核心：</p>
+<p>数据（采集器）转发器<br>数据索引器<br>搜索、分析、可视化</p>
+<p>五、监控与告警</p>
+<p>监控成熟产品：Ganglia/Zabbix/NewRelic/Nagios/OneAPM</p>
+<p>告警：PagerDuty</p>
+<p>六、功能迭代</p>
+<p>场景分析<br>功能实现<br>代码测试与静态检查。定义静态检查、复杂度检查以及代码覆盖率统计的规范<br>构建docker镜像并部署docker<br>构建持续交付流水线<br>设置日志聚集<br>设置监控以及告警机制</p>
+<p>七、代码持续交付</p>
+<p>1、开发</p>
+<p>独立代码库（SVN/GIT）</p>
+<p>服务说明文件</p>
+<p>代码所有权归团队</p>
+<p>有效的代码版本管理工具（GIT/Mercurial/CVCS）</p>
+<p>代码静态检查工具（java的checkStyle、Ruby语言的Rubocop）</p>
+<p>易于本地运行</p>
+<p>2、测试</p>
+<p>集成测试的二义性</p>
+<p>单元测试（Mock与Stub）</p>
+<p>接口测试</p>
+<p>测试有效性</p>
+<p>3、持续集成（Jenkins/Bamboo/GO）</p>
+<p>4、构建</p>
+<p>5、部署</p>
+<p>部署环境</p>
+<p>基于云平台(基于PAAS、基于IAAS)</p>
+<p>基于数据中心</p>
+<p>基于容器技术</p>
+<p>部署方式</p>
+<p>手动部署</p>
+<p>脚本部署</p>
+<p>基于设施部署自动化</p>
+<p>应用部署自动化</p>
+<p>镜像部署</p>
+<p>容器部署</p>
+<p>6、运维</p>
+<p>监控</p>
+<p>告警</p>
+<p>日志聚合</p>
+<p>八、服务间的通信机制</p>
+<p>远程方法调用<br>REST<br>HAL<br>消息队列<br>后台任务系统</p>
+<p>九、测试</p>
+<p>微服务内部的结构<br>业务模型<br>模型存储<br>资源定义<br>网关集成<br>从测试角度，对微服务的测试策略分析<br>单元测试<br>集成测试<br>接口测试<br>组件测试<br>端到端测试<br>契约测试Pact</p>
+<p>十、微服务改造策略</p>
+<p>最小修改<br>功能剥离<br>数据解耦<br>数据同步<br>迭代替换</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2019/01/02/myarticle71/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-06</p>
+    
+    
+        <a class="extend next post-next" href="/2018/12/12/myarticle69/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

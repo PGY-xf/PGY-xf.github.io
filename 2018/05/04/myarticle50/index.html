@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>什么是分布式锁及正确使用redis实现分布式锁 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">什么是分布式锁及正确使用redis实现分布式锁</h1>
+<article class="post markdown-style">
+  <h3 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h3><p>　　分布式锁其实可以理解为：控制分布式系统有序的去对共享资源进行操作，通过互斥来保持一致性。 举个不太恰当的例子：假设共享的资源就是一个房子，里面有各种书，分布式系统就是要进屋看书的人，分布式锁就是保证这个房子只有一个门并且一次只有一个人可以进，而且门只有一把钥匙。然后许多人要去看书，可以，排队，第一个人拿着钥匙把门打开进屋看书并且把门锁上，然后第二个人没有钥匙，那就等着，等第一个出来，然后你在拿着钥匙进去，然后就是以此类推</p>
+<h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><ul>
+<li><p>互斥性</p>
+</li>
+<li><ul>
+<li>保证同一时间只有一个客户端可以拿到锁，也就是可以对共享资源进行操作</li>
+</ul>
+</li>
+<li><p>安全性</p>
+</li>
+<li><ul>
+<li>只有加锁的服务才能有解锁权限，也就是不能让a加的锁，bcd都可以解锁，如果都能解锁那分布式锁就没啥意义了</li>
+<li>可能出现的情况就是a去查询发现持有锁，就在准备解锁，这时候忽然a持有的锁过期了，然后b去获得锁，因为a锁过期，b拿到锁，这时候a继续执行第二步进行解锁如果不加校验，就将b持有的锁就给删除了</li>
+</ul>
+</li>
+<li><p>避免死锁</p>
+</li>
+<li><ul>
+<li>出现死锁就会导致后续的任何服务都拿不到锁,不能再对共享资源进行任何操作了</li>
+</ul>
+</li>
+<li><p>保证加锁与解锁操作是原子性操作</p>
+</li>
+<li><ul>
+<li>这个其实属于是实现分布式锁的问题，假设a用redis实现分布式锁</li>
+<li>假设加锁操作，操作步骤分为两步：</li>
+<li>1，设置key set（key，value）2，给key设置过期时间</li>
+</ul>
+</li>
+<li><ul>
+<li>假设现在a刚实现set后，程序崩了就导致了没给key设置过期时间就导致key一直存在就发生了死锁</li>
+</ul>
+</li>
+</ul>
+<h3 id="如何实现分布式锁"><a href="#如何实现分布式锁" class="headerlink" title="如何实现分布式锁"></a>如何实现分布式锁</h3><p>　　实现分布式锁的方式有很多，只要满足上述条件的都可以实现分布式锁，比如数据库，redis，zookeeper，在这里就先讲一下如何使用redis实现分布式锁</p>
+<h3 id="使用redis实现分布式锁"><a href="#使用redis实现分布式锁" class="headerlink" title="使用redis实现分布式锁"></a>使用redis实现分布式锁</h3><ul>
+<li>使用redis命令 set key value NX EX max-lock-time 实现加锁</li>
+<li>使用redis命令 EVAL 实现解锁</li>
+</ul>
+<p>加锁： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);</span><br><span class="line"> </span><br><span class="line"> private static final String SUCCESS = &quot;OK&quot;;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> /**</span><br><span class="line"> </span><br><span class="line">  * 加锁操作</span><br><span class="line"> </span><br><span class="line">  * @param key 锁标识</span><br><span class="line"> </span><br><span class="line">  * @param value 客户端标识</span><br><span class="line"> </span><br><span class="line">  * @param timeOut 过期时间</span><br><span class="line"> </span><br><span class="line">  */</span><br><span class="line"> </span><br><span class="line"> public Boolean lock(String key,String value,Long timeOut)&#123;</span><br><span class="line"> </span><br><span class="line">     String var1 = jedis.set(key,value,&quot;NX&quot;,&quot;EX&quot;,timeOut);</span><br><span class="line"> </span><br><span class="line">     if(LOCK_SUCCESS.equals(var1))&#123;</span><br><span class="line"> </span><br><span class="line">         return true;</span><br><span class="line"> </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     return false;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>解读：</p>
+<ul>
+<li><p>加锁操作：jedis.set(key,value,”NX”,”EX”,timeOut)【保证加锁的原子操作】</p>
+</li>
+<li><p>key就是redis的key值作为锁的标识，value在这里作为客户端的标识，只有key-value都比配才有删除锁的权利【保证安全性】</p>
+</li>
+<li><p>通过timeOut设置过期时间保证不会出现死锁【避免死锁】</p>
+</li>
+<li><p>NX，EX什么意思？</p>
+</li>
+<li><ul>
+<li>NX：只有这个key不存才的时候才会进行操作，if not exists；</li>
+<li>EX：设置key的过期时间为秒，具体时间由第5个参数决定</li>
+</ul>
+<p>解锁 :</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">Jedis jedis = new Jedis(&quot;127.0.0.1&quot;, 6379);</span><br><span class="line"> </span><br><span class="line"> private static final Long UNLOCK_SUCCESS = 1L;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> /**</span><br><span class="line"> </span><br><span class="line">  * 解锁操作</span><br><span class="line"> </span><br><span class="line">  * @param key 锁标识</span><br><span class="line"> </span><br><span class="line">  * @param value 客户端标识</span><br><span class="line"> </span><br><span class="line">  * @return</span><br><span class="line"> </span><br><span class="line">  */</span><br><span class="line"> </span><br><span class="line"> public static Boolean unLock(String key,String value)&#123;</span><br><span class="line"> </span><br><span class="line">     String luaScript = &quot;if redis.call(\&quot;get\&quot;,KEYS[1]) == ARGV[1] then return redis.call(\&quot;del\&quot;,KEYS[1]) else  return 0 end&quot;;</span><br><span class="line"> </span><br><span class="line">     Object var2 = jedis.eval(luaScript,Collections.singletonList(key), Collections.singletonList(value));</span><br><span class="line"> </span><br><span class="line">     if (UNLOCK_SUCCESS == var2) &#123;</span><br><span class="line"> </span><br><span class="line">         return true;</span><br><span class="line"> </span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     return false;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>解读:</p>
+<ul>
+<li>luaScript 这个字符串是个lua脚本，代表的意思是如果根据key拿到的value跟传入的value相同就执行del，否则就返回0【保证安全性】</li>
+<li>jedis.eval(String,list,list);这个命令就是去执行lua脚本，KEYS的集合就是第二个参数，ARGV的集合就是第三参数【保证解锁的原子操作】</li>
+</ul>
+<p>上述就实现了怎么使用redis去正确的实现分布式锁，但是有个小缺陷就是锁过期时间要设置为多少合适，这个其实还是需要去根据业务场景考量一下的</p>
+<hr>
+<p>　　上面那只是讲了加锁与解锁的操作，试想一下如果在业务中去拿锁如果没有拿到是应该阻塞着一直等待还是直接返回，这个问题其实可以写一个重试机制，根据重试次数和重试时间做一个循环去拿锁，当然这个重试的次数和时间设多少合适，是需要根据自身业务去衡量的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> </span><br><span class="line"> * 重试机制</span><br><span class="line"> </span><br><span class="line"> * @param key 锁标识</span><br><span class="line"> </span><br><span class="line"> * @param value 客户端标识</span><br><span class="line"> </span><br><span class="line"> * @param timeOut 过期时间</span><br><span class="line"> </span><br><span class="line"> * @param retry 重试次数</span><br><span class="line"> </span><br><span class="line"> * @param sleepTime 重试间隔时间</span><br><span class="line"> </span><br><span class="line"> * @return</span><br><span class="line"> </span><br><span class="line"> */</span><br><span class="line"> </span><br><span class="line">public Boolean lockRetry(String key,String value,Long timeOut,Integer retry,Long sleepTime)&#123;</span><br><span class="line"> </span><br><span class="line">    Boolean flag = false;</span><br><span class="line"> </span><br><span class="line">    try &#123;</span><br><span class="line"> </span><br><span class="line">        for (int i=0;i&lt;retry;i++)&#123;</span><br><span class="line"> </span><br><span class="line">            flag = lock(key,value,timeOut);</span><br><span class="line"> </span><br><span class="line">            if(flag)&#123;</span><br><span class="line"> </span><br><span class="line">                break;</span><br><span class="line"> </span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">            Thread.sleep(sleepTime);</span><br><span class="line"> </span><br><span class="line">        &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;catch (Exception e)&#123;</span><br><span class="line"> </span><br><span class="line">        e.printStackTrace();</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    return flag;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到这，用redis实现分布式锁就写完了 </p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/05/04/myarticle51/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-05</p>
+    
+    
+        <a class="extend next post-next" href="/2018/04/24/myarticle49/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

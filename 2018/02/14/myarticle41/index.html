@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>docker run启动的容器挂掉了，数据怎么办 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">docker run启动的容器挂掉了，数据怎么办</h1>
+<article class="post markdown-style">
+  <h2 id="情景描述"><a href="#情景描述" class="headerlink" title="情景描述"></a>情景描述</h2><p>在某个系统中，功能性的服务使用 <code>docker stack deploy xxx</code> 启动，某个国产数据库的服务单独使用 <code>docker run xxx</code> 启动，数据库服务没有将存储的位置挂载出来；</p>
+<p>结果客户重启了服务器…再登录到服务器重启服务的时候，发现了一个问题，之前数据库里的数据可能会消失（如果再使用 <code>docker run</code> 启动的话）。</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><h3 id="尝试1"><a href="#尝试1" class="headerlink" title="尝试1"></a>尝试1</h3><p>起初想的是数据肯定丢了，那就只能重新折腾一次数据了，但工作量太大了…</p>
+<p>不过也没办法，下次再启动，把存储挂载到硬盘就好了，Orz</p>
+<p>不过和同事交流了之后，发现了一个更为简单（但也不是永久的办法），见尝试2</p>
+<h3 id="尝试2"><a href="#尝试2" class="headerlink" title="尝试2"></a>尝试2</h3><p>同事提到，可以使用 <code>docker start container_name</code> 再次将容器启动，这样的话数据还在。后面尝试了一下，果然数据还在……虽然也只是个临时的解决办法</p>
+<p>后面想了一下，docker启动的镜像，如果不将数据映射出来的话，会存储在默认的volume；即使用<code>docker restart xxx</code>重启容器，那变动的数据也还是在的；也就是说在这个地方，服务器重启了，容器挂掉了（使用<code>docker ps</code>查看，其容器状态是Exited），但其实之前的数据还会在默认的volume下，只有删除掉容器的时候，变动的数据才会丢失。</p>
+<h3 id="验证测试"><a href="#验证测试" class="headerlink" title="验证测试"></a>验证测试</h3><p>随便打包一个镜像，启动容器，创建一个文件，再停止，再启动，查看文件是否存在</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"># 启动容器</span><br><span class="line">➜  docker_start_test docker run -itd --name docker_run_test 4cbf48630b46 ping 127.0.0.1</span><br><span class="line">d6278f537113122d4ccbe00950790750215c5a09002bcbd1ef6f9e660fc9eaac</span><br><span class="line">➜  docker_start_test docker ps -a</span><br><span class="line">CONTAINER ID        IMAGE                COMMAND                  CREATED             STATUS                     PORTS               NAMES</span><br><span class="line">d6278f537113        4cbf48630b46         &quot;ping 127.0.0.1&quot;         3 seconds ago       Up 2 seconds                                   docker_run_test</span><br><span class="line"></span><br><span class="line"># 进容器增加文件</span><br><span class="line">➜  docker_start_test docker exec -it docker_run_test /bin/sh</span><br><span class="line">sh-4.2# pwd</span><br><span class="line">/</span><br><span class="line">sh-4.2# touch test</span><br><span class="line">sh-4.2# exit</span><br><span class="line">exit</span><br><span class="line"></span><br><span class="line"># 重启容器</span><br><span class="line">➜  docker_start_test docker stop docker_run_test</span><br><span class="line">docker_run_test</span><br><span class="line">➜  docker_start_test docker ps -a | grep docker_run_test</span><br><span class="line">d6278f537113        4cbf48630b46                                                          &quot;ping 127.0.0.1&quot;         About a minute ago   Exited (137) 12 seconds ago                       docker_run_test</span><br><span class="line"></span><br><span class="line"># 进去查看文件是否存在</span><br><span class="line">➜  docker_start_test docker start docker_run_test</span><br><span class="line">docker_run_test</span><br><span class="line">➜  docker_start_test docker exec -ti docker_run_test /bin/sh</span><br><span class="line">sh-4.2# ls</span><br><span class="line">anaconda-post.log  bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  test  tmp  usr  var</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，文件 test 依然存在；此时如果停掉容器，使用<code>docker rm</code>删掉容器，再重新启动一个同名容器，可以看到，容器内不再有test文件了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># stop / rm掉容器</span><br><span class="line">➜  docker_start_test docker stop docker_run_test</span><br><span class="line">docker_run_test</span><br><span class="line">➜  docker_start_test docker ps -a | grep docker_run</span><br><span class="line">d6278f537113        4cbf48630b46                                                          &quot;ping 127.0.0.1&quot;         7 minutes ago       Exited (137) 13 seconds ago                       docker_run_test</span><br><span class="line">➜  docker_start_test docker rm d6278f537113</span><br><span class="line">d6278f537113</span><br><span class="line"></span><br><span class="line"># 启动新的同名容器</span><br><span class="line">➜  docker_start_test docker run -itd --name docker_run_test 4cbf48630b46 ping 127.0.0.1</span><br><span class="line">99a6f5df0a86e4c07abf184e322a23e4fbec89ff354691459cdac8fcd8687ba3</span><br><span class="line"></span><br><span class="line"># 进入容器验证</span><br><span class="line">➜  docker_start_test docker exec -ti docker_run_test /bin/sh</span><br><span class="line">sh-4.2# ls</span><br><span class="line">anaconda-post.log  bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</span><br><span class="line">sh-4.2# ls test</span><br><span class="line">ls: cannot access test: No such file or directory</span><br></pre></td></tr></table></figure>
+
+<h3 id="docker-run的说明"><a href="#docker-run的说明" class="headerlink" title="docker run的说明"></a>docker run的说明</h3><p>从官网看到，start命令的作用是：</p>
+<blockquote>
+<p>Start one or more stopped containers</p>
+</blockquote>
+<p>emmm，挺直白，没什么可说的</p>
+<h2 id="PS"><a href="#PS" class="headerlink" title="PS"></a>PS</h2><p>其实最好的办法，就是将容器的存储目录挂载出来…另外，一般来讲似乎数据库服务不应该使用容器启动</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/02/20/myarticle42/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2018/01/07/myarticle40/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

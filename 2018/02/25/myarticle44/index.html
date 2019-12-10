@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>继承 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">继承</h1>
+<article class="post markdown-style">
+  <p>继承，在生活中每当听到这个词时，或许脑海中会想到，谁继承了谁的遗产，然后继承者拥有了被继承者留下的哪些东西。要注意的是：基于生活中这种情况，交代了【被继承者】已死亡的事实，而在程序中不会存在【被继承者】已”死亡“的这种说法定义，在程序中讨论继承时，只是用来描述两者之间的关系以及建立了这种继承关系后会有哪些特点。所以在程序中讨论继承者与被继承者时，根据两者<strong>拥有什么东西</strong>来讨论的话，会更容易理解。</p>
+<p>上面提到的【拥有什么东西】在程序中来解释的话，所描述的就是【类】以及【类中的成员】。现在来定义如下两个类：</p>
+<p>1：【猫】类</p>
+<p>　　属性：名字、颜色、体重</p>
+<p>　　方法：打招呼（）、吃东西（）</p>
+<p>2：【狗】类</p>
+<p>　　属性：名字、颜色、体重、品种</p>
+<p>　　方法：打招呼（）、吃东西（）</p>
+<p>根据以上两个类来看，用代码可以轻松的封装实现出来，但是根据上面类中成员可以发现，生活中其他它类型的猪、猴、牛、羊等都有这些特征。如果按照以上思维来编写代码的话，那就意味着在定义其它众多的动物类时，每个类都需要定义这些属性和方法，显然这不是一种友好的实现方式，所以我们需要以新的实现方式来达到这种目的，这也就是本篇中需要讨论的【继承】。</p>
+<p>在前面理解类与封装时，类是将具有相同特征和行为的事物封装在一起。那么用【类】结合【继承】的思想将上面场景重新定义类如下：</p>
+<p>1：【动物】类</p>
+<p>　　属性：名字、颜色、体重</p>
+<p>　　方法：打招呼（）、吃东西（）</p>
+<p>2：【猫】类 继承 【动物】类</p>
+<p>3：【狗】类 继承 【动物】类</p>
+<p>　　属性：品种</p>
+<p>将【猫类】和【狗类】，去继承【动物类】，而各自的类无需再定义：名字、颜色、体重、打招呼、吃东西这些属性和方法，而通过【继承】让它们都<strong>拥有了</strong>【动物类】的属性和方法，如果各自的类有特别的特征和行为，则在各自类中定义需要的属性和方法即可（如：品种这个属性）。</p>
+<p>回到开始说的【拥有】这个词，现在可以很好的理解程序中的继承是什么，在程序中通过【继承】的手段，使继承者<strong>拥有了</strong>被继承者的特征和行为。</p>
+<p>至此，在分析类与类的关系中，延伸出了【继承】的思想。而在面向对象中，将继承者称为：子类（或派生类）；将被继承者称为：父类（或基类）。</p>
+<p>而通过上面的场景，体会了继承的好处，但也会暴露出一些问题，比如：【打招呼】和【吃东西】这两个行为方法，对于猫来说它是通过“喵喵喵”来打招呼的，以及猫其实是吃鱼；对于狗来说它是通过“汪汪汪”来打招呼的，以及狗其实是吃骨头。所以在定义父类（基类）时，不确定这两个方法体该如何实现，那这种问题该如何处理？</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/03/13/myarticle45/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2018/02/24/myarticle43/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

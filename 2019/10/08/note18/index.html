@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>纯小白入手 vue3.0 CLI - 3.2 - 路由的初级使用 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">纯小白入手 vue3.0 CLI - 3.2 - 路由的初级使用</h1>
+<article class="post markdown-style">
+  <p>vue3.0 CLI 真小白一步一步入手全教程系列：<a href="https://www.cnblogs.com/ndos/category/1295752.html" target="_blank" rel="noopener">https://www.cnblogs.com/ndos/category/1295752.html</a></p>
+<p>尽量把纷繁的知识，肢解重组成为可以堆砌的知识。</p>
+<p>学会工具并不难，思考如何运用这些工具，才是编程或者工作中最难的部分。</p>
+<p>我的 github 地址 - <a href="https://github.com/yokees/vue3.0Study" target="_blank" rel="noopener">vue3.0Study</a> - 阶段学习成果都会建立分支。</p>
+<p>==========================</p>
+<h2 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h2><p>在路由某部分里加入[ : ]，就成为动态路由如：/user/:id/，那么路由导航，并不是  /user/id/ 而是 /user/666/。</p>
+<p>显然这个 id 能被获取，在组件中使用。通过 this.$route.params 获取。 this 是当前组件，$route 是路由对象，params 是一个对象字面量 { id:666 }。</p>
+<p>$route 通过 Vue.use(Router) 和 new Vue({ router, store, render: h =&gt; h(App) }).$mount(‘#app’) 全局依赖注入，在所有组件中都可以使用它。</p>
+<p>1、router.js 中 path: ‘/about’ 路由 改为 path: ‘/about/:id’。</p>
+<p>2、About.vue 中 <top-nav title="军事" :class="{ active: isActive }"> 添加红色部分。</top-nav></p>
+<p>3、About.vue 中 data 或者 computed 属性中添加 isActive: function () { return this.$route.params.id === “666”; }</p>
+<p>4、App.vue 中 <router-link to="/about/666">VUE</router-link></p>
+<p>5、About.vue 中 <style lang="less"> .active { background: red; } </style></p>
+<p>保存点击【VUE】导航按钮，即可见到效果：</p>
+<p>如何取得 $route 中参数的值，便是很大的进步。这个参数可以用在任何地方，可以用来做任何事情。</p>
+<p>比如传递数据，根据路由参数动态从服务器获取组件内容等</p>
+<p>在进行下一个内容学习之前，commit 一下。</p>
+<h2 id="嵌套路由-子路由"><a href="#嵌套路由-子路由" class="headerlink" title="嵌套路由(子路由)"></a>嵌套路由(子路由)</h2><p>在页面，通常存在多级导航。vue 官方网站便是多级导航的例子：顶部为一级导航栏，左侧为二级导航栏。</p>
+<p>导航通常对应 <router-link> 而 <router-link> 与 <router-view> 对应。</router-view></router-link></router-link></p>
+<p>并非只有 App.vue 中才能存在 <router-view>， 任何组件都可以。</router-view></p>
+<p>下面把 HelloWorld.vue 变为 About.vue 的子路由：</p>
+<p>1、<helloworld msg="vue 官方相关资料的链接"> 替换为  <router-view></router-view></helloworld></p>
+<p>2、router.js 中关于 About.vue 组件的路由 替换为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  path: &apos;/about/:id&apos;,</span><br><span class="line">  name: &apos;about&apos;,</span><br><span class="line">  // route level code-splitting</span><br><span class="line">  // this generates a separate chunk (about.[hash].js) for this route</span><br><span class="line">  // which is lazy-loaded when the route is visited.</span><br><span class="line">  component: () =&gt; import(/* webpackChunkName: &quot;about&quot; */ &apos;./views/About.vue&apos;),</span><br><span class="line">  children: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;1&apos;,</span><br><span class="line">      component: HelloWorld,</span><br><span class="line">      props: (router) =&gt; (&#123;</span><br><span class="line">        msg: router.query.msg</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器地址栏输入 <a href="http://localhost:8081/#/about/666/1?msg=&#39;welcome" target="_blank" rel="noopener">http://localhost:8081/#/about/666/1?msg=&#39;welcome</a> to nDos blog’ 查看效果。</p>
+<h2 id="编程式导航与路由命名"><a href="#编程式导航与路由命名" class="headerlink" title="编程式导航与路由命名"></a>编程式导航与路由命名</h2><p>在 vue 初始化的工程中，路由配置时，组件都已做好命名。这便是路由命名。</p>
+<p>编程式导航，尽量使用命名的路由，如下：</p>
+<p>router.push({ name: ‘about’, params: { userId: 123 }})</p>
+<p>因为使用 path 属性进行编程式导航，params 无效。</p>
+<p>这样使用路由跳转，使得单页面编程的路由跳转更加灵活。比如某个跳转按钮，可以绑定函数，进行条件跳转。</p>
+<p>关于这两个的内容并不多，参照官网教程学习。</p>
+<h2 id="命名视图"><a href="#命名视图" class="headerlink" title="命名视图"></a>命名视图</h2><p>在一个组件中，如果有多个组件出口，比如：在某个页面，需要同时展示很多个组件时。</p>
+<p>只有一个 <router-view> 显然不能满足需求。</router-view></p>
+<p>多个 <router-view> 同时存在的时候，就必须要加以区分，用的是 name 属性：<router-view name="a"></router-view></router-view></p>
+<p>在 router.js 中的 components 属性中，添加多个组件即可 ( 到这里才明白为什么 components 为什么是复数形式的写法  )。</p>
+<h2 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h2><p>在介绍动态路由的时候，已经看到路由参数的应用，这个东西也不复杂，参照官方教程学习。</p>
+<p>==========================</p>
+<p>关于路由的初级知识到这里介绍完。</p>
+<p>下面会开始学习工作中常用的路由知识。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2019/10/14/note19/">prev</a>
+    
+
+    
+    <p>last update time 2019-10-30</p>
+    
+    
+        <a class="extend next post-next" href="/2019/09/28/note17/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

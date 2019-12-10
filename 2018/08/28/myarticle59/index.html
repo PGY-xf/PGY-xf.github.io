@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>什么是MongoDB？简介、架构、功能和示例 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">什么是MongoDB？简介、架构、功能和示例</h1>
+<article class="post markdown-style">
+  <h1 id="1-什么是MongoDB？"><a href="#1-什么是MongoDB？" class="headerlink" title="1 什么是MongoDB？"></a>1 什么是MongoDB？</h1><p>什么是MongoDB？MongoDB是一个面向文档的NoSQL数据库，用于大容量数据存储。MongoDB是2000年代中期出现的一个数据库，属于NoSQL数据库。</p>
+<p>在这个教学大纲里，你会学习</p>
+<p>• 什么是MongoDB？</p>
+<p>• MongoDB功能</p>
+<p>• MongoDB 例子</p>
+<p>• MongoDB架构的关键组件</p>
+<p>• 为什么使用MongoDB</p>
+<p>• MongoDB中的数据建模</p>
+<p>• MongoDB和RDBMS之间的差异</p>
+<h1 id="2-MongoDB功能"><a href="#2-MongoDB功能" class="headerlink" title="2 MongoDB功能"></a>2 MongoDB功能</h1><ol>
+<li>每个数据库都包含集合，而集合又包含文档。每个文档可以有不同的字段数。每个文档的大小和内容可以彼此不同。</li>
+<li>文档结构更符合开发人员如何用各自的编程语言构造类和对象。开发人员通常会说，他们的类不是行和列，而是有一个带有键值对的清晰结构。</li>
+<li>正如NoSQL数据库简介中所看到的，行（或MongoDB中调用的文档）不需要预先定义模式。相反，可以动态创建字段。</li>
+<li>MongoDB中可用的数据模型允许您更容易地表示层次关系、存储数组和其他更复杂的结构。</li>
+<li>可扩展性—MongoDB环境非常容易扩展。世界各地的公司都定义了集群，其中一些公司运行100多个节点，数据库中有大约数百万个文档。</li>
+</ol>
+<h1 id="3-MongoDB-例子"><a href="#3-MongoDB-例子" class="headerlink" title="3 MongoDB 例子"></a>3 MongoDB 例子</h1><p>下面的示例显示如何在MongoDB中建模文档。</p>
+<ol>
+<li>MongoDB添加了_id字段以唯一标识集合中的文档。</li>
+<li>您可以注意到，RDBMS中的订单数据（OrderID、Product和Quantity ）通常存储在单独的表中，而在MongoDB中，它实际上存储在集合本身的一个嵌入文档中。这是MongoDB中数据建模方式的主要区别之一。</li>
+</ol>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20190625/6a4c276996fb464da6951f44c44abeed.JPG" alt="img"></p>
+<h1 id="4-MongoDB架构的关键组件"><a href="#4-MongoDB架构的关键组件" class="headerlink" title="4 MongoDB架构的关键组件"></a>4 MongoDB架构的关键组件</h1><p>以下是MongoDB中使用的一些常用术语</p>
+<p><strong>1. _ id – 这是每个MongoDB文档中都需要的字段。_id字段表示MongoDB文档中的唯一值。“ID”字段类似于文档的主键。如果创建一个没有id字段的新文档，MongoDB将自动创建该字段。例如，如果我们看到上面的customer表的示例，MongoDB 将向集合中的每个文档添加一个24位的唯一标识符。</strong></p>
+<p>_Id CustomerID CustomerName OrderID</p>
+<p>563479cc8a8a4246bd27d784 11 Guru99 111</p>
+<p>563479cc7a8a4246bd47d784 22 Trevor Smith 222</p>
+<p>563479cc9a8a4246bd57d784 33 Nicole 333</p>
+<ol>
+<li>集合 – 这是一组MongoDB文档。集合相当于在任何其他RDM（如Oracle或MS SQL）中创建的表。单个数据库中存在集合。从介绍集合中可以看出，不强制任何类型的结构。</li>
+<li>游标 – 这是指向查询结果集的指针。客户机可以遍历光标以检索结果。</li>
+<li>数据库 – 这是一个用于集合的容器，就像在RDMS中一样，其中它是一个用于表的容器。每个数据库在文件系统上都有自己的文件集。MongoDB服务器可以存储多个数据库。</li>
+<li>文件 – MongoDB集合中的记录基本上称为文档。文档将依次由字段名和值组成。</li>
+<li>字段 – 文档中的名称-值对。文档有零个或多个字段。字段类似于关系数据库中的列。</li>
+</ol>
+<p>下图显示了具有键值对的字段示例。因此在下面的示例中，CustomerID和11是文档中定义的键值对之一。</p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20190625/5b4dfdbae4624705b9f1d868433e24d4.JPG" alt="img"></p>
+<p>6.JSON – 这被称为java对象表示法。这是一种人类可读的纯文本格式，用于表示结构化数据。目前许多编程语言都支持JSON。</p>
+<p>只需简单说明ID字段和普通集合字段之间的关键区别。标识字段用于唯一标识集合中的文档，并在创建集合时由MongoDB自动添加。</p>
+<h1 id="5-为什么使用MongoDB"><a href="#5-为什么使用MongoDB" class="headerlink" title="5 为什么使用MongoDB?"></a>5 为什么使用MongoDB?</h1><p>下面是为什么应该开始使用MongoDB的几个原因</p>
+<ol>
+<li>面向文档 – 由于MongoDB是一个NoSQL类型的数据库，因此它不使用关系类型格式的数据，而是将数据存储在文档中。这使得MongoDB非常灵活，能够适应实际的业务环境和需求。</li>
+<li>即席查询 – MongoDB支持按字段、范围查询和正则表达式搜索。可以进行查询以返回文档中的特定字段。</li>
+<li>索引-可以创建索引以提高MongoDB中搜索的性能。MongoDB文档中的任何字段都可以被索引。</li>
+<li>复制-MongoDB可以为副本集提供高可用性。副本集由两个或多个Mongo DB实例组成。每个副本集成员可以随时扮演主副本或辅助副本的角色。主副本是与客户机交互并执行所有读/写操作的主服务器。辅助副本使用内置复制来维护主副本的数据。当主副本失败时，副本集会自动切换到辅助副本，然后成为主服务器。</li>
+<li>负载均衡 – MongoDB使用sharding的概念，通过跨多个MongoDB实例拆分数据来横向扩展。MongoDB可以在多个服务器上运行，平衡负载和/或复制数据，以在硬件故障时保持系统的正常运行。</li>
+</ol>
+<h1 id="6-MongoDB中的数据建模"><a href="#6-MongoDB中的数据建模" class="headerlink" title="6 MongoDB中的数据建模"></a>6 MongoDB中的数据建模</h1><p>正如我们在介绍部分看到的，MongoDB中的数据有一个灵活的模式。与SQL数据库不同，在插入数据之前必须声明表的模式，MongoDB的集合不强制使用文档结构。这种灵活性正是MongoDB如此强大的原因。</p>
+<p>在Mongo中建模数据时，请记住以下几点</p>
+<ol>
+<li>应用程序的需求是什么？查看应用程序的业务需求，并查看应用程序所需的数据和数据类型。在此基础上，确保相应地确定文件的结构。</li>
+<li>什么是数据检索模式？如果您预见到大量的查询使用，那么考虑在数据模型中使用索引来提高查询的效率。</li>
+<li>数据库中是否经常发生插入、更新和删除操作？如果数据建模设计中需要，请重新考虑索引的使用或合并碎片，以提高整个MongoDB环境的效率。</li>
+</ol>
+<h1 id="7-MongoDB和RDBMS之间的差异"><a href="#7-MongoDB和RDBMS之间的差异" class="headerlink" title="7 MongoDB和RDBMS之间的差异"></a>7 MongoDB和RDBMS之间的差异</h1><p>以下是MongoDB和RDBMS之间的一些关键术语差异</p>
+<p>RDBMS MongoDB 不同点</p>
+<p>Table Collection 在RDBMS中，该表包含用于存储数据的列和行，而在MongoDB中，该结构称为集合。集合包含的文档依次包含字段，而字段又是键值对。</p>
+<p>Row Document 在RDBMS中，该行表示表中的单个隐式结构化数据项。在MongoDB中，数据存储在文档中.</p>
+<p>Column Field 在RDBMS中，该列表示一组数据值。在MongoDB中，这些被称为字段。</p>
+<p>Joins Embedded documents 在RDBMS中，数据有时分布在不同的表中，为了显示所有数据的完整视图，有时会在表中形成一个连接来获取数据。在MongoDB中，数据通常存储在单个集合中，但使用嵌入式文档进行分隔。所以MongoDB中没有连接的概念。</p>
+<p>除术语差异外，其他一些差异如下所示</p>
+<ol>
+<li>关系数据库以增强数据完整性而闻名。这在MongoDB中不是一个明确的要求。</li>
+<li>RDBMS要求首先对数据进行规范化，这样可以防止孤立记录和重复的规范化数据，然后需要更多的表，这将导致更多的表联接，从而需要更多的键和索引。</li>
+</ol>
+<p>随着数据库的增长，性能可能开始成为一个问题。这在MongoDB中不是一个明确的要求。MongoDB是灵活的，不需要首先对数据进行规范化。</p>
+<p>本文来自于MongoDB中文社区（mongoing-mongoing）</p>
+<p>MongoDB中文社区集聚MongoDB专家和爱好者，在自有平台和社群交流MongoDB实践经验和先进技术。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/09/10/myarticle60/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-05</p>
+    
+    
+        <a class="extend next post-next" href="/2018/08/14/myarticle58/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

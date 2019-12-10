@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>区块链 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">区块链</h1>
+<article class="post markdown-style">
+  <h1 id="区块链是什么"><a href="#区块链是什么" class="headerlink" title="区块链是什么"></a>区块链是什么</h1><blockquote>
+<p><strong>区块链是一种新型去中心化协议，能安全地存储比特币交易或其它数据，信息不可伪造和篡改，可以自动执行智能合约，无需任何中心化机构的审核。交易既可以是比特币这样的数字货币，也可以是债权、股权、版权等数字资产，区块链技术解决了拜占庭将军问题，大大降低了现实经济的信任成本与会计成本，重新定义了互联网时代的产权制度。</strong></p>
+</blockquote>
+<h3 id="一-、什么是区块链？"><a href="#一-、什么是区块链？" class="headerlink" title="一 、什么是区块链？"></a>一 、什么是区块链？</h3><ul>
+<li>区块链（Blockchain）是由节点参与的<strong>分布式数据库系统[1]</strong>，它的特点是不可更改，不可伪造，也可以将其理解为<strong>账簿系统</strong>(ledger)。它是比特币的一个重要概念，完整比特币区块链的副本，记录了其<strong>代币</strong>（token）的每一笔交易。通过这些信息，我们可以找到每一个地址，在历史上任何一点所拥有的价值。</li>
+<li>区块链是由<strong>一串使用密码学方法产生的数据块</strong>组成的，每一个区块都包含了上一个区块的<strong>哈希值</strong>（hash），从<strong>创始区块</strong>（genesis block）开始连接到当前区块，形成块链。每一个区块都确保按照时间顺序在上一个区块之后产生，否则前一个区块的哈希值是未知的。这些特征使得比特币的<strong>双花</strong>（double-spending）非常困难。区块链是比特币的核心创新。</li>
+<li>区块链概念的出现，首先是在<strong>中本聪的比特币白皮书</strong>[2]中提到的，但是以<strong>工作量证明链</strong>（proof-of-work chain）的形式而存在，以下是<strong>中本聪对区块链概念</strong>的描述：</li>
+</ul>
+<blockquote>
+<p><strong>时间戳服务器通过对以区块(block)形式存在的一组数据，实施随机散列而加上时间戳，并将该随机散列进行广播，就像在新闻或世界性新闻组网络（Usenet）的发帖一样。显然，该时间戳能够证实特定数据必然于某特定时间是的确存在的，因为只有在该时刻存在了才能获取相应的随机散列值。每个时间戳应当将前一个时间戳纳入其随机散列值中，每一个随后的时间戳都对之前的一个时间戳进行增强(reinforcing)，这样就形成了一条链（Chain）。</strong></p>
+</blockquote>
+<blockquote>
+<p><strong>节点始终都将最长的链视为正确链，并持续工作和延长它。如果有两个节点同时广播不同版本的新区块，那么其他节点在接收到该区块的时间上，将存在先后差别。当此情形，他们将在率先收到的区块基础上进行工作，但也会保留另外一条链，以防后者变成最长链。该僵局（tie）的打破，要等到下一个工作量证明被发现，而其中的一条链被证实为是较长的一条，那么在另一条分支链上工作的节点将转换阵营，开始在较长的链上工作。</strong></p>
+</blockquote>
+<p><strong>比特币钱包</strong>的功能依赖于与区块链的确认，一次有效检验称为一次确认。通常一次交易要获得数个确认才能进行。<strong>轻量级（SPV ）[3]比特币钱包</strong>,其客户端在本地只需保存与用户可支配交易相关的数据，而<strong>不会</strong>存储完整的区块链。</p>
+<p>区块链技术是众多加密数字货币的核心，包括<strong>比特币、以太坊、莱特币、狗狗币</strong>等。维护区块链的方式，<strong>有工作量证明（proof-of-work）</strong>、<strong>权益证明</strong>(proof-of-stake)等。</p>
+<h3 id="二、区块链系统核心优势"><a href="#二、区块链系统核心优势" class="headerlink" title="二、区块链系统核心优势"></a>二、区块链系统核心优势</h3><p><strong>区块链体系结构的核心优势包括：</strong></p>
+<ol>
+<li>任何节点都可以创建交易，在经过一段时间的确认之后，就可以合理地确认该交易是否为有效，区块链可有效地防止双花问题的发生。</li>
+<li>对于试图重写或者修改交易记录而言，它的成本是非常高的。</li>
+<li>区块链实现了两种记录：交易（transactions）以及区块（blocks）。交易是被存储在区块链上的实际数据，而区块则是记录确认某些交易是在何时，以及以何种顺序成为区块链数据库的一部分。交易是由参与者在正常过程中使用系统所创建的（在加密数字货币的例子中，一笔交易是由bob将代币发送给alice所创建的），而区块则是由我们称之为矿工（miners）的单位负责创建。</li>
+</ol>
+<h3 id="三、区块链工作原理"><a href="#三、区块链工作原理" class="headerlink" title="三、区块链工作原理"></a>三、区块链工作原理</h3><h4 id="3-1-什么是区块？"><a href="#3-1-什么是区块？" class="headerlink" title="3.1 什么是区块？"></a>3.1 什么是区块？</h4><ul>
+<li><p>数据通过称之为<strong>区块(block)的文件</strong>，永久记录在数字货币网络上。它们好比是一个股票交易账本。新的区块会被添加到记录（区块链）的末端，而且一旦书写就很难修改或移除。</p>
+<h4 id="3-2-区块结构"><a href="#3-2-区块结构" class="headerlink" title="3.2 .区块结构"></a>3.2 .区块结构</h4><table>
+<thead>
+<tr>
+<th>大小</th>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4字节</td>
+<td>区块大小</td>
+<td>用字节表示的该字段之后的区块大小</td>
+</tr>
+<tr>
+<td>80字节</td>
+<td>区块头</td>
+<td>组成区块头的几个字段</td>
+</tr>
+<tr>
+<td>1-9（可变整数）</td>
+<td>交易计数器</td>
+<td>交易的数量</td>
+</tr>
+<tr>
+<td>可变的</td>
+<td>交易</td>
+<td>记录在区块里的交易信息</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h4 id="3-3-区块头"><a href="#3-3-区块头" class="headerlink" title="3.3 区块头"></a>3.3 区块头</h4><p><strong>区块头由三组区块元数据组成：</strong></p>
+<ul>
+<li>第一组引用父区块哈希值的数据，这组元数据用于将该区块与区块链中前一区块相连接。</li>
+<li>第二组元数据，即难度、时间戳和nonce，与挖矿竞争相关 。</li>
+<li>第三组元数据是merkle树根[4]（一种用来有效地总结区块中所有交易的数据结构）。</li>
+</ul>
+<p>3.4 区块头结构</p>
+<table>
+<thead>
+<tr>
+<th>大小</th>
+<th>字段</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>4字节</td>
+<td>版本</td>
+<td>版本号，用于跟踪软件/协议的更新</td>
+</tr>
+<tr>
+<td>32字节</td>
+<td>父区块哈希值</td>
+<td>引用区块链中父区块的哈希值</td>
+</tr>
+<tr>
+<td>32字节</td>
+<td>Merkle根</td>
+<td>该区块中交易的merkle树根的哈希值</td>
+</tr>
+<tr>
+<td>4字节</td>
+<td>时间戳</td>
+<td>该区块产生的近似时间（精确到秒的Unix时间戳）</td>
+</tr>
+<tr>
+<td>4字节</td>
+<td>难度目标</td>
+<td>该区块工作量证明算法的难度目标</td>
+</tr>
+<tr>
+<td>4字节</td>
+<td>Nonce</td>
+<td>用于工作量证明算法的计数器</td>
+</tr>
+</tbody></table>
+<h4 id="3-4-创始区块"><a href="#3-4-创始区块" class="headerlink" title="3.4 创始区块"></a>3.4 创始区块</h4><ul>
+<li>比特币区块链的第一个区块，创建于2009年，我们称之为创世区块。它是比特币区块链里所有区块的共同祖先，这意味着你从任一区块，循链向后回溯，最终都将到达创世区块。</li>
+<li>每一个节点都“知道”创世区块的哈希值、结构、被创建的时间和里面的一个交易。因此，每个节点都把该区块作为区块链的首区块，从而构建了一个安全的、可信的区块链的根。</li>
+</ul>
+<p>在chainparams.cpp里可以看到创世区块被编入到比特币核心客户端里。</p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt; 创世区块的哈希值为：</span><br><span class="line">&gt; </span><br><span class="line">&gt; 0000000000 19d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>你可以在任何区块浏览网站搜索这个区块哈希值，如区块（blockmeta），你会发现一个用包含这个哈希值的链接来描述这一区块内容的页面：<br><a href="http://blockmeta.com/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f" target="_blank" rel="noopener">http://blockmeta.com/block/000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f</a></p>
+</blockquote>
+<p><strong>在命令行使用比特币核心客户端：</strong></p>
+<blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt; $ bitcoindgetblock 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f&#123;    &quot;hash&quot;:&quot;000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f&quot;,    &quot;confirmations&quot;:308321,    &quot;size&quot;:285,    &quot;height&quot;:0,    &quot;version&quot;:1,    &quot;merkleroot&quot;:&quot;4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b&quot;,    &quot;tx&quot;:[&quot;4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b&quot;],    &quot;time&quot;:1231006505,    &quot;nonce&quot;:2083236893,    &quot;bits&quot;:&quot;1d00ffff&quot;,    &quot;difficulty&quot;:1.00000000,    &quot;nextblockhash&quot;:&quot;00000000839a8e6886ab5951d76f411475428afc90947ee320161bbf18eb6048&quot;&#125; </span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>创世区块包含一个隐藏的信息。在其Coinbase交易的输入中包含<strong>这样一句话“The Times 03/Jan/2009 Chancellor on brink of second bailout for banks.”这句话是泰晤士报</strong>当天的头版文章标题，引用这句话，既是对该区块产生时间的说明，也可视为半开玩笑地提醒人们 , 一个独立的货币制度的重要性，同时告诉人们随着比特币的发展，一场前所未有的世界性货币革命将要发生。该消息是由比特币的创立者中本聪嵌入创世区块中。</p>
+</blockquote>
+<h4 id="3-5、区块的链接"><a href="#3-5、区块的链接" class="headerlink" title="3.5、区块的链接"></a>3.5、区块的链接</h4><p><img src="https://images2018.cnblogs.com/blog/1272045/201804/1272045-20180410201049384-1486525290.png" alt="img"></p>
+<h3 id="四、挖矿，又称工作量证明（POW）"><a href="#四、挖矿，又称工作量证明（POW）" class="headerlink" title="四、挖矿，又称工作量证明（POW）"></a>四、挖矿，又称工作量证明（POW）</h3><p><strong>比特币挖矿的逻辑过程如下：</strong></p>
+<ul>
+<li>打包交易，检索待确认交易内存池，选择包含进区块的交易。矿工可以任意选择，甚至可以不选择（挖空块），因为每一个区块有容量限制（当前是1M），所以矿工也不能无限选择。对于矿工来说，最合理的策略是首先根据手续费对待确认交易集进行排序，然后由高到低尽量纳入最多的交易。<br>构造Coinbase，确定了包含进区块的交易集后，就可以统计本区块手续费总额，结合产出规则，矿工可以计算自己本区块的收益。</li>
+<li>构造hashMerkleRoot，对所有交易构造Merkle数。</li>
+<li>填充其他字段，获得完整区块头。</li>
+<li>Hash运算，对区块头进行SHA256D运算。</li>
+<li>验证结果，如果符合难度，则广播到全网，挖下一个块；不符合难度则根据一定策略改变以上某个字段后再进行Hash运算并验证。</li>
+</ul>
+<p><strong>合格的区块条件如下：</strong></p>
+<p>==<strong>SHA256D(Blockherder) &lt; F(nBits)</strong>==</p>
+<ul>
+<li>其中，SHA256D(Blockherder)就是<strong>挖矿结果</strong>，F(nBits)是<strong>难度对应的目标值</strong>，两者都<strong>是256位</strong>，都当成大整数处理，直接对比大小以判断<strong>是否符合难度要求</strong>。</li>
+<li>为了节约区块链存储空间，将256位的目标值通过一定变换无损压缩保存在32位的nBits字段里。具体变换方法为拆分利用nBits的4个字节，第1个字节代表右移的位数，用V1表示，后3个字节记录值，用V3表示，则有：</li>
+</ul>
+<blockquote>
+<p>==F(nBits)=V_3 * 2^(8*(V_1-3) )==</p>
+</blockquote>
+<ul>
+<li>此外难度有最低限制，也就是说 F(nBits) <strong>有个最大值</strong>，比特币最低难度取值nBits=0x1d00ffff，对应的最大目标值为：</li>
+<li><strong>==0x00000000FFFF0000000000000000000000000000000000000000000000000000==</strong></li>
+<li>因此挖矿可以形象的<strong>类比抛硬币</strong>，好比有256枚硬币，给定编号1,2,3……256，每进行一次Hash运算，就像抛一次硬币，256枚硬币同时抛出，落地后要求编号前n的所有硬币全部正面向上。</li>
+</ul>
+<h3 id="五、共识机制"><a href="#五、共识机制" class="headerlink" title="五、共识机制"></a>五、共识机制</h3><ul>
+<li><strong>区块链中的共识机制。</strong> 对于区块链上的共识机制可以理解成由谁来构造区块，并维护区块链的统一，提到这问题的时候就一定会提到拜占庭容错.</li>
+<li><strong>区块链中的共识机制有一个演变的过程</strong>，一开始的时候中本聪大牛并没有用BFT ，在比特币中使用的是被称作之前文章写过的：proof-of-work。<strong>POW工作量证明和最长链机制</strong>，比特币中共识机制的最终体现就是比特币的最长链。随着区块链技术的发展，它们的工作都是为了通过共识算法来保证系统的统一性。</li>
+</ul>
+<h3 id="六、区块链分叉"><a href="#六、区块链分叉" class="headerlink" title="六、区块链分叉"></a>六、区块链分叉</h3><ul>
+<li><strong>诚实矿工只创建最长有效链上的最新区块</strong>。“长度”（Length）指区块链的累计计算难度，而不是是区块数目。当包括在链中的所有区块以及交易都有效，且是从创世区块开始的链，才是被我们承认的有效区块链。</li>
+<li>对于区块链中的任意一个区块，到达<strong>创世块</strong>的路径只有一条。然而，从创世块开始，会有分叉的情况出现。当创建两个区块的时间差只有几秒时，经常会创建出一个分叉[5]区块。当发生这种情况时，节点就会在他们最先接收到的那个区块上创建区块。无论哪一个区块包含在下一个区块中，它都会成为主链的一部分，因为这条链更长。</li>
+<li><strong>短链（无效链）中的区块没有什么作用</strong>。当比特币客户端切换至另外一条更长的区块链时，短链中的所有有效交易区块都重新添加到序列交易池中，且会包含在下一个区块中。短链中的区块奖励不会呈现在最长的区块链中，因此实际上他们是有<strong>损失</strong>的，<strong>这就是为什么需要网络强制的100个区块的成熟时间来让产生存在</strong>。</li>
+<li>在短链中的区块，我们通常称之为“<strong>孤儿块”（orphans</strong>）。这是因为，在长链中这个生成交易并没有父系区块，因为这些生成交易在交易PRC列表中显示为孤儿。一些矿池误解这些信息，声称他们的区块是”孤儿“。事实上，这些区块都有父系区块，而且甚至可能有子系。</li>
+</ul>
+<h3 id="七、区块链衍生概念"><a href="#七、区块链衍生概念" class="headerlink" title="七、区块链衍生概念"></a>七、区块链衍生概念</h3><h4 id="5-1-公链（public-blockchain）"><a href="#5-1-公链（public-blockchain）" class="headerlink" title="5.1 公链（public blockchain）"></a>5.1 公链（public blockchain）</h4><ul>
+<li><p>公链，是指全世界任何人都可读取、发送交易且能获得有效确认的<strong>共识区块链</strong>。公链的<strong>安全</strong>由工作量证明机制<strong>（pow）</strong>或权益证明机制<strong>(pos)</strong>等方式负责维护。它们是以经济奖励与加密数字验证相结合的方式而存在的，并遵循着一般原则：</p>
+<blockquote>
+<p>每个人从中可获得的经济奖励，与对共识过程作出的贡献成正比。这些区块链通常被认为是“完全去中心化”的。</p>
+</blockquote>
+</li>
+</ul>
+<h4 id="5-2-共同体区块链：（Consortium-blockchains）"><a href="#5-2-共同体区块链：（Consortium-blockchains）" class="headerlink" title="5.2 共同体区块链：（Consortium blockchains）"></a>5.2 共同体区块链：（Consortium blockchains）</h4><ul>
+<li><p>共同体区块链，是指其共识过程<strong>受到预选节点控制</strong>的区块链；</p>
+</li>
+<li><p>例如，有15个金融机构组成一个共同体，每个机构都运行着一个节点，而且为了使每个区块生效需要获得其中10个机构的确认。区块链或许允许每个人都可读取，或者只受限于参与者，或走混合型的路线，例如区块的根哈希及其API（应用程序接口）对外公开，API可允许外界用来作有限次数的查询和获取区块链状态的信息。这些区块链可视为“部分去中心化”。</p>
+<h4 id="5-3-私链（private-blockchain-，又称无代币区块链（Token-less-blockchain）"><a href="#5-3-私链（private-blockchain-，又称无代币区块链（Token-less-blockchain）" class="headerlink" title="5.3 私链（private blockchain)，又称无代币区块链（Token-less blockchain）"></a>5.3 私链（private blockchain)，又称无代币区块链（Token-less blockchain）</h4></li>
+<li><p>完全私有的区块链 , 是指其写入权限仅在一个组织手里的区块链。读取权限或者对外开放，或者被任意程度地进行了限制。相关的应用囊括数据库管理、审计、甚至一个公司，但在很多的情形下，公共的可读性并非是必须的。</p>
+</li>
+<li><p>关于没有原生代币的系统，是否能被称为区块链，仍然有着很大的争议。一些人认为，没有代币的区块链，可以一种分布式多版本并发控制(MVCC)数据库[6]的形式而存在。多版本并发控制，可防止两笔交易在数据库中修改一个单一列，而区块链，则是阻止两笔交易在区块链中的单个输出（ output）。</p>
+</li>
+</ul>
+<h3 id="八、-公链和私链的特点"><a href="#八、-公链和私链的特点" class="headerlink" title="八、 公链和私链的特点"></a>八、 公链和私链的特点</h3><ul>
+<li>共同体区块链结合了公链的“低信任”和私链的“单一高度信任” , 提供了一种混合的模式，而私链可以更精确地描述为带有一定程度数字加密功能，可管理（permissioned）的传统中心化系统。</li>
+<li>公链特点：</li>
+</ul>
+<ol>
+<li>中立、开放、去中心化；</li>
+<li>不可更改，不可撤销；</li>
+<li>拥有网络效应；</li>
+<li>抗审查性高；</li>
+</ol>
+<ul>
+<li>私链特点：</li>
+</ul>
+<ol>
+<li>规则易于修改（交易，余额等）；</li>
+<li>交易成本低（交易只需几个受信节点验证即可）；</li>
+<li>读取权限受限；</li>
+</ol>
+<h3 id="九、比特币的区块链系统有哪些内在缺陷？"><a href="#九、比特币的区块链系统有哪些内在缺陷？" class="headerlink" title="九、比特币的区块链系统有哪些内在缺陷？"></a>九、比特币的区块链系统有哪些内在缺陷？</h3><blockquote>
+<p>区块链所面临的技术挑战<br><a href="http://lib.csdn.net/article/blockchain/45827" target="_blank" rel="noopener">http://lib.csdn.net/article/blockchain/45827</a></p>
+</blockquote>
+<p>比特币的区块链系统自2009年在互联网上开源运行以来，有成功的地方，但也显示出一些难以克服的内在缺陷：</p>
+<ol>
+<li>总量不能随着市场的情况变化，必然暴涨暴跌；</li>
+<li>挖矿的高碳，只有不到1%的矿工能够竞争到每十分钟区块的记账权，其他参与竞争的99%以上的矿工算力浪费；</li>
+<li>每年10%左右的通货膨胀大大增加了比特币金融生态的成本，甚至威胁到她的生存；</li>
+<li>作为去中心化自组织DAC系统，记账和发行功能部分运行成本过高。</li>
+<li>作为全球支付系统，效率远远达不到全球贸易的实际要求。比特币网络每秒目前最多确认7笔交易，对比之下， Visa的网络系统每秒最快可处理10,000笔交易，支付宝的记录是2014光棍节每秒钟80,000笔！</li>
+</ol>
+<h3 id="十、区块链技术2-0的发展："><a href="#十、区块链技术2-0的发展：" class="headerlink" title="十、区块链技术2.0的发展："></a>十、区块链技术2.0的发展：</h3><p><strong>作为区块链的2.0升级发展，首先聚焦在解决比特币记账的挖矿高碳上：</strong></p>
+<ul>
+<li>在我们讨论怎么克服比特币挖矿记账高碳时，清华经济学研究所的刘涛雄教授指出，挖矿靠算力竞争，最后只有一家竞争到合法记账权，其他99%的矿工节点都白挖了，浪费了资源，显然不太合理，如果全网透明的知道下一家区块的合法记账权，随机的在全网产生，就免除了竞争记账的高碳！我们听后都大赞刘教授主意高明，因为现在比较成功的二代币NXT正是这种机制，他们的白皮书叫“透明锻造”，只是记账权花落谁家的概率是和每个矿工节点钱包的NXT代币持有量成正比，这个叫股权证明机制（PROOF OF STOCK）。当然，这也引发了NXT把代币分发给早期投资开发者不公平的争论！<br>RIPPLE是一个区块链半去中心化的方案，利用“可信任网关”（trusted gateways）进行区块链记账，其信用是建立在这些网关不会同时作恶的共识记账（consensus ledger）协议上。</li>
+<li>最有雄心的尝试是以太坊（Ethereum）,她把区块链的技术和图灵完备结合起来，期望开发出一套未来满足各种区块链系统建设的基础性平台，可以支持各种信用货币、数字资产、智能协议甚至金融衍生品的开发.其系统设计是ETHERUM平台统一区块链记账，为所有开发者共同使用，也许她们的正式版本能在不久地将来发布。</li>
+</ul>
+<h3 id="十一、区块链发展及应用"><a href="#十一、区块链发展及应用" class="headerlink" title="十一、区块链发展及应用"></a>十一、区块链发展及应用</h3><ul>
+<li>区块链技术作为数字货币的底层技术，已引起了金融世界的高度重视，包括高盛、摩根大通、汇丰银行、花旗银行、纽约梅隆银行、巴克莱银行、瑞银（UBS）、苏格兰皇家银行、摩根士丹利在内的众多金融机构，均与区块链公司进行了合作，研究区块链技术在金融市场的应用。世界经济论坛更是大胆预测，到2027年世界GDP的10％将被存储在区块链网络上[7]。</li>
+<li>现在，区块链在建立去中心化信用的尝试，已经不限于金融界，而被社会各个领域关注，特别是在中国目前一些中心性信用如“红会”，处于“塌陷”态势，区块链更能为社会管理提供一种全新的思路和技术选项，以下是我们了解的一些新进展和相关讨论：</li>
+</ul>
+<ol>
+<li>区块链和物联网结合，将数字资产和原子资产统一起来，抹平消费资产和现金资产的区别，扩展大众的信用，加速价值流通；（IBM-三星）</li>
+<li>区块链上建立知识产权保护系统，对知识产权的使用全网记账，建立全球广告市场；</li>
+<li>区块链是否可以为一带一路的新兴经济体发行协议型密码学货币提供技术支撑；</li>
+<li>区块链+云计算可以发展成去中心化的自媒体和社区系统；</li>
+<li>区块链可以搭建去中心化的股权众筹体系，让创新项目提前进入流通领域；</li>
+<li>区块链可以发展出全透明的财务管理系统；</li>
+<li>区块链支持建立全球去中心化公司组织。</li>
+</ol>
+<ul>
+<li>总之，在这个信用已经成为紧缺资源的时代，区块链的技术创新，作为一种分布式信用的模式，为全球市场的金融、社会管理、人才评价和去中心化组织建设等，都提供了一个广阔的发展前景。</li>
+</ul>
+<p><strong>当前，与区块链相关的应用及公司，包括但不限于：</strong></p>
+<ul>
+<li><strong>公证防伪</strong>：公证通（factom）、Monegraph、Stampery、Bitproof、Uproov、Chronicled、Blockai; 智能合约：彩色币（coloredcoin）、闪电网络（lightning-network）、侧链（sidechain）、Tendermint、Chronicled、SuperNET、Blocknet、Tezos、Openchain、Crypti、Rubix、MultiChain、超级账本（hyperledger）、The DAO（the-dao）、WAVES、Synereo、WINGS、cybermiles;</li>
+<li><strong>物联网</strong>：ADEPT、Filament、Tilepay、Slock.it（slock-it）;</li>
+<li><strong>身份验证</strong>：BlockScore、Shocard、LaunchKey、BitNation;</li>
+<li><strong>预测市场</strong>：Augur、Truthcoin、Futarchy;</li>
+<li><strong>资产交易</strong>：比原链（bytom）、量子链（qtum）、Medici、SETL、Symbiont、DAH、SETL、小蚁（antshares）、SWARM、Koinify、Lighthouse、Safe Cash（safe-cash）、tØ（t0）、Linq、Colu、元界（metaverse）、瑞资链金融（reitschain）、公信宝（gxb）、OpenLedger;</li>
+<li><strong>电子商务</strong>：OpenBazaar、Eris、BitXBay、Bitmarkets、Skuchain、Purse;<br>社交通讯：Gems、Codius、比特信（bitmessage）、Twister、Clucker、Diaspora;</li>
+<li><strong>文件存储</strong>：MaidSafe、Enigma、Filecoin、公证通（factom）、Storj、Tau、Dfinity、BitCloud、IPFS、Mediachain;</li>
+<li><ul>
+<li><strong>数据API</strong>：Coinalytics、Blocktrail、BlockCypher、TradeBlock、Scorechain、Gem;</li>
+</ul>
+</li>
+<li><strong>其它</strong>：Tierion、Safe Cash（safe-cash）、bitwage、Crypti、IPFS、DECENT、亿书（ebookchain）、好扑区块链（hoopox）、Energo、天算（delphy）;</li>
+<li><strong>银行结算</strong>：R3CEV、Corda;</li>
+<li><strong>区块链金融</strong>：iCube;</li>
+<li><strong>操作系统</strong>：亦来云（elastos）;</li>
+</ul>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h2><blockquote>
+<p><strong>区块链作为一种去中心化的信任体系，衍生于比特币，想要系统全面的阐述明白，需要细致的研究。区块链这种新技术的应用前景是广阔的，也是一个很不错的科研实践方向，未来这个可以作为自己的研究方向经行深入探讨，以及根据区块链开发符合网络安全方向的应用。本次的作业算是一个学习资料总结</strong></p>
+</blockquote>
+<h4 id="区块链知识框架图"><a href="#区块链知识框架图" class="headerlink" title="区块链知识框架图"></a>区块链知识框架图</h4><p><img src="https://images2018.cnblogs.com/blog/1272045/201804/1272045-20180410201027337-1719731389.png" alt="img"></p>
+<h4 id="区块链学习资源"><a href="#区块链学习资源" class="headerlink" title="区块链学习资源"></a>区块链学习资源</h4><h5 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h5><ul>
+<li><strong>中本聪比特币白皮书：</strong><br><a href="http://www.8btc.com/wiki/bitcoin-a-peer-to-peer-electronic-cash-system" target="_blank" rel="noopener">http://www.8btc.com/wiki/bitcoin-a-peer-to-peer-electronic-cash-system</a></li>
+<li><strong>SPV、SPV节点和SPV钱包:</strong><br><a href="http://www.8btc.com/spv_spv_node_and_spv_wallet" target="_blank" rel="noopener">http://www.8btc.com/spv_spv_node_and_spv_wallet</a></li>
+<li><strong>区块链知识库</strong><br><a href="http://lib.csdn.net/case/blockchain" target="_blank" rel="noopener">http://lib.csdn.net/case/blockchain</a></li>
+<li><strong>精通比特币：</strong><br><a href="http://8btc.com/topic-mastering-bitcoin.html" target="_blank" rel="noopener">http://8btc.com/topic-mastering-bitcoin.html</a><br><a href="http://blockchain.hk/category/blockchain/" target="_blank" rel="noopener">http://blockchain.hk/category/blockchain/</a></li>
+<li><strong>没有代币的区块链是否具有价值</strong>：<br><a href="http://www.multichain.com/blog/2015/07/bitcoin-vs-blockchain-debate/" target="_blank" rel="noopener">http://www.multichain.com/blog/2015/07/bitcoin-vs-blockchain-debate/</a></li>
+<li><strong>世界经济论坛预测区块链</strong>：<br><a href="http://www.coindesk.com/world-economic-forum-governments-blockchain/" target="_blank" rel="noopener">http://www.coindesk.com/world-economic-forum-governments-blockchain/</a></li>
+<li><strong>开发学习图谱</strong><br><a href="http://lib.csdn.net/base/blockchain/structure" target="_blank" rel="noopener">http://lib.csdn.net/base/blockchain/structure</a></li>
+<li><strong>比特币深度分析</strong><br><a href="http://lib.csdn.net/article/blockchain/46910" target="_blank" rel="noopener">http://lib.csdn.net/article/blockchain/46910</a></li>
+<li><strong>一个故事告诉你比特币的原理及运作机制</strong><br><a href="http://blog.codinglabs.org/articles/bitcoin-mechanism-make-easy.html" target="_blank" rel="noopener">http://blog.codinglabs.org/articles/bitcoin-mechanism-make-easy.html</a></li>
+<li><strong>区块链英文维基</strong><br><a href="https://en.wikipedia.org/wiki/Block_chain_(database)" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Block_chain_(database)</a></li>
+</ul>
+<h4 id="应用领域"><a href="#应用领域" class="headerlink" title="应用领域"></a>应用领域</h4><ul>
+<li><strong>以太坊智能合约实例</strong><br><a href="http://wiki.jikexueyuan.com/project/blockchain/" target="_blank" rel="noopener">http://wiki.jikexueyuan.com/project/blockchain/</a><br><a href="http://lib.csdn.net/article/blockchain/47443" target="_blank" rel="noopener">http://lib.csdn.net/article/blockchain/47443</a></li>
+</ul>
+<h4 id="实践开发"><a href="#实践开发" class="headerlink" title="实践开发"></a>实践开发</h4><ul>
+<li><strong>区块链技术中文社区</strong><br><a href="https://bitshuo.com/" target="_blank" rel="noopener">https://bitshuo.com/</a></li>
+<li><strong>开发图谱</strong><br><a href="http://lib.csdn.net/base/blockchain/structure" target="_blank" rel="noopener">http://lib.csdn.net/base/blockchain/structure</a></li>
+<li><strong>巴比特服务与区块链创新者</strong><br><a href="https://bitshuo.com/" target="_blank" rel="noopener">https://bitshuo.com/</a></li>
+</ul>
+<h4 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h4><ul>
+<li><strong>Nodejs开发加密货币</strong></li>
+<li><strong>精通比特币</strong></li>
+<li><strong>区块链技术指南</strong></li>
+<li><strong>区块链：定义未来金融与经济新格局</strong></li>
+<li><strong>Hyperledger 源码分析之 Fabric</strong></li>
+<li><strong>programming blockchain in c#</strong></li>
+</ul>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/12/01/myarticle68/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-06</p>
+    
+    
+        <a class="extend next post-next" href="/2018/11/26/myarticle66/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

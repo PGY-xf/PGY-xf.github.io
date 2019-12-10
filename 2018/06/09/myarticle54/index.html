@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>以太坊代币合约详析 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">以太坊代币合约详析</h1>
+<article class="post markdown-style">
+  <h2 id="以太坊代币"><a href="#以太坊代币" class="headerlink" title="以太坊代币"></a>以太坊代币</h2><p>在以太坊系统中，存在作为基础货币的 Ether（以太），以及同样可以作为货币使用的 Token（代币）。</p>
+<p>以太坊与其他加密货币的主要不同在于，以太坊不是单纯的货币，而是一个环境/平台。在这个平台上，任何人都可以利用区块链的技术，通过智能合约来构建自己的项目和DAPPS（去中心化应用）。</p>
+<p>如果把以太坊理解成互联网，DAPPS则是在上面运行的网页。DAPPS是去中心化的，意味着它不属于某个人，而是属于一群人。DAPPS发布的方式通常是采用被称为 ICO 的众筹方式。简单来说，你需要用你的以太来购买相应DAPP的一些tokens。</p>
+<h4 id="一般有两种Token："><a href="#一般有两种Token：" class="headerlink" title="一般有两种Token："></a>一般有两种Token：</h4><ol>
+<li>Usage Tokens: 就是对应 DAPP 的原生货币。Golem 就是一个很好的例子，如果你需要使用 Golem 的服务，你就需要为其支付 Golem Network Token（GNT）。由于这种 Tokens 有货币价值，所以通常不会有其他的权益。</li>
+<li>Work Tokens: 此类 Tokens 可以标识你对于 DAPP 的某种股东权益。以 DAO tokens 为例，如果你拥有 DAO tokens，那么你有权就DAO是否资助某款 DAPP 来进行投票。</li>
+</ol>
+<p>类比到股权，可以把 Usage Tokens 简单理解为普通流通股，可以与真实货币兑换，本身具有价值。而 Work Token，则大致相当于投票权。</p>
+<h4 id="为何需要Token"><a href="#为何需要Token" class="headerlink" title="为何需要Token:"></a>为何需要Token:</h4><p>不是有以太基础货币了，那为什么还需要 token 呢？可以想下现实生活的真实场景，在游乐场里，我们需要用现金兑换代币，然后用代币支付各种服务。 类比到以太坊，现金就是以太，代币就是 token，用 token 来执行合约中的各项功能。</p>
+<h2 id="以太坊Token标准"><a href="#以太坊Token标准" class="headerlink" title="以太坊Token标准"></a>以太坊Token标准</h2><p>这个是本文学习的重点，所有遵循 ERC20 标准的函数，都要事先它定义的标准接口。搞懂这些，你也就能很快看懂一些智能合约代币的逻辑。</p>
+<p>ERC-20 标准是在2015年11月份推出的，使用这种规则的代币，表现出一种通用的和可预测的方式。任何 ERC-20 代币都能立即兼容以太坊钱包（几乎所有支持以太币的钱包，包括Jaxx、MEW、imToken等），由于交易所已经知道这些代币是如何操作的，它们可以很容易地整合这些代币。这就意味着，在很多情况下，这些代币都是可以立即进行交易的。简单理解就是，ERC20是开发者在自己的tokens中必须采用的一套具体的公式/方法，从而确保不同DAPP的token与ERC20标准兼容。</p>
+<p>ERC-20 标准规定了各个代币的基本功能，非常方便第三方使用，在开发人员的编程下，5 分钟就可以发行一个 ERC-20 代币。因为它可以快速发币，而且使用又方便，因此空投币和空气币基本上就是利用 ERC-20 标准开发的。基于 ERC-20 标准开发的同种代币价值都是相同的，它们可以进行互换。ERC-20 代币就类似于人民币，你的 100 元和我的 100 元是没有区别的，价值都是 100 元，并且这两张 100 元可以进行互换。有了这套标准，相当于全世界都使用人民币，而不用去别的国家还要计算汇率换成别的货币。想象下，每个Dapp都有不同格式的币，那对于这些应用的交互简直是种灾难。</p>
+<p>etherscan上开源的 ERC20 标准的智能合约：<a href="https://etherscan.io/tokens" target="_blank" rel="noopener">https://etherscan.io/tokens</a></p>
+<h4 id="ERC20-Token标准接口："><a href="#ERC20-Token标准接口：" class="headerlink" title="ERC20 Token标准接口："></a><strong>ERC20 Token标准接口：</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">contract ERC20 &#123;</span><br><span class="line">    uint256 public totalSupply;</span><br><span class="line"></span><br><span class="line">    function balanceOf(address who) constant public returns (uint256);</span><br><span class="line"></span><br><span class="line">    function transfer(address to, uint256 value) public returns (bool);</span><br><span class="line"></span><br><span class="line">    function allowance(address owner, address spender) constant public returns (uint256);</span><br><span class="line"></span><br><span class="line">    function transferFrom(address from, address to, uint256 value) public returns (bool);</span><br><span class="line"></span><br><span class="line">    function approve(address spender, uint256 value) public returns (bool);</span><br><span class="line"></span><br><span class="line">    event Transfer(address indexed from, address indexed to, uint256 value);</span><br><span class="line"></span><br><span class="line">    event Approval(address indexed owner, address indexed spender, uint256 value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>函数：</strong></p>
+<p>注意：非常重要的一点是调用者应该处理函数返回的错误，而不是假设错误永远不会发生。</p>
+<ol>
+<li>totalSupply: 返回token的总供应量</li>
+<li>balanceOf: 用于查询某个账户的账户余额</li>
+<li>tansfer: 发送 _value 个 token 到地址 _to</li>
+<li>transferFrom： 从地址 _from 发送 _value 个 token 到地址 _to</li>
+<li>approve： 允许 _spender 多次取回您的帐户，最高达 _value 金额； 如果再次调用此函数，它将用 _value 的当前值覆盖的 allowance 值。</li>
+<li>allowance： 返回 _spender 仍然被允许从 _owner 提取的金额。</li>
+</ol>
+<h4 id="事件"><a href="#事件" class="headerlink" title="事件 :"></a>事件 :</h4><ol>
+<li>event Transfer： 当 tokens 被转移时触发。 </li>
+<li>event Approval： 当任何成功调用 approve(address _spender, uint256 _value) 后，必须被触发。</li>
+</ol>
+<h2 id="代币合约实例分析"><a href="#代币合约实例分析" class="headerlink" title="代币合约实例分析"></a>代币合约实例分析</h2><p>talk is cheap show me the code 。前面给的函数说明是简单的概括，大家可能还似懂非懂，下面就将用实例说明。《AMR智能合约漏洞分析》这篇文章用实例讲解了智能合约的一种漏洞，合约代码在 <a href="https://etherscan.io/address/0x96c833e43488c986676e9f6b3b8781812629bbb5#code" target="_blank" rel="noopener">https://etherscan.io/address/0x96c833e43488c986676e9f6b3b8781812629bbb5#code </a>，我们就以这个代码做个详细的分析。</p>
+<p>开始一行行分析这个智能合约：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">library SafeMath &#123;</span><br><span class="line">    function mul(uint256 a, uint256 b) internal pure returns (uint256)&#123;</span><br><span class="line">        uint256 c = a * b;</span><br><span class="line">        assert(a == 0 || c / a == b);</span><br><span class="line">        return c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function div(uint256 a, uint256 b) internal pure returns (uint256)&#123;</span><br><span class="line">        assert(b &gt; 0);</span><br><span class="line">        uint256 c = a / b;</span><br><span class="line">        return c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function sub(uint256 a, uint256 b) internal pure returns (uint256)&#123;</span><br><span class="line">        assert(b &lt;= a);</span><br><span class="line">        return a - b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function add(uint256 a, uint256 b) internal pure returns (uint256)&#123;</span><br><span class="line">        uint256 c = a + b;</span><br><span class="line">        assert(c &gt;= a);</span><br><span class="line">        return c;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个比较简单，定义安全函数的库，用来防止整数溢出漏洞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">contract ERC20 &#123;</span><br><span class="line">    uint256 public totalSupply;</span><br><span class="line"></span><br><span class="line">    function balanceOf(address who) constant public returns (uint256);</span><br><span class="line"></span><br><span class="line">    function transfer(address to, uint256 value) public returns (bool);</span><br><span class="line"></span><br><span class="line">    function allowance(address owner, address spender) constant public returns (uint256);</span><br><span class="line"></span><br><span class="line">    function transferFrom(address from, address to, uint256 value) public returns (bool);</span><br><span class="line"></span><br><span class="line">    function approve(address spender, uint256 value) public returns (bool);</span><br><span class="line"></span><br><span class="line">    event Transfer(address indexed from, address indexed to, uint256 value);</span><br><span class="line"></span><br><span class="line">    event Approval(address indexed owner, address indexed spender, uint256 value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ERC20 标准接口，上一节说过了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">contract Ownable &#123;</span><br><span class="line">    address  owner;</span><br><span class="line"></span><br><span class="line">    // 把当前合约的调用者赋值给owner</span><br><span class="line">    function Ownable() public&#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 只有智能合约的所有者才能调用的方法</span><br><span class="line">    modifier onlyOwner()&#123;</span><br><span class="line">        require(msg.sender == owner);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 合约的所有者可以把权限转移给其他用户</span><br><span class="line">    function transferOwnership(address newOwner) onlyOwner public&#123;</span><br><span class="line">        require(newOwner != address(0));</span><br><span class="line">        owner = newOwner;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个合约接口的功能是判断和修改该合约的所有者。其中函数 onlyOwner 用到了 modifiers(函数修改器) 关键字。函数修改器可以用来改变一个函数的行为，比如用于在函数执行前检查某种前置条件。如果你了解 python 的装饰器，这个就很容易理解了。还不理解？没关系，我们再详细说明下这个接口。首先你需要理解下这边的几个概念：</p>
+<p>\1. msg.sender 内置变量，代表当前调用该合约的账户地址。</p>
+<p>\2. Ownable() 函数，和合约接口同名，这是个构造函数，只能在创建合约期间运行，不能在事后调用。所以这个owner是创建该合约人的地址，无法被篡改，除非合约创始人授权。</p>
+<ol start="3">
+<li>特殊字符串 _; 用来替换使用修改符的函数体。比如上述代码就是把 _; 替换成 transferOwnership ，也就是执行 transferOwnership 函数时候会先判断  require(msg.sender == owner);</li>
+</ol>
+<p>下面把这个合约加一个打印owner的函数，然后放到 remix 调试，这样更直观理解。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity ^0.4.24;</span><br><span class="line"></span><br><span class="line">contract Ownable &#123;</span><br><span class="line">    address  owner;</span><br><span class="line"></span><br><span class="line">    // 把当前合约的调用者赋值给owner</span><br><span class="line">    function Ownable() public&#123;</span><br><span class="line">        owner = msg.sender;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    function CurrentOwner() public returns (address)&#123;</span><br><span class="line">        return owner;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 只有智能合约的所有者才能调用的方法</span><br><span class="line">    modifier onlyOwner()&#123;</span><br><span class="line">        require(msg.sender == owner);</span><br><span class="line">        _;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 合约的所有者可以把权限转移给其他用户</span><br><span class="line">    function transferOwnership(address newOwner) onlyOwner public&#123;</span><br><span class="line">        require(newOwner != address(0));</span><br><span class="line">        owner = newOwner;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>a) 使用账户 A 创建合约，则 owner 则是 A 的地址，切换到用户 B 点击 onlyOwner 函数，看到owner的值是账户 A 的地址。这时候如果点击 transferOwnership 会报错，因为这个函数被 onlyOwner 修饰了，会先判断当前调用合约的是否是合约所有者。当前合约所有者是账户 A，合约调用者账户 B 是没权限转移权限的。</p>
+<p><img src="https://www.secpulse.com/ueditor/php/upload/image/20180720/1532083874676716.png" alt="img"></p>
+<p>b)  把账户切换到 A，transferOwnership 地址填账户 B，这时候你就可以把合约所有者权限转移给账户 B 了。而再一次执行，发现提示错误了，因为此时合约所有者已经是账户 B，账户 A 没权限。</p>
+<p><img src="https://www.secpulse.com/ueditor/php/upload/image/20180720/1532083875990164.png" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">contract StandardToken is ERC20 &#123;</span><br><span class="line">    using SafeMath for uint256;　　// 使用 SafeMath 函数库</span><br><span class="line">    mapping (address =&gt; mapping (address =&gt; uint256)) allowed;　　// 类比二维数组</span><br><span class="line">    mapping(address =&gt; uint256) balances;　　// 类比一维数组</span><br><span class="line">　　 // 把合约调用者的余额转移 _value 个tokens给用户 _to</span><br><span class="line">    function transfer(address _to, uint256 _value) public returns (bool)&#123;</span><br><span class="line">        assert(0 &lt; _value);</span><br><span class="line">        assert(balances[msg.sender] &gt;= _value);</span><br><span class="line">        balances[msg.sender] = balances[msg.sender].sub(_value);</span><br><span class="line">        balances[_to] = balances[_to].add(_value);</span><br><span class="line">        emit Transfer(msg.sender, _to, _value);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">　　 // 查询 _owner 账户的余额</span><br><span class="line">    function balanceOf(address _owner) constant public returns (uint256 balance)&#123;</span><br><span class="line">        return balances[_owner];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">　　 // 从地址 _from 转移 _value 个 tokens 给地址 _to</span><br><span class="line">    function transferFrom(address _from, address _to, uint256 _value) public returns (bool)&#123;</span><br><span class="line">        uint256 _allowance = allowed[_from][msg.sender];</span><br><span class="line">        assert (balances[_from] &gt;= _value);</span><br><span class="line">        assert (_allowance &gt;= _value);</span><br><span class="line">        assert (_value &gt; 0);</span><br><span class="line">        balances[_to] = balances[_to].add(_value);</span><br><span class="line">        balances[_from] = balances[_from].sub(_value);</span><br><span class="line">        allowed[_from][msg.sender] = _allowance.sub(_value);</span><br><span class="line">        emit Transfer(_from, _to, _value);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 允许 _spender 多次取回您的帐户，最高达 _value 金额； 如果再次调用此函数，它将用 _value 的当前值覆盖的 allowance 值</span><br><span class="line">    function approve(address _spender, uint256 _value) public returns (bool)&#123;</span><br><span class="line">        require((_value == 0) || (allowed[msg.sender][_spender] == 0));</span><br><span class="line">        allowed[msg.sender][_spender] = _value;</span><br><span class="line">        emit Approval(msg.sender, _spender, _value);</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 返回 _spender 仍然被允许从 _owner 提取的金额</span><br><span class="line">    function allowance(address _owner, address _spender) constant public returns (uint256 remaining)&#123;</span><br><span class="line">        return allowed[_owner][_spender];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这边逻辑不复杂，有个概念可能不太好理解，这里详细说明下。allowed 这个变量（类比成二维数组），是用来存取授信的额度，在 approve 函数中定义。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">allowed[msg.sender][_spender] = _value;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个 msg.sender 是当前合约调用者，_spender 是被授权人，额度是 _value 。可以通俗的理解成，银行（msg.sender）给用户（ _spender） 授权了 _value 额度的 tokens 。在银行转账，相应的额度也会减少，而用户在此银行最多可以转被授权的 _value 个 tokens，不同的银行（msg.sender）可以给用户（_spender）授信不同的额度(_value)。</p>
+<p>把 allowd 的概念理解了，allowance 函数也就很好理解了，第一个参数 _owner 类比成银行，第二个参数 _spender 类比成用户，这个函数就用来查询用户（_spender）在银行（_owner）剩余的额度（tokens）。通过上述的讲解，可以知道 transfer 和 transferfrom 函数区别如下：</p>
+<p>\1. transfer 是把当前合约调用者的 tokens 转移给其他人</p>
+<p>\2. transferFrom 则是可以把 ”银行“ 授信额度的钱（tokens）转给自己或者他人，转移的是 “银行” 的 tokens</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">contract Ammbr is StandardToken, Ownable &#123;</span><br><span class="line">    string public name = &apos;&apos;;</span><br><span class="line">    string public symbol = &apos;&apos;;</span><br><span class="line">    uint8 public  decimals = 0;</span><br><span class="line">    uint256 public maxMintBlock = 0;</span><br><span class="line"></span><br><span class="line">    event Mint(address indexed to, uint256 amount);</span><br><span class="line"></span><br><span class="line">    // 给地址 _to 初始化数量 _amount 数量的 tokens，注意 onlyOwner 修饰，只有合约创建者才有权限分配</span><br><span class="line">    function mint(address _to, uint256 _amount) onlyOwner  public returns (bool)&#123;</span><br><span class="line">        assert(maxMintBlock == 0);</span><br><span class="line">        totalSupply = totalSupply.add(_amount);</span><br><span class="line">        balances[_to] = balances[_to].add(_amount);</span><br><span class="line">        emit Mint(_to, _amount);</span><br><span class="line">        maxMintBlock = 1;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 转帐操作，可以同时转给多个人</span><br><span class="line">    function multiTransfer(address[] destinations, uint[] tokens) public returns (bool success)&#123;</span><br><span class="line">        assert(destinations.length &gt; 0);</span><br><span class="line">        assert(destinations.length &lt; 128);</span><br><span class="line">        assert(destinations.length == tokens.length);</span><br><span class="line">        uint8 i = 0;</span><br><span class="line">        uint totalTokensToTransfer = 0;</span><br><span class="line">        for (i = 0; i &lt; destinations.length; i++)&#123;</span><br><span class="line">            assert(tokens[i] &gt; 0);</span><br><span class="line">            totalTokensToTransfer += tokens[i]; // 存在溢出</span><br><span class="line">        &#125;</span><br><span class="line">        assert (balances[msg.sender] &gt; totalTokensToTransfer);</span><br><span class="line">        balances[msg.sender] = balances[msg.sender].sub(totalTokensToTransfer);</span><br><span class="line">        for (i = 0; i &lt; destinations.length; i++)&#123;</span><br><span class="line">            balances[destinations[i]] = balances[destinations[i]].add(tokens[i]);</span><br><span class="line">            emit Transfer(msg.sender, destinations[i], tokens[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 构造函数，可选</span><br><span class="line">    function Ammbr(string _name , string _symbol , uint8 _decimals) public&#123;</span><br><span class="line">        name = _name;   // 设定代币的名字，比如： MyToken</span><br><span class="line">        symbol = _symbol; // 返回代币的符号，比如： ARM</span><br><span class="line">        decimals = _decimals;   // 设置 token 的精度</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在来详细说明下 decimals 这个参数。首先我们来理解下常说的以太（ether）到底是怎么换算的。在以太坊交易中，最小的单位是 wei ，1 ether = 10^18 wei 。单位换算在线地址： <a href="https://converter.murkin.me/" target="_blank" rel="noopener">https://converter.murkin.me/</a></p>
+<p><strong>ether单位对照表：</strong></p>
+<p> <img src="https://www.secpulse.com/ueditor/php/upload/image/20180720/1532083875651848.png" alt="img"></p>
+<p>调用合约转发 Token 的时候，传入的值是要转发的 Token 数乘上精度（<strong>默认decimals=18</strong>），比如转1个Token，传入合约的值是1000000000000000000 wei</p>
+<p><strong>代币（Token）参数对照表：</strong></p>
+<p> <img src="https://www.secpulse.com/ueditor/php/upload/image/20180720/1532083875386725.png" alt="img"></p>
+<p>前面把我认为的难点、疑惑点都说完了，想必大家看懂这个合约也没什么难度。看懂合约后，如果看过以太坊智能合约安全漏洞入门之类的文章，应该一看就能看出 multiTransfer 存在溢出漏洞。原理就是 totalTokensToTransfer 没有使用安全函数，可以导致整数上溢出。</p>
+<p>崇尚代码即法律,做一个智能合约开发者,重点在于合约的交易逻辑设计,交流请访问微信yyy99966</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/06/27/myarticle55/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-05</p>
+    
+    
+        <a class="extend next post-next" href="/2018/06/05/myarticle53/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

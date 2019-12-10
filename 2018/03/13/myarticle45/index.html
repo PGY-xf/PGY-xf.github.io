@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>ORM [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">ORM</h1>
+<article class="post markdown-style">
+  <p>了解orm,先了解以下概念：</p>
+<h4 id="什么是“持久化”"><a href="#什么是“持久化”" class="headerlink" title="什么是“持久化”"></a>什么是“持久化”</h4><p>持久（Persistence），即把数据（如内存中的对象）保存到可永久保存的存储设备中（如磁盘）。持久化的主要应用是将内存中的数据存储在关系型的数据库中，当然也可以存储在磁盘文件中、XML数据文件中等等。</p>
+<h4 id="什么是-“持久层”"><a href="#什么是-“持久层”" class="headerlink" title="什么是 “持久层”"></a>什么是 “持久层”</h4><p>持久层（Persistence Layer），即专注于实现数据持久化应用领域的某个特定系统的一个逻辑层面，将数据使用者和数据实体相关联。</p>
+<h4 id="什么是ORM"><a href="#什么是ORM" class="headerlink" title="什么是ORM"></a>什么是ORM</h4><p>即Object-Relationl Mapping，它的作用是在关系型数据库和对象之间作一个映射，这样，我们在具体的操作数据库的时候，就不需要再去和复杂的SQL语句打交道，只要像平时操作对象一样操作它就可以了 。</p>
+<h4 id="为什么要做持久化和ORM设计-重要"><a href="#为什么要做持久化和ORM设计-重要" class="headerlink" title="为什么要做持久化和ORM设计(重要)"></a>为什么要做持久化和ORM设计(重要)</h4><p>在目前的企业应用系统设计中，MVC，即 Model（模型）- View（视图）- Control（控制）为主要的系统架构模式。MVC 中的 Model 包含了复杂的业务逻辑和数据逻辑，以及数据存取机制（如 JDBC的连接、SQL生成和Statement创建、还有ResultSet结果集的读取等）等。将这些复杂的业务逻辑和数据逻辑分离，以将系统的紧耦 合关系转化为松耦合关系（即解耦合），是降低系统耦合度迫切要做的，也是持久化要做的工作。MVC 模式实现了架构上将表现层（即View）和数据处理层（即Model）分离的解耦合，而持久化的设计则实现了数据处理层内部的业务逻辑和数据逻辑分离的解耦合。 而 ORM 作为持久化设计中的最重要也最复杂的技术，也是目前业界热点技术。</p>
+<p>简单来说，按通常的系统设计，使用 JDBC 操作数据库，业务处理逻辑和数据存取逻辑是混杂在一起的。<br>一般基本都是如下几个步骤：<br>1、建立数据库连接，获得 Connection 对象。<br>2、根据用户的输入组装查询 SQL 语句。<br>3、根据 SQL 语句建立 Statement 对象 或者 PreparedStatement 对象。<br>4、用 Connection 对象执行 SQL语句，获得结果集 ResultSet 对象。<br>5、然后一条一条读取结果集 ResultSet 对象中的数据。<br>6、根据读取到的数据，按特定的业务逻辑进行计算。<br>7、根据计算得到的结果再组装更新 SQL 语句。<br>8、再使用 Connection 对象执行更新 SQL 语句，以更新数据库中的数据。<br>7、最后依次关闭各个 Statement 对象和 Connection 对象。</p>
+<p>由上可看出代码逻辑非常复杂，这还不包括某条语句执行失败的处理逻辑。其中的业务处理逻辑和数据存取逻辑完全混杂在一块。而一个完整的系统要包含成 千上万个这样重复的而又混杂的处理过程，假如要对其中某些业务逻辑或者一些相关联的业务流程做修改，要改动的代码量将不可想象。另一方面，假如要换数据库 产品或者运行环境也可能是个不可能完成的任务。而用户的运行环境和要求却千差万别，我们不可能为每一个用户每一种运行环境设计一套一样的系统。<br>所 以就要将一样的处理代码即业务逻辑和可能不一样的处理即数据存取逻辑分离开来，另一方面，关系型数据库中的数据基本都是以一行行的数据进行存取的，而程序 运行却是一个个对象进行处理，而目前大部分数据库驱动技术（如ADO.NET、JDBC、ODBC等等）均是以行集的结果集一条条进行处理的。所以为解决 这一困难，就出现 ORM 这一个对象和数据之间映射技术。</p>
+<h4 id="常用ORM框架"><a href="#常用ORM框架" class="headerlink" title="常用ORM框架"></a>常用ORM框架</h4><p>Java系列：　</p>
+<ul>
+<li>​    Apache OJB 　</li>
+<li>​    Cayenne 　　</li>
+<li>​    Jaxor 　　</li>
+<li>​    Hibernate　　</li>
+<li>​    iBatis　　</li>
+<li>​    jRelationalFramework 　</li>
+<li>​    mirage 　　</li>
+<li>​    SMYLE 　　</li>
+<li>​    TopLink</li>
+</ul>
+<p>.Net系列：　</p>
+<ul>
+<li>NHibernate</li>
+<li>NBear</li>
+<li>Castle ActiveRecord</li>
+<li>iBATIS.NET</li>
+<li>DAAB　</li>
+<li>EntitysCodeGenerate</li>
+<li>EntityFormerWork</li>
+<li>Linq to sql</li>
+<li>PetaPoco</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>ORM是通过使用描述对象和数据库之间映射的元数据，将程序中的对象自动持久化到关系数据库中。<br>ORM在业务逻辑层和数据库层之间充当了桥梁的作用。<br>ORM的优势:ORM解决的主要问题是对象和关系的映射<br>ORM提供了对数据库的映射，不用直接编写SQL代码，只需像操作对象一样从数据库操作数据。<br>ORM的劣势:在一定程度上牺牲程序的执行效率。<br>ORM是“对象-关系-映射”的简称<br>MVC或者MTV框架中包括一个重要的部分，就是ORM，它实现了数据模型与数据库的解耦，即数据模型的设计不需要依赖于特定的数据库。</p>
+<p>ORM框架降低了学习门槛，一个对sql语句并不熟悉的开发人员也可以很容易通过简易的ORM框架Api进行数据库的操作。</p>
+<p>提高了开发效率，ORM使我们减少很多繁琐重复的工作量，让我们的注意力集中在实现业务上。</p>
+<p>一定程度上提高了程序的响应速度。</p>
+<p>ORM框架的弊端也很明显，框架会自动生成Sql语句，所有场景的sql语句都是同一套模板，难以自动针对场景对sql语句进行良好的优化，某种场景下很容易生成执行很慢的sql语句。如果让DBA看到这样的执行sql，必定引来抓狂崩溃。</p>
+<p>ORM框架只是为了满足绝大多数的场景而生的，特殊需要优化sql的场景下，我们完全可以直接使用驱动手动执行sql或使用ORM框架内提供的sql语句api进行自定义sql语句。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/03/26/myarticle46/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2018/02/25/myarticle44/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

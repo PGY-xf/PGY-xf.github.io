@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>为什么使用微服务架构 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">为什么使用微服务架构</h1>
+<article class="post markdown-style">
+  <p>说到微服务架构，我们先不谈微服务架构，先说一说单体应用架构。</p>
+<ul>
+<li><p>单体应用架构的问题*<br>一个归档包（war包）包含的所有功能的应用程序，通常称之为单体应用。而架构单体应用的方法论就是单体应用架构。<br>   以一个电影售票系统为例，</p>
+<p><img src="https://img-blog.csdn.net/20180508160632322?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhbjExOTY2Mzk0ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"> </p>
+</li>
+</ul>
+<p>相信很多项目都是从单体应用开始的，所有的业务模块耦合在一起，这样的单体应用比较容易部署，测试，在项目初期确实可以很好的运行。然而随着需求的增加，越来越多人加入开发团队，代码库也在飞速膨胀，慢慢的单体应用变得越来越臃肿，可维护性，灵活性逐渐降低，维护成本 越来越高。下面列举一些单体应用的问题：</p>
+<p>复杂性高：单体百万行代码的项目包含的模块非常多，模块边界模糊，依赖关系不明确，代码质量残次不齐，每次改代码都心惊胆战，添加一个简单的功能都会带来隐含的缺陷。<br>技术债务：随着时间的推移，需求和开发人员更迭，会逐渐形成应用程序的技术债务，不坏不修很常见，已使用的系统设计难以被修改<br>部署频率低：随着代码的增多，构建和部署时间也会增加，每次功能的变更或者修复都会导致重新部署整个应用。全量部署的方式耗时长，影响范围大，风险高，这使得单体应用部署上线频率降低，而部署频率的降低又会导致两次发布版本之间大量的功能变更和修改，出错概率比较高。<br>可靠性差：某个模块bug，死循环，oom导致整个应用的崩溃。<br>拓展能力受限：单体应用只能作为一个整体进行拓展，无法根据业务模块的需要进行伸缩，列如：应用中有的是计算密集型，他需要强筋的cpu，有的是io密集型，他需要更大的内存。全部部署在一起的话需要综合考虑。<br>微服务就解决了上述的问题：<br>微服务架构风格是一种将一个单一应用程序开发为一组小型服务的方法，每个服务运行在自己的进程中，服务间通讯采用轻量级通信机制（http）。这些服务公用一个最小型的集中式的管理，服务可用不同语言开发，使用不同数据存储技术。</p>
+<p><img src="https://img-blog.csdn.net/20180508162046795?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhbjExOTY2Mzk0ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"> </p>
+<p>微服务的优点：</p>
+<p>易于开发与维护：一个微服务只关心一个特定的业务功能，所以他业务清晰，代码量较少。<br>单个微服务启动快<br>局部修改容易部署：微服务只需要部署修改的服务即可<br>技术栈不受限：每个服务可用不同的开发语言<br>按需伸缩：可根据不同的需求，实现细粒度的拓展。</p>
+<p>微服务的缺点：</p>
+<p>运维要求高：服务更多意味着运维的投入，单体应用只需保证一个应用的正常运行，而在微服务中，需要保证几十上百的服务正常运行与协作。</p>
+<p>分布式固有的复杂性：使用微服务构建的是分布式系统。<br>接口调整成本高：微服务时间通过接口进行通信，如果修改某一个微服务的api，可能使所有使用该接口的微服务都做调整<br>重复劳动：很多服务使用相同的功能，而这个功能每个服务都写一次，导致代码重复，即便可以开发为公共组件，但可能服务间语言不同导致不通。<br>微服务架构图 </p>
+<p><img src="https://img-blog.csdn.net/20180508162947408?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2hhbjExOTY2Mzk0ODg=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="这里写图片描述"> </p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/12/25/myarticle70/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-06</p>
+    
+    
+        <a class="extend next post-next" href="/2018/12/01/myarticle68/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

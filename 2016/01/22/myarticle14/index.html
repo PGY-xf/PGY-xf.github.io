@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>链表反转问题 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">链表反转问题</h1>
+<article class="post markdown-style">
+  <p>在面试过程中，很有可能面试官让手写一个链表反转程序，对于链表反转，实现的有两种方式：</p>
+<p>第一种是普通方式：即遍历调整，先将当前节点下一个节点缓存之后，然后再调整当前节点的位置</p>
+<p>第二种方式：递归调用，即在调用当前节点时，先处理后续节点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line">class Node &#123;  </span><br><span class="line">    //变量  </span><br><span class="line">    private int record;  </span><br><span class="line">    //指向下一个对象  </span><br><span class="line">    private Node nextNode;  </span><br><span class="line">  </span><br><span class="line">    public Node(int record) &#123;  </span><br><span class="line">        super();  </span><br><span class="line">        this.record = record;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public int getRecord() &#123;  </span><br><span class="line">        return record;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setRecord(int record) &#123;  </span><br><span class="line">        this.record = record;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public Node getNextNode() &#123;  </span><br><span class="line">        return nextNode;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public void setNextNode(Node nextNode) &#123;  </span><br><span class="line">        this.nextNode = nextNode;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line">/** </span><br><span class="line"> * @author luochengcheng </span><br><span class="line"> *  两种方式实现单链表的反转(递归、普通) </span><br><span class="line"> *  新手强烈建议旁边拿着纸和笔跟着代码画图(便于理解) </span><br><span class="line"> */  </span><br><span class="line">public class ReverseSingleList &#123;  </span><br><span class="line">    /**  </span><br><span class="line">     * 递归，在反转当前节点之前先反转后续节点  </span><br><span class="line">     */  </span><br><span class="line">    public static Node reverse(Node head) &#123;  </span><br><span class="line">        if (null == head || null == head.getNextNode()) &#123;  </span><br><span class="line">            return head;  </span><br><span class="line">        &#125;  </span><br><span class="line">        Node reversedHead = reverse(head.getNextNode());  </span><br><span class="line">        head.getNextNode().setNextNode(head);  </span><br><span class="line">        head.setNextNode(null);  </span><br><span class="line">        return reversedHead;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    /**  </span><br><span class="line">     * 遍历，将当前节点的下一个节点缓存后更改当前节点指针  </span><br><span class="line">     *   </span><br><span class="line">     */  </span><br><span class="line">    public static Node reverse2(Node head) &#123;  </span><br><span class="line">        if (null == head) &#123;  </span><br><span class="line">            return head;  </span><br><span class="line">        &#125;  </span><br><span class="line">        Node pre = head;  </span><br><span class="line">        Node cur = head.getNextNode();  </span><br><span class="line">        Node next;  </span><br><span class="line">        while (null != cur) &#123;  </span><br><span class="line">            next = cur.getNextNode();  </span><br><span class="line">            cur.setNextNode(pre);  </span><br><span class="line">            pre = cur;  </span><br><span class="line">            cur = next;  </span><br><span class="line">        &#125;  </span><br><span class="line">        //将原链表的头节点的下一个节点置为null，再将反转后的头节点赋给head     </span><br><span class="line">        head.setNextNode(null);  </span><br><span class="line">        head = pre;  </span><br><span class="line">          </span><br><span class="line">        return head;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    public static void main(String[] args) &#123;  </span><br><span class="line">       //头结点是为了操作的统一与方便而设立的，放在第一个元素结点之前，其数据域一般无意义</span><br><span class="line">        Node head = new Node(0);  </span><br><span class="line">        Node tmp = null;  </span><br><span class="line">        Node cur = null;  </span><br><span class="line">        // 构造一个长度为10的链表，保存头节点对象head     </span><br><span class="line">        for (int i = 1; i &lt; 10; i++) &#123;  </span><br><span class="line">            tmp = new Node(i);  </span><br><span class="line">            if (1 == i) &#123;  </span><br><span class="line">                head.setNextNode(tmp);  </span><br><span class="line">            &#125; else &#123;  </span><br><span class="line">                cur.setNextNode(tmp);  </span><br><span class="line">            &#125;  </span><br><span class="line">            cur = tmp;  </span><br><span class="line">        &#125;  </span><br><span class="line">        //打印反转前的链表  </span><br><span class="line">        Node h = head;  </span><br><span class="line">        while (null != h) &#123;  </span><br><span class="line">            System.out.print(h.getRecord() + &quot; &quot;);  </span><br><span class="line">            h = h.getNextNode();  </span><br><span class="line">        &#125;  </span><br><span class="line">        //调用反转方法 </span><br><span class="line">        //第一种方法是递归调用</span><br><span class="line">        head=reverse(head);</span><br><span class="line">        //第二种方法是普通调用</span><br><span class="line">        //head = reverse2(head);  </span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;\n**************************&quot;);  </span><br><span class="line">        //打印反转后的结果  </span><br><span class="line">        while (null != head) &#123;  </span><br><span class="line">            System.out.print(head.getRecord() + &quot; &quot;);  </span><br><span class="line">            head = head.getNextNode();  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2016/01/23/myarticle15/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2015/10/29/myarticle13/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

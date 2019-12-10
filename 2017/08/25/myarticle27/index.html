@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>机器学习问题与解答系列（17-24） [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">机器学习问题与解答系列（17-24）</h1>
+<article class="post markdown-style">
+  <p>老朋友了，还用多说什么吗？点击下面的链接复习咯：</p>
+<p><strong>17.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430694&idx=1&sn=41652491c23de310aa4aadcdd26ff563&chksm=8b004a27bc77c33192c67a6fa8a97cc67285ef3e4c1d9240b82a29b793d8775775aa07952ab3&scene=21#wechat_redirect" target="_blank" rel="noopener">随机梯度下降算法之经典变种</a></p>
+<p><strong>18.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430721&idx=1&sn=8d02f40ae6bf725c6aeaefaf275843e3&chksm=8b004ac0bc77c3d6640e1e55bf9596e7fac9e74deb41a78c9f363af15f9475f98e75ccb8bd9d&scene=21#wechat_redirect" target="_blank" rel="noopener">SVM—核函数与松弛变量</a></p>
+<p><strong>19.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430742&idx=1&sn=22218a480a99451ee787e5db14e325b7&chksm=8b004ad7bc77c3c1177b66e16fe91abd79bda260851fcdf6ff1f88618ddfb9cb73593b64b68d&scene=21#wechat_redirect" target="_blank" rel="noopener">主题模型</a></p>
+<p><strong>20.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430757&idx=1&sn=ee4d6f0b037ecd273929dca8901bf96f&chksm=8b004ae4bc77c3f2b49248612199ea420c7a87fd63f553146d83e1a2b17012c5ffa6993416aa&scene=21#wechat_redirect" target="_blank" rel="noopener">PCA最小平方误差理论</a></p>
+<p><strong>21.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430790&idx=1&sn=597b5d19c8d2141b6108f8f420395eaa&chksm=8b004a87bc77c39172055c84d670ba5095ad74202df34cbbf19b33b5d117bd923c1ffa360aaf&scene=21#wechat_redirect" target="_blank" rel="noopener">分类、排序、回归模型的评估</a></p>
+<p><strong>22.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430794&idx=1&sn=5ea4c6f5d2bd54ab15665620ef59a0bd&chksm=8b004a8bbc77c39de7727ea2abf2c97a1780db16ca76a73e5175919a25d7741af77443969dc4&scene=21#wechat_redirect" target="_blank" rel="noopener">特征工程—结构化数据</a></p>
+<p><strong>23.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430800&idx=1&sn=59b8fb01995f9ba37e62dcae0280ba1f&chksm=8b004a91bc77c387eb36b66e3ee2ce3599caf6e257b843fc0aed034cc586cb00a722687cebdd&scene=21#wechat_redirect" target="_blank" rel="noopener">神经网络训练中的批量归一化</a></p>
+<p><strong>24.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430814&idx=1&sn=95b912e8a4d828908dba5f340a49ece8&chksm=8b004a9fbc77c3890933d3bb36b503dfa5e4b650024d79b0145709e2abfc472c9394ee05569c&scene=21#wechat_redirect" target="_blank" rel="noopener">随机梯度下降法</a></p>
+<p>你可以留言发表复习之后的新感悟，也许会在新的推送中看到你自己的思考噢～</p>
+<p>不明白的地方也欢迎向作者提问，小编会在第一时间给予反馈。</p>
+<p>日常唠叨还是要有的：</p>
+<p>关注Hulu公众号，就可以在每周看到两篇机器学习问题与解答系列的新文章。</p>
+<p>坚持就是胜利！</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2017/10/12/myarticle29/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-03</p>
+    
+    
+        <a class="extend next post-next" href="/2017/08/24/myarticle26/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

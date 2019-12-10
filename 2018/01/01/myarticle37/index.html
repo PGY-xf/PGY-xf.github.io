@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>python之集合函数字符串格式化 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">python之集合函数字符串格式化</h1>
+<article class="post markdown-style">
+  <p>1.集合</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"> 1 #!/usr/bin/env python</span><br><span class="line"> 2 # -*- coding:utf-8 -*-</span><br><span class="line"> 3 # s=set([&apos;alex&apos;,&apos;alex&apos;,&apos;sb&apos;])</span><br><span class="line"> 4 # print(s)</span><br><span class="line"> 5 </span><br><span class="line"> 6 # s=set(&apos;hello&apos;)</span><br><span class="line"> 7 # print(s)</span><br><span class="line"> 8 </span><br><span class="line"> 9 # s=&#123;1,2,3,4,5,6&#125;</span><br><span class="line">10 #添加  add 不能添加重复元素</span><br><span class="line">11 # s.add(&apos;s&apos;)</span><br><span class="line">12 # s.add(&apos;3&apos;)</span><br><span class="line">13 # s.add(3)</span><br><span class="line">14 # print(s)</span><br><span class="line">15 </span><br><span class="line">16 # s.clear()</span><br><span class="line">17 # print(s)</span><br><span class="line">18 </span><br><span class="line">19 # s1=s.copy()</span><br><span class="line">20 # print(s1)</span><br><span class="line">21 </span><br><span class="line">22 # s=&#123;&apos;sb&apos;,1,2,3,4,5,6&#125;</span><br><span class="line">23 #随机删</span><br><span class="line">24 # s.pop()</span><br><span class="line">25 # print(s)</span><br><span class="line">26 </span><br><span class="line">27 #指定删除</span><br><span class="line">28 # s.remove(&apos;sb&apos;)</span><br><span class="line">29 # s.remove(&apos;hellol&apos;) #删除元素不存在会报错</span><br><span class="line">30 # s.discard(&apos;sbbbb&apos;)#删除元素不存在不会报错</span><br><span class="line">31 # print(s)</span><br><span class="line">32 </span><br><span class="line">33 # python_l=[&apos;lcg&apos;,&apos;szw&apos;,&apos;zjw&apos;,&apos;lcg&apos;]</span><br><span class="line">34 # linux_l=[&apos;lcg&apos;,&apos;szw&apos;,&apos;sb&apos;]</span><br><span class="line">35 # p_s=set(python_l)</span><br><span class="line">36 # l_s=set(linux_l)</span><br><span class="line">37 # #求交集</span><br><span class="line">38 # print(p_s,l_s)</span><br><span class="line">39 # print(p_s.intersection(l_s))</span><br><span class="line">40 # print(p_s&amp;l_s)</span><br><span class="line">41 # #求并集</span><br><span class="line">42 # print(p_s.union(l_s))</span><br><span class="line">43 # print(p_s|l_s)</span><br><span class="line">44 # #差集</span><br><span class="line">45 # print(&apos;差集&apos;,p_s-l_s)</span><br><span class="line">46 # print(p_s.difference(l_s))</span><br><span class="line">47 # print(&apos;差集&apos;,l_s-p_s)</span><br><span class="line">48 # print(l_s.difference(p_s))</span><br><span class="line">49 </span><br><span class="line">50 #交叉补集</span><br><span class="line">51 # print(&apos;交叉补集&apos;,p_s.symmetric_difference(l_s))</span><br><span class="line">52 # print(&apos;交叉补集&apos;,p_s^l_s)</span><br><span class="line">53 </span><br><span class="line">54 # python_l=[&apos;lcg&apos;,&apos;szw&apos;,&apos;zjw&apos;,&apos;lcg&apos;]</span><br><span class="line">55 # linux_l=[&apos;lcg&apos;,&apos;szw&apos;,&apos;sb&apos;]</span><br><span class="line">56 # p_s=set(python_l)</span><br><span class="line">57 # l_s=set(linux_l)</span><br><span class="line">58 # print(p_s,l_s)</span><br><span class="line">59 # print(&apos;差集&apos;,p_s-l_s)</span><br><span class="line">60 # p_s=p_s-l_s</span><br><span class="line">61 # p_s.difference_update(l_s)</span><br><span class="line">62 # print(p_s)</span><br><span class="line">63 </span><br><span class="line">64 # s1=&#123;1,2&#125;</span><br><span class="line">65 # s2=&#123;2,3,5&#125;</span><br><span class="line">66 # print(s1.isdisjoint(s2))</span><br><span class="line">67 </span><br><span class="line">68 # s1=&#123;1,2&#125;</span><br><span class="line">69 # s2=&#123;1,2,3&#125;</span><br><span class="line">70 # print(s1.issubset(s2))#s1 是s2 的子集</span><br><span class="line">71 # print(s2.issubset(s1))#False</span><br><span class="line">72 </span><br><span class="line">73 # print(s2.issuperset(s1))#s1 是s2 的父集</span><br><span class="line">74 </span><br><span class="line">75 # s1=&#123;1,2&#125;</span><br><span class="line">76 # s2=&#123;1,2,3&#125;</span><br><span class="line">77 # s1.update(s2) #更新多个值</span><br><span class="line">78 </span><br><span class="line">79 # s1.add(1,2,3,4) #更新一个值</span><br><span class="line">80 # s1.union(s2) #不更新</span><br><span class="line">81 </span><br><span class="line">82 # print(s1)</span><br><span class="line">83 </span><br><span class="line">84 # s=frozenset(&apos;hello&apos;)</span><br><span class="line">85 # print(s)</span><br><span class="line">86 # names=[&apos;alex&apos;,&apos;alex&apos;,&apos;wupeiqi&apos;]</span><br><span class="line">87 # #</span><br><span class="line">88 # names=list(set(names))</span><br><span class="line">89 # print(names)</span><br></pre></td></tr></table></figure>
+
+<p>2.字符串格式化</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"> 1 #!/usr/bin/env python</span><br><span class="line"> 2 # -*- coding:utf-8 -*-</span><br><span class="line"> 3 # msg=&apos;i am %s my hobby is %s&apos; % (&apos;lhf&apos;,&apos;alex&apos;)</span><br><span class="line"> 4 # print(msg)</span><br><span class="line"> 5 #</span><br><span class="line"> 6 # msg=&apos;i am %s my hobby is %s&apos; % (&apos;lhf&apos;,1)</span><br><span class="line"> 7 # msg=&apos;i am %s my hobby is %s&apos; % (&apos;lhf&apos;,[1,2])</span><br><span class="line"> 8 # print(msg)</span><br><span class="line"> 9 # name=&apos;lhf&apos;</span><br><span class="line">10 # age=19</span><br><span class="line">11 # msg=&apos;i am %s my hobby is %s&apos; % (name,age)</span><br><span class="line">12 # print(msg)</span><br><span class="line">13 </span><br><span class="line">14 #打印浮点数</span><br><span class="line">15 # tpl = &quot;percent %.2f&quot; % 99.976234444444444444</span><br><span class="line">16 # print(tpl)</span><br><span class="line">17 </span><br><span class="line">18 #打印百分比</span><br><span class="line">19 # tpl = &apos;percent %.2f %%&apos; % 99.976234444444444444</span><br><span class="line">20 # print(tpl)</span><br><span class="line">21 </span><br><span class="line">22 # tpl = &quot;i am %(name)s age %(age)d&quot; % &#123;&quot;name&quot;: &quot;alex&quot;, &quot;age&quot;: 18&#125;</span><br><span class="line">23 # print(tpl)</span><br><span class="line">24 #</span><br><span class="line">25 # msg=&apos;i am %(name)+60s my hobby is alex&apos; %&#123;&apos;name&apos;:&apos;lhf&apos;&#125;</span><br><span class="line">26 # print(msg)</span><br><span class="line">27 #</span><br><span class="line">28 # msg=&apos;i am \033[43;1m%(name)+60s\033[0m my hobby is alex&apos; %&#123;&apos;name&apos;:&apos;lhf&apos;&#125;</span><br><span class="line">29 # print(msg)</span><br><span class="line">30 </span><br><span class="line">31 </span><br><span class="line">32 # print(&apos;root&apos;,&apos;x&apos;,&apos;0&apos;,&apos;0&apos;,sep=&apos;:&apos;)</span><br><span class="line">33 # print(&apos;root&apos;+&apos;:&apos;+&apos;x&apos;+&apos;:&apos;+&apos;0&apos;,&apos;0&apos;)</span><br></pre></td></tr></table></figure>
+
+<p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<p>3.format字符串格式化</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> 1 #!/usr/bin/env python</span><br><span class="line"> 2 # -*- coding:utf-8 -*-</span><br><span class="line"> 3 # tpl = &quot;i am &#123;name&#125;, age &#123;age&#125;, really &#123;name&#125;&quot;.format(name=&quot;seven&quot;, age=18)</span><br><span class="line"> 4 </span><br><span class="line"> 5 # tpl = &quot;i am &#123;name&#125;, age &#123;age&#125;, really &#123;name&#125;&quot;.format(**&#123;&quot;name&quot;: &quot;seven&quot;, &quot;age&quot;: 18&#125;)</span><br><span class="line"> 6 #</span><br><span class="line"> 7 # tpl = &quot;i am &#123;:s&#125;, age &#123;:d&#125;&quot;.format(*[&quot;seven&quot;, 18])</span><br><span class="line"> 8 # tpl = &quot;i am &#123;:s&#125;, age &#123;:d&#125;&quot;.format(&quot;seven&quot;, 18) #[&quot;seven&quot;, 18]</span><br><span class="line"> 9 </span><br><span class="line">10 l=[&quot;seven&quot;, 18]</span><br><span class="line">11 # tpl = &quot;i am &#123;:s&#125;, age &#123;:d&#125;&quot;.format(&apos;seven&apos;,18)</span><br><span class="line">12 # print(tpl)</span><br><span class="line">13 #</span><br><span class="line">14 # tpl = &quot;numbers: &#123;:b&#125;,&#123;:o&#125;,&#123;:d&#125;,&#123;:x&#125;,&#123;:X&#125;, &#123;:%&#125;,&#123;&#125;&quot;.format(15, 15, 15, 15, 15, 15.87623, 2)</span><br><span class="line">15 # print(tpl)</span><br></pre></td></tr></table></figure>
+
+<p>4.函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line">  1 #!/usr/bin/env python</span><br><span class="line">  2 # -*- coding:utf-8 -*-</span><br><span class="line">  3 &apos;&apos;&apos;</span><br><span class="line">  4 y=2*x+1</span><br><span class="line">  5 x=3</span><br><span class="line">  6 y-&gt;7</span><br><span class="line">  7 x=3</span><br><span class="line">  8 y-&gt;7</span><br><span class="line">  9 &apos;&apos;&apos;</span><br><span class="line"> 10 # def test(x):</span><br><span class="line"> 11 #     &apos;&apos;&apos;</span><br><span class="line"> 12 #     2*x+1</span><br><span class="line"> 13 #     :param x:整形数字</span><br><span class="line"> 14 #     :return: 返回计算结果</span><br><span class="line"> 15 #     &apos;&apos;&apos;</span><br><span class="line"> 16 #     y=2*x+1</span><br><span class="line"> 17 #     return y</span><br><span class="line"> 18 #</span><br><span class="line"> 19 # def test():</span><br><span class="line"> 20 #     &apos;&apos;&apos;</span><br><span class="line"> 21 #     2*x+1</span><br><span class="line"> 22 #     :param x:整形数字</span><br><span class="line"> 23 #     :return: 返回计算结果</span><br><span class="line"> 24 #     &apos;&apos;&apos;</span><br><span class="line"> 25 #     x=3</span><br><span class="line"> 26 #     y=2*x+1</span><br><span class="line"> 27 #     return y</span><br><span class="line"> 28 # a=test()</span><br><span class="line"> 29 # print(a)</span><br><span class="line"> 30 </span><br><span class="line"> 31 #过程：就是没有返回值的函数</span><br><span class="line"> 32 </span><br><span class="line"> 33 </span><br><span class="line"> 34 # def test01():</span><br><span class="line"> 35 #     msg = &apos;test01&apos;</span><br><span class="line"> 36 #     print(msg)</span><br><span class="line"> 37 # #</span><br><span class="line"> 38 # #</span><br><span class="line"> 39 # def test02():</span><br><span class="line"> 40 #     msg = &apos;test02&apos;</span><br><span class="line"> 41 #     print(msg)</span><br><span class="line"> 42 #     return msg</span><br><span class="line"> 43 # #</span><br><span class="line"> 44 # def test03():</span><br><span class="line"> 45 #     msg = &apos;test03&apos;</span><br><span class="line"> 46 #     print(msg)</span><br><span class="line"> 47 #     return 1,2,3,4,&apos;a&apos;,[&apos;alex&apos;],&#123;&apos;name&apos;:&apos;alex&apos;&#125;,None</span><br><span class="line"> 48 # #</span><br><span class="line"> 49 # def test04():</span><br><span class="line"> 50 #     msg = &apos;test03&apos;</span><br><span class="line"> 51 #     print(msg)</span><br><span class="line"> 52 #     return &#123;&apos;name&apos;:&apos;alex&apos;&#125;</span><br><span class="line"> 53 # t1=test01()</span><br><span class="line"> 54 # t2=test02()</span><br><span class="line"> 55 # t3=test03()</span><br><span class="line"> 56 # t4=test04()</span><br><span class="line"> 57 # print(t1)</span><br><span class="line"> 58 # print(t2)</span><br><span class="line"> 59 # print(t3)</span><br><span class="line"> 60 # print(t4)</span><br><span class="line"> 61 </span><br><span class="line"> 62 # def calc(x,y): #x=2,y=3</span><br><span class="line"> 63 #     res=x**y</span><br><span class="line"> 64 #     return x</span><br><span class="line"> 65 #     return y</span><br><span class="line"> 66 # res=calc(2,3)</span><br><span class="line"> 67 # print(x)</span><br><span class="line"> 68 # print(y)</span><br><span class="line"> 69 # print(res)</span><br><span class="line"> 70 # # a=10</span><br><span class="line"> 71 # # b=10</span><br><span class="line"> 72 # # calc(a,b)</span><br><span class="line"> 73 </span><br><span class="line"> 74 </span><br><span class="line"> 75 # def test(x,y,z):#x=1,y=2,z=3</span><br><span class="line"> 76 #     print(x)</span><br><span class="line"> 77 #     print(y)</span><br><span class="line"> 78 #     print(z)</span><br><span class="line"> 79 </span><br><span class="line"> 80 #位置参数，必须一一对应，缺一不行多一也不行</span><br><span class="line"> 81 # test(1,2,3)</span><br><span class="line"> 82 </span><br><span class="line"> 83 #关键字参数，无须一一对应，缺一不行多一也不行</span><br><span class="line"> 84 # test(y=1,x=3,z=4)</span><br><span class="line"> 85 </span><br><span class="line"> 86 #位置参数必须在关键字参数左边</span><br><span class="line"> 87 # test(1,y=2,3)#报错</span><br><span class="line"> 88 # test(1,3,y=2)#报错</span><br><span class="line"> 89 # test(1,3,z=2)</span><br><span class="line"> 90 # test(1,3,z=2,y=4)#报错</span><br><span class="line"> 91 # test(z=2,1,3)#报错</span><br><span class="line"> 92 </span><br><span class="line"> 93 # def handle(x,type=&apos;mysql&apos;):</span><br><span class="line"> 94 #     print(x)</span><br><span class="line"> 95 #     print(type)</span><br><span class="line"> 96 # handle(&apos;hello&apos;)</span><br><span class="line"> 97 # handle(&apos;hello&apos;,type=&apos;sqlite&apos;)</span><br><span class="line"> 98 # handle(&apos;hello&apos;,&apos;sqlite&apos;)</span><br><span class="line"> 99 </span><br><span class="line">100 # def install(func1=False,func2=True,func3=True):</span><br><span class="line">101 #     pass</span><br><span class="line">102 </span><br><span class="line">103 #参数组：**字典 *列表</span><br><span class="line">104 # def test(x,*args):</span><br><span class="line">105 #     print(x)</span><br><span class="line">106 #     print(args)</span><br><span class="line">107 </span><br><span class="line">108 </span><br><span class="line">109 # test(1)</span><br><span class="line">110 # test(1,2,3,4,5)</span><br><span class="line">111 # test(1,&#123;&apos;name&apos;:&apos;alex&apos;&#125;)</span><br><span class="line">112 # test(1,[&apos;x&apos;,&apos;y&apos;,&apos;z&apos;])</span><br><span class="line">113 # test(1,*[&apos;x&apos;,&apos;y&apos;,&apos;z&apos;])</span><br><span class="line">114 # test(1,*(&apos;x&apos;,&apos;y&apos;,&apos;z&apos;))</span><br><span class="line">115 </span><br><span class="line">116 # def test(x,**kwargs):</span><br><span class="line">117 #     print(x)</span><br><span class="line">118 #     print(kwargs)</span><br><span class="line">119 # test(1,y=2,z=3)</span><br><span class="line">120 # test(1,1,2,2,2,2,2,y=2,z=3)</span><br><span class="line">121 # test(1,y=2,z=3,z=3)#会报错 ：一个参数不能传两个值</span><br><span class="line">122 </span><br><span class="line">123 def test(x,*args,**kwargs):</span><br><span class="line">124     print(x)</span><br><span class="line">125     print(args,args[-1])</span><br><span class="line">126     print(kwargs,kwargs.get(&apos;y&apos;))</span><br><span class="line">127 # test(1,1,2,1,1,11,1,x=1,y=2,z=3) #报错</span><br><span class="line">128 # test(1,1,2,1,1,11,1,y=2,z=3)</span><br><span class="line">129 #</span><br><span class="line">130 # test(1,*[1,2,3],**&#123;&apos;y&apos;:1&#125;)</span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/01/02/myarticle38/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2017/12/29/myarticle36/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

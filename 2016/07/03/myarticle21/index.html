@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>git提交的问题 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">git提交的问题</h1>
+<article class="post markdown-style">
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">1. Pull is not possible because you have unmerged files.</span><br><span class="line">症状：pull的时候</span><br><span class="line">$ git pull</span><br><span class="line"></span><br><span class="line">Pull is not possible because you have unmerged files.</span><br><span class="line">Please, fix them up in the work tree, and then use &apos;git add/rm &lt;file&gt;&apos;</span><br><span class="line">as appropriate to mark resolution, or use &apos;git commit -a&apos;</span><br><span class="line">应该是因为local文件冲突了</span><br><span class="line">解决方法：</span><br><span class="line">引用――</span><br><span class="line">“</span><br><span class="line">1.pull会使用git merge导致冲突，需要将冲突的文件resolve掉 git add -u, git commit之后才能成功pull.</span><br><span class="line">2.如果想放弃本地的文件修改，可以使用git reset --hard FETCH_HEAD，FETCH_HEAD表示上一次成功git pull之后形成的commit点。然后git pull.</span><br><span class="line">注意：</span><br><span class="line">git merge会形成MERGE-HEAD(FETCH-HEAD) 。git push会形成HEAD这样的引用。HEAD代表本地最近成功push后形成的引用。</span><br><span class="line">”</span><br><span class="line">就我的经验，有时候会莫名其妙地出现这种状况，而且Untracked files 还特别多（实际上自己可能只改了一两个文件），所以只好先保存好自己确定做出的local的修改，然后用git reset --hard FETCH_HEAD回到上次成功pull之后的点，然后再pull就没有问题了</span><br><span class="line"></span><br><span class="line">2.You are not currently on a branch.</span><br><span class="line">症状：有一次pull的时候又出现冲突，这回用“git reset --hard FETCH_HEAD”方法都不行了，出现：</span><br><span class="line">$ git pull</span><br><span class="line">You are not currently on a branch, so I cannot use any</span><br><span class="line">&apos;branch.&lt;branchname&gt;.merge&apos; in your configuration file.</span><br><span class="line">Please specify which remote branch you want to use on the command</span><br><span class="line">line and try again (e.g. &apos;git pull &lt;repository&gt; &lt;refspec&gt;&apos;).</span><br><span class="line">See git-pull(1) for details.</span><br><span class="line"></span><br><span class="line">解决方法：</span><br><span class="line">首先git checkout -b temp</span><br><span class="line">其次git checkout master</span><br><span class="line">即可恢复到master repository的状态，然后就可以pull了</span><br><span class="line">------------------------------------------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p> 3.git 报错原因汇总</p>
+<p>$ git push origin master<br>To <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:qzmly100/repository-.git<br>! [rejected] master -&gt; master (fetch first)<br>error: failed to push some refs to ‘git@github.com:qzmly100/repository-.git’<br>hint: Updates were rejected because the remote contains work that you do<br>hint: not have locally. This is usually caused by another repository pushing<br>hint: to the same ref. You may want to first integrate the remote changes<br>hint: (e.g., ‘git pull …’) before pushing again.<br>hint: See the ‘Note about fast-forwards’ in ‘git push –help’ for details.</p>
+<p>是不是在不同的机器上上做了提交？？</p>
+<p>远程分支上存在本地分支中不存在的提交，往往是多人协作开发过程中遇到的问题，可以先<code>fetch</code>再<code>merge</code>，也就是<code>pull</code>，把远程分支上的提交合并到本地分支之后再<code>push</code>。</p>
+<p>如果你确定远程分支上那些提交都不需要了，那么直接<code>git push origin master -f</code>，强行让本地分支覆盖远程分支。。。</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2017/01/03/myarticle22/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-03</p>
+    
+    
+        <a class="extend next post-next" href="/2016/06/13/myarticle20/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

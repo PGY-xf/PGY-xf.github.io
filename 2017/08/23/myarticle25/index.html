@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>HuLu机器学习问题与解答系列(1-8) [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">HuLu机器学习问题与解答系列(1-8)</h1>
+<article class="post markdown-style">
+  <p>声明：本系列文章转载自微信公众号HULU，本人只是搬运工，仅供学习，如有不妥，后续告知删除。</p>
+<p>嗨，欢迎回来，希望你能保持定期回顾的好习惯噢！下面是Hulu机器学习问题与解答系列的前8篇内容，点击主题名即可进入。</p>
+<p><strong>1.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430219&idx=1&sn=fa1690a94ae62c089ef249da900053b4&chksm=8b0048cabc77c1dca7624cb722eea4801b36c5d7577bdd4a23afe6647823bc3acd02d5c50df4&scene=21#wechat_redirect" target="_blank" rel="noopener">模型评估</a></p>
+<p><strong>2.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430230&idx=1&sn=b0597b35705105507cbc0c07cff3a358&chksm=8b0048d7bc77c1c1dca0d942d91b61b17039018f0973ccd97fd51f6113aaf2660a982d0fcc96&scene=21#wechat_redirect" target="_blank" rel="noopener">SVM模型</a></p>
+<p><strong>3.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430247&idx=1&sn=fd2ce2a046ac740449db342968d3cfd5&chksm=8b0048e6bc77c1f0d8094ff06f04e5f0ee6b72b2529682dbd2e35a52c813d74f7be1911585d7&scene=21#wechat_redirect" target="_blank" rel="noopener">优化简介</a></p>
+<p><strong>4.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430319&idx=1&sn=2e22a6371e30929b4aeacb33565e5184&chksm=8b0048aebc77c1b83b8dd5b25fa6dfd759bc1a3fdc069827d9de2e591615b6d41bddc867bf36&scene=21#wechat_redirect" target="_blank" rel="noopener">采样</a></p>
+<p><strong>5.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430368&idx=1&sn=79060c02ac1b9b9b575bf30802ae4e86&chksm=8b004961bc77c07739f06a37f35599eafb28073b6f2ff53b19b2a10b09a09662bac6291ccf71&scene=21#wechat_redirect" target="_blank" rel="noopener">余弦距离</a></p>
+<ol start="6">
+<li><a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430435&idx=1&sn=f55f0ad0b5025076f8b9cbb248737f75&chksm=8b004922bc77c034b92a97387d791ac350f643130da03534dfadfe28a162c8fab98441e0a7b9&scene=21#wechat_redirect" target="_blank" rel="noopener">PCA算法</a></li>
+</ol>
+<p><strong>7.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430467&idx=1&sn=291f17682a82aa62448d4758859dc225&chksm=8b0049c2bc77c0d46793ecd0ccefd3631031d58c3e0e3071bfe1043f5f22426842bc9f34fead&scene=21#wechat_redirect" target="_blank" rel="noopener">非监督学习算法与评估</a></p>
+<p><strong>8.</strong> <a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430479&idx=1&sn=a779edc5adf724893fa089e810c161f5&chksm=8b0049cebc77c0d887b52f06742488c13a352dc9cfd5ee6a61cad3442cd54f2b76f5e0364455&scene=21#wechat_redirect" target="_blank" rel="noopener">强化学习（一）</a>，<a href="http://mp.weixin.qq.com/s?__biz=MzA5NzQyNTcxMA==&mid=2656430482&idx=1&sn=92cab5c70f77716bc8142ccab16a5b54&chksm=8b0049d3bc77c0c5051ebf0a484592bfd9d575a4ef413115ca9e240b5e9a18a5f394a5181c31&scene=21#wechat_redirect" target="_blank" rel="noopener">强化学习（二）</a></p>
+<p>你可以留言发表复习之后的新感悟，说不定会在新的推送中看到你自己的思考～</p>
+<p>不明白的地方也欢迎向作者提问，小编会在第一时间给予反馈。</p>
+<p>日常唠叨：</p>
+<p>关注Hulu公众号，就可以在每周看到两篇机器学习问题与解答系列的新文章。</p>
+<p>坚持就是胜利！</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2017/08/24/myarticle26/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-03</p>
+    
+    
+        <a class="extend next post-next" href="/2017/06/23/myarticle24/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

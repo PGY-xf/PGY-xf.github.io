@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>区块链矿池的分配模式 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">区块链矿池的分配模式</h1>
+<article class="post markdown-style">
+  <h3 id="产生背景"><a href="#产生背景" class="headerlink" title="产生背景"></a>产生背景</h3><p>  当下各种以挖矿来获得收益的币种，随着时间的推移，挖矿的难度也越来越大，如果仍然靠单机去挖矿，几乎已经不可能了，所以就有矿池。例如按照当前的算力(20EH/s)，一个20TH/s的矿机，挖到一个区块的时间为19年，也就是说如果单机挖矿需要19年才能获得奖励，这其中还不包括机器损耗、难度增大等因素，所以只有大家加入到一个矿池，共享自己的算力，爆块后，根据不同的分配模式，奖励再分配给个人。这种挖矿模式可以让个人的收益更加稳定，对于矿池而言，也会收取一些交易手续费。</p>
+<p>顺便我们来算下现在挖矿多少天能回本。以蚂蚁矿机为例，每台的算力大概为20TH/s，功率1700W，成本取5000元，全网算力取20EH/s，当前爆块奖励为12.5个比特币，价值45,000元，10分钟出一个区块，那么在不考虑电费、损耗等成本的前提下，回本时间约62天。<br>全网十分钟收益：12.5 * 45,000 = 562,500<br>单台矿机十分钟收益：562,500 / 20 / 1000 / 1000 * 20 = 0.5625元<br>单台矿机每日收益：0.5625 * 6 * 24 = 81<br>单台矿机回本时间：5000 / 81 ≈ 62天<br>当然这也是在算力稳定的前提下，可惜算力在增加，难度也在增加，而且还有电费，所以实际回本时间是大于62天</p>
+<p>比特币全网算力趋势<br><img src="http://files.jouypub.com/static/images/d3191b15ac4f835d83ebcdd4e3479d24.png" alt="img"></p>
+<blockquote>
+<p>备注：<br>H为算力单位：即每秒进行的Hash数运算次数，1H=每秒运行1次Hash计算<br>1KH/s = 每秒1,000次Hah计算<br>1MH/s = 1000KH，每秒1,000,000次哈希。<br>1GH/s = 1000MH，每秒1,000,000,000次哈希。<br>1TH/s = 1000GH，每秒1,000,000,000,000次哈希。<br>1PH/s = 1000TH，每秒1,000,000,000,000,000次哈希。<br>1EH/s = 1000PH，每秒1,000,000,000,000,000,000,000次哈希。</p>
+</blockquote>
+<h3 id="当前主流的矿池分配模式"><a href="#当前主流的矿池分配模式" class="headerlink" title="当前主流的矿池分配模式"></a>当前主流的矿池分配模式</h3><p>现在主流的矿池分配模式主要有PPS、PPLNS、PROP、RBPPS、PPS+</p>
+<ul>
+<li>PPS模式：Pay-Per-Share<br>根据理论爆块分红，不管爆不爆块，你都会有立刻的奖励。它会根据你的算力在矿池中的占比，并估算了矿池每天可以获得的矿产，给你每天基本固定的收益。此奖励无需确认，可立刻获取到你的全矿池比例SHARE值分红。<br>这种模式矿池要承担很大的风险，要有一定实力和算力的矿池才能做PPS，并且能避免矿池运营者幕后操纵。这种方式减少了矿工的风险，但将风险转移给了矿池的运营者。运营者可以收取手续费来弥补这些风险可能造成的损失。<br>举例：<br>假定你的算力是20TH/s，矿池算力1EH/s，全网算力20EH/s，按照当天的速度一天可以挖1800个比特币，那么矿池每天就会给你支付1800/20/1000/1000*20=0.0018个比特币，而不论矿池是否能挖到1800/20=90个比特币，都需要支付你这么多</li>
+<li>PPLNS模式：Pay Per Last N Shares<br>根据每个人自己贡献的股份数量占比来分配区块收益，也就是说对于一个区块收益的分配是根据每个人在过去这段时间内的贡献来分配的。这种模式的收益会有滞后性，因为只有当爆块了才会分配收益。所以这种模式你会明显感觉到刚开始加入到矿池时，收益明显比别人少，随着时间的推移，新的块产生，你的收益就和别人的收益持平了。同样，即使你你开矿池，已经产生的收益仍然会结算。<br>举例：<br>A算力10TH/s，参与当前块计算10分钟；B算力5TH/s，参与当前块计算10分钟；C算力5TH/s，参与当前块计算5分钟；那么当前块的收益就是按照10<em>10 : 5</em>10 : 5*5的比例来分配</li>
+<li>PROP模式<br>这个模式和PPLNS类似，PPLNS是区块产生了就分配收益，而PROP是等区块确认后才会分配收益，矿工的收益的滞后性更长，但从长远来看两种模式的收益是一样的。</li>
+<li>RBPPS模式<br>和PPS模式一样，但是排除了死块、孤立块的奖励，需要确认是否是死块。在没有死块的情况下，收益和PPS一样。</li>
+<li>PPS+模式<br>这种模式是PPS+PPLNS的合体，一个块的收益分为系统奖励、交易费，而这种模式就是将两种收益分成PPS、PPLNS两种模式来分配。比如比特币爆块奖励为12.5个比特币，这个块的交易费有0.5个比特币，那么分配方式就是系统奖励的12.5个比特币按照PPS来分配，交易费0.5个比特币按照PPLNS模式分配。</li>
+</ul>
+<h3 id="矿池手续费"><a href="#矿池手续费" class="headerlink" title="矿池手续费"></a>矿池手续费</h3><p>不同的币种，不同的矿池，不同的分配模式手续费都可能不一样。由于不同的分配模式，矿池承担的风险也是不一样的，矿池承担的风险高，手续费也就高。</p>
+<p>以比特币矿池为例：</p>
+<ul>
+<li>PPS：4%或更高</li>
+<li>PPLNS：1%-1.5%</li>
+<li>RPOP：1%左右</li>
+<li>RBPPS：1.5-2.5%</li>
+</ul>
+<h3 id="矿池弊端"><a href="#矿池弊端" class="headerlink" title="矿池弊端"></a>矿池弊端</h3><p>  矿池的存在降低了数字货币的开采难度，实现了人人都可参与收益分配。但弊端也很明显，违背了区块链的初衷。矿池，掌握了大量的算力，而算力就是记账权，算力就是一切，如果单家算力超过51%，对于比特币等币种来说将会是一种灾难。</p>
+<p>最近7天比特币个矿池算力占比<br><img src="http://files.jouypub.com/static/images/1518170996009.jpg" alt="img"></p>
+<h3 id="加入区块链开发学习交流群，添加微信进群：cdong1024"><a href="#加入区块链开发学习交流群，添加微信进群：cdong1024" class="headerlink" title="加入区块链开发学习交流群，添加微信进群：cdong1024"></a>加入区块链开发学习交流群，添加微信进群：cdong1024</h3><p>虫洞社区：<a href="https://www.uzanapp.com/" target="_blank" rel="noopener">https://www.uzanapp.com/</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/08/09/myarticle57/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-05</p>
+    
+    
+        <a class="extend next post-next" href="/2018/06/27/myarticle55/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

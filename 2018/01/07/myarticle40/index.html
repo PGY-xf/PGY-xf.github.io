@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>常用Linux速查手册 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">常用Linux速查手册</h1>
+<article class="post markdown-style">
+  <p>目錄</p>
+<ol>
+<li>系统服务管理</li>
+<li>文件管理</li>
+<li>查看日志</li>
+<li>压缩与解压</li>
+<li>磁盘和网络管理</li>
+<li>防火墙</li>
+<li>ftp操作</li>
+<li>软件的安装与管理</li>
+<li>其他</li>
+</ol>
+<h2 id="系统服务管理"><a href="#系统服务管理" class="headerlink" title="系统服务管理"></a>系统服务管理</h2><h4 id="systemctl"><a href="#systemctl" class="headerlink" title="systemctl"></a>systemctl</h4><p>输出系统中各个服务的状态：</p>
+<blockquote>
+<p>systemctl list-units –type=service</p>
+</blockquote>
+<p>查看服务的运行状态：</p>
+<blockquote>
+<p>systemctl status firewalld</p>
+</blockquote>
+<p>关闭服务：</p>
+<blockquote>
+<p>systemctl stop firewalld</p>
+</blockquote>
+<p>启动服务：</p>
+<blockquote>
+<p>systemctl start firewalld</p>
+</blockquote>
+<p>重新启动服务（不管当前服务是启动还是关闭）：</p>
+<blockquote>
+<p>systemctl restart firewalld</p>
+</blockquote>
+<p>重新载入配置信息而不中断服务：</p>
+<blockquote>
+<p>systemctl reload firewalld</p>
+</blockquote>
+<p>禁止服务开机自启动：</p>
+<blockquote>
+<p>systemctl disable firewalld</p>
+</blockquote>
+<p>设置服务开机自启动：</p>
+<blockquote>
+<p>systemctl enable firewalld</p>
+</blockquote>
+<h2 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h2><p>查找文件<br>（根据名称查找/目录下的filename.txt文件）</p>
+<blockquote>
+<p>find / -name filename.txt</p>
+</blockquote>
+<p>查看文件，包含隐藏文件</p>
+<blockquote>
+<p>ls -al</p>
+</blockquote>
+<p>列出当前目录(/)下的所有文件：<br>ls</p>
+<blockquote>
+<p>ls -l /</p>
+</blockquote>
+<p>获取目前所在工作目录的绝对路径</p>
+<blockquote>
+<p>pwd</p>
+</blockquote>
+<p>改变当前工作目录：cd</p>
+<blockquote>
+<p>cd /usr/local</p>
+</blockquote>
+<p>显示或修改系统时间与日期；date</p>
+<blockquote>
+<p>date ‘+%Y-%m-%d %H:%M:%S’</p>
+</blockquote>
+<p>用于设置用户密码：passwd</p>
+<blockquote>
+<p>passwd root</p>
+</blockquote>
+<p>改变用户身份（切换到超级用户）：su</p>
+<blockquote>
+<p>su -username</p>
+</blockquote>
+<p>用于清除屏幕信息</p>
+<blockquote>
+<p>clear</p>
+</blockquote>
+<p>显示指定命令的帮助信息：man</p>
+<blockquote>
+<p>man ls</p>
+</blockquote>
+<p>查询系统处于什么运行级别：who</p>
+<blockquote>
+<p>who -r</p>
+</blockquote>
+<p>显示目前登录到系统的用户：</p>
+<blockquote>
+<p>who -buT</p>
+</blockquote>
+<p>显示系统内存状态（单位MB）：free</p>
+<blockquote>
+<p>free -m</p>
+</blockquote>
+<p>显示系统进程运行动态：ps</p>
+<blockquote>
+<p>ps -ef</p>
+</blockquote>
+<p>查看sshd进程的运行动态：</p>
+<blockquote>
+<p>ps -ef | grep sshd</p>
+</blockquote>
+<p>查看即时活跃的进程，类似Windows的任务管理器</p>
+<blockquote>
+<p>top</p>
+</blockquote>
+<p>创建目录</p>
+<blockquote>
+<p>mkdir</p>
+</blockquote>
+<p>复制文件包括其子文件到自定目录</p>
+<blockquote>
+<p>cp -r sourceFolder targetFolder</p>
+</blockquote>
+<p>删除目录（此目录是空目录）</p>
+<blockquote>
+<p>rmdir deleteEmptyFolder</p>
+</blockquote>
+<p>删除文件包括其子文件</p>
+<blockquote>
+<p>rm -rf deleteFile</p>
+</blockquote>
+<p>删除文件：rm</p>
+<blockquote>
+<p>rm text.txt</p>
+</blockquote>
+<p>移动文件</p>
+<blockquote>
+<p>mv /temp/movefile /targetFolder</p>
+</blockquote>
+<p>移动或覆盖文件：mv</p>
+<blockquote>
+<p>mv oldNameFile.md newNameFile.md</p>
+</blockquote>
+<p>修改文件权限(file.java的权限-rwxrwxrwx，r表示读、w表示写、x表示可执行)</p>
+<blockquote>
+<p>chmod 777 file.java</p>
+</blockquote>
+<p>用于文件过长时分页查看文件内容:more<br>每页10行查看boot.log文件</p>
+<blockquote>
+<p>more -c -10 /var/log/boot.log</p>
+</blockquote>
+<p>查看Linux启动日志文件文件，并标明行号：cat</p>
+<blockquote>
+<p>cat -Ab /var/log/boot.log</p>
+</blockquote>
+<p>创建text.txt文件：touch</p>
+<blockquote>
+<p>touch text.txt</p>
+</blockquote>
+<p>启动Vi编辑器</p>
+<blockquote>
+<p>vi filename</p>
+</blockquote>
+<p>1)进入编辑模式</p>
+<blockquote>
+<p>shift+i</p>
+</blockquote>
+<p>2)退出编辑模式</p>
+<blockquote>
+<p>esc–&gt;shift+:</p>
+</blockquote>
+<p>3)保存退出</p>
+<blockquote>
+<p>wq</p>
+</blockquote>
+<p>4)强制退出</p>
+<blockquote>
+<p>q</p>
+</blockquote>
+<h2 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h2><p>查看文件头10行</p>
+<blockquote>
+<p>head -n 10 example.txt</p>
+</blockquote>
+<p>查看文件尾10行</p>
+<blockquote>
+<p>tail -n 10 example.txt</p>
+</blockquote>
+<p>查看日志文件(这个命令会自动显示新增内容，屏幕只显示10行内容的（可设置）)</p>
+<blockquote>
+<p>tail -f exmaple.log</p>
+</blockquote>
+<p>在日志中搜索关键字</p>
+<blockquote>
+<p>less server.log</p>
+</blockquote>
+<p>1）如果想从日志第一行开始搜索</p>
+<blockquote>
+<p>less server.log–&gt;/搜索关键字–&gt;n查找下一个–&gt;N查找上一个</p>
+</blockquote>
+<p>2）如果想从日志最后一行开始搜索</p>
+<blockquote>
+<p>less server.log–&gt;shitf+g–&gt;？搜索关键字–&gt;n查找上一个–&gt;N查找下一个</p>
+</blockquote>
+<h2 id="压缩与解压"><a href="#压缩与解压" class="headerlink" title="压缩与解压"></a>压缩与解压</h2><p>解压</p>
+<blockquote>
+<p>unzip FileName.zip<br>压缩：<br>zip -r FileName.zip DirName</p>
+</blockquote>
+<p>将/etc文件夹中的文件归档到文件etc.tar（并不会进行压缩）：tar</p>
+<blockquote>
+<p>tar -cvf /mydata/etc.tar /etc</p>
+</blockquote>
+<p>用gzip压缩文件夹/etc中的文件到文件etc.tar.gz：</p>
+<blockquote>
+<p>tar -zcvf /mydata/etc.tar.gz /etc</p>
+</blockquote>
+<p>用bzip2压缩文件夹/etc到文件/etc.tar.bz2：</p>
+<blockquote>
+<p>tar -jcvf /mydata/etc.tar.bz2 /etc</p>
+</blockquote>
+<p>分页查看压缩包中内容（gzip）：</p>
+<blockquote>
+<p>tar -ztvf /mydata/etc.tar.gz |more -c -10</p>
+</blockquote>
+<p>解压文件到当前目录（gzip）：</p>
+<blockquote>
+<p>tar -zxvf /mydata/etc.tar.gz</p>
+</blockquote>
+<h2 id="磁盘和网络管理"><a href="#磁盘和网络管理" class="headerlink" title="磁盘和网络管理"></a>磁盘和网络管理</h2><p>查看磁盘使用</p>
+<blockquote>
+<p>df -h</p>
+</blockquote>
+<p>查看磁盘使用<br>free</p>
+<p>查看磁盘空间占用情况：</p>
+<blockquote>
+<p>df -hT</p>
+</blockquote>
+<p>dh<br>查看当前目录下的文件及文件夹所占大小：</p>
+<blockquote>
+<p>du -h –max-depth=1 ./*</p>
+</blockquote>
+<p>显示当前网络接口状态</p>
+<blockquote>
+<p>ifconfig</p>
+</blockquote>
+<p>查看当前路由信息：netstat</p>
+<blockquote>
+<p>netstat -rn</p>
+</blockquote>
+<p>查看所有有效TCP连接：</p>
+<blockquote>
+<p>netstat -an</p>
+</blockquote>
+<p>查看系统中启动的监听服务：</p>
+<blockquote>
+<p>netstat -tulnp</p>
+</blockquote>
+<p>查看系统中某个端口监听服务：</p>
+<blockquote>
+<p>netstat -ntlp|grep 8080</p>
+</blockquote>
+<p>查看处于连接状态的系统资源信息：</p>
+<blockquote>
+<p>netstat -atunp</p>
+</blockquote>
+<p>查看是否存在某一个进程</p>
+<blockquote>
+<p>ps -ef|grep java/pid</p>
+</blockquote>
+<p>从网络上下载文件</p>
+<blockquote>
+<p>wget</p>
+</blockquote>
+<h2 id="防火墙"><a href="#防火墙" class="headerlink" title="防火墙"></a>防火墙</h2><p>Linux中有两种防火墙软件，ConterOS7.0以上使用的是firewall，ConterOS7.0以下使用的是iptables，本文将分别介绍两种防火墙软件的使用。</p>
+<h4 id="Firewall"><a href="#Firewall" class="headerlink" title="Firewall"></a>Firewall</h4><p>开启防火墙：</p>
+<blockquote>
+<p>systemctl start firewalld</p>
+</blockquote>
+<p>关闭防火墙：</p>
+<blockquote>
+<p>systemctl stop firewalld</p>
+</blockquote>
+<p>查看防火墙状态：</p>
+<blockquote>
+<p>systemctl status firewalld</p>
+</blockquote>
+<p>设置开机启动：</p>
+<blockquote>
+<p>systemctl enable firewalld</p>
+</blockquote>
+<p>禁用开机启动：</p>
+<blockquote>
+<p>systemctl disable firewalld</p>
+</blockquote>
+<p>重启防火墙：</p>
+<blockquote>
+<p>firewall-cmd –reload</p>
+</blockquote>
+<p>开放端口（修改后需要重启防火墙方可生效）：</p>
+<blockquote>
+<p>firewall-cmd –zone=public –add-port=8080/tcp –permanent</p>
+</blockquote>
+<p>查看开放的端口：</p>
+<blockquote>
+<p>firewall-cmd –list-ports</p>
+</blockquote>
+<p>关闭端口：</p>
+<blockquote>
+<p>firewall-cmd –zone=public –remove-port=8080/tcp –permanent</p>
+</blockquote>
+<h4 id="Iptables"><a href="#Iptables" class="headerlink" title="Iptables"></a>Iptables</h4><p>安装<br>由于CenterOS7.0以上版本并没有预装Iptables,我们需要自行安装。<br>安装前先关闭firewall防火墙</p>
+<p>安装iptables:</p>
+<blockquote>
+<p>yum install iptables</p>
+</blockquote>
+<p>安装iptables-services:</p>
+<blockquote>
+<p>yum install iptables-services</p>
+</blockquote>
+<p>开启防火墙：</p>
+<blockquote>
+<p>systemctl start iptables.service</p>
+</blockquote>
+<p>关闭防火墙：</p>
+<blockquote>
+<p>systemctl stop iptables.service</p>
+</blockquote>
+<p>查看防火墙状态：</p>
+<blockquote>
+<p>systemctl status iptables.service</p>
+</blockquote>
+<p>设置开机启动：</p>
+<blockquote>
+<p>systemctl enable iptables.service</p>
+</blockquote>
+<p>禁用开机启动：</p>
+<blockquote>
+<p>systemctl disable iptables.service</p>
+</blockquote>
+<p>查看filter表的几条链规则(INPUT链可以看出开放了哪些端口)：</p>
+<blockquote>
+<p>iptables -L -n</p>
+</blockquote>
+<p>查看NAT表的链规则：</p>
+<blockquote>
+<p>iptables -t nat -L -n</p>
+</blockquote>
+<p>清除防火墙所有规则：</p>
+<blockquote>
+<p>iptables -F<br>iptables -X<br>iptables -Z</p>
+</blockquote>
+<p>给INPUT链添加规则（开放8080端口）：</p>
+<blockquote>
+<p>iptables -I INPUT -p tcp –dport 8080 -j ACCEPT</p>
+</blockquote>
+<p>查找规则所在行号：</p>
+<blockquote>
+<p>iptables -L INPUT –line-numbers -n</p>
+</blockquote>
+<p>根据行号删除过滤规则（关闭8080端口）：</p>
+<blockquote>
+<p>iptables -D INPUT 1</p>
+</blockquote>
+<h2 id="ftp操作"><a href="#ftp操作" class="headerlink" title="ftp操作"></a>ftp操作</h2><blockquote>
+<p>ftp ip<br>输入密码密码；<br>bin将文件转换成二进制<br>get 获取文件名</p>
+</blockquote>
+<h2 id="软件的安装与管理"><a href="#软件的安装与管理" class="headerlink" title="软件的安装与管理"></a>软件的安装与管理</h2><h4 id="rpm"><a href="#rpm" class="headerlink" title="rpm"></a>rpm</h4><p>安装软件包：</p>
+<blockquote>
+<p>rpm -ivh nginx-1.12.2-2.el7.x86_64.rpm</p>
+</blockquote>
+<p>模糊搜索软件包：</p>
+<blockquote>
+<p>rpm -qa | grep nginx</p>
+</blockquote>
+<p>精确查找软件包：</p>
+<blockquote>
+<p>rpm -qa nginx</p>
+</blockquote>
+<p>查询软件包的安装路径：</p>
+<blockquote>
+<p>rpm -ql nginx-1.12.2-2.el7.x86_64</p>
+</blockquote>
+<p>查看软件包的概要信息：</p>
+<blockquote>
+<p>rpm -qi nginx-1.12.2-2.el7.x86_64</p>
+</blockquote>
+<p>验证软件包内容和安装文件是否一致：</p>
+<blockquote>
+<p>rpm -V nginx-1.12.2-2.el7.x86_64</p>
+</blockquote>
+<p>更新软件包：</p>
+<blockquote>
+<p>rpm -Uvh nginx-1.12.2-2.el7.x86_64</p>
+</blockquote>
+<p>删除软件包：</p>
+<blockquote>
+<p>rpm -e nginx-1.12.2-2.el7.x86_64</p>
+</blockquote>
+<h4 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h4><p>安装软件包：</p>
+<blockquote>
+<p>yum install nginx</p>
+</blockquote>
+<p>检查可以更新的软件包：</p>
+<blockquote>
+<p>yum check-update</p>
+</blockquote>
+<p>更新指定的软件包：</p>
+<blockquote>
+<p>yum update nginx</p>
+</blockquote>
+<p>在资源库中查找软件包信息：</p>
+<blockquote>
+<p>yum info nginx*</p>
+</blockquote>
+<p>列出已经安装的所有软件包：</p>
+<blockquote>
+<p>yum info installed</p>
+</blockquote>
+<p>列出软件包名称：</p>
+<blockquote>
+<p>yum list nginx*</p>
+</blockquote>
+<p>模糊搜索软件包：</p>
+<blockquote>
+<p>yum search nginx</p>
+</blockquote>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>终止线程（终止线程号位19979的线程）</p>
+<blockquote>
+<p>kill -9 19979</p>
+</blockquote>
+<p>查看线程个数（方便查看程序是否有误）</p>
+<blockquote>
+<p>ps -Lf 端口号|wc -l</p>
+</blockquote>
+<p>查看网络的连通性</p>
+<blockquote>
+<p>ping ip</p>
+</blockquote>
+<p>查看ip端口的连通性检测（防火墙的连通性）</p>
+<blockquote>
+<p>telnet ip 端口–&gt;退出模式 shift+]–&gt;quit</p>
+</blockquote>
+<p>查看本地的ip</p>
+<blockquote>
+<p>ifconfig</p>
+</blockquote>
+<p>查看调度器</p>
+<blockquote>
+<p>crontab -l</p>
+</blockquote>
+<p>编辑调度器</p>
+<blockquote>
+<p>crontab -e</p>
+</blockquote>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/02/14/myarticle41/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2018/01/04/myarticle39/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>python之文件操作 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">python之文件操作</h1>
+<article class="post markdown-style">
+  <p>1.内置函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br></pre></td><td class="code"><pre><span class="line">  1 #!/usr/bin/env python</span><br><span class="line">  2 # -*- coding:utf-8 -*-</span><br><span class="line">  3 # print(abs(-1))</span><br><span class="line">  4 # print(abs(1))</span><br><span class="line">  5 #</span><br><span class="line">  6 # print(all([1,2,&apos;1&apos;]))</span><br><span class="line">  7 # print(all([1,2,&apos;1&apos;,&apos;&apos;]))</span><br><span class="line">  8 # print(all(&apos;&apos;))</span><br><span class="line">  9 </span><br><span class="line"> 10 # print(any([0,&apos;&apos;]))</span><br><span class="line"> 11 # print(any([0,&apos;&apos;,1]))</span><br><span class="line"> 12 </span><br><span class="line"> 13 </span><br><span class="line"> 14 # print(bin(3))</span><br><span class="line"> 15 </span><br><span class="line"> 16 #空，None，0的布尔值为False，其余都为True</span><br><span class="line"> 17 # print(bool(&apos;&apos;))</span><br><span class="line"> 18 # print(bool(None))</span><br><span class="line"> 19 # print(bool(0))</span><br><span class="line"> 20 </span><br><span class="line"> 21 name=&apos;你好&apos;</span><br><span class="line"> 22 # print(bytes(name,encoding=&apos;utf-8&apos;))</span><br><span class="line"> 23 # print(bytes(name,encoding=&apos;utf-8&apos;).decode(&apos;utf-8&apos;))</span><br><span class="line"> 24 #</span><br><span class="line"> 25 # print(bytes(name,encoding=&apos;gbk&apos;))</span><br><span class="line"> 26 # print(bytes(name,encoding=&apos;gbk&apos;).decode(&apos;gbk&apos;))</span><br><span class="line"> 27 #</span><br><span class="line"> 28 # print(bytes(name,encoding=&apos;ascii&apos;))#ascii不能编码中文</span><br><span class="line"> 29 </span><br><span class="line"> 30 # print(chr(46))</span><br><span class="line"> 31 </span><br><span class="line"> 32 # print(dir(dict))</span><br><span class="line"> 33 #</span><br><span class="line"> 34 # print(divmod(10,3))</span><br><span class="line"> 35 </span><br><span class="line"> 36 # dic=&#123;&apos;name&apos;:&apos;alex&apos;&#125;</span><br><span class="line"> 37 # dic_str=str(dic)</span><br><span class="line"> 38 # print(dic_str)</span><br><span class="line"> 39 </span><br><span class="line"> 40 #可hash的数据类型即不可变数据类型，不可hash的数据类型即可变数据类型</span><br><span class="line"> 41 # print(hash(&apos;12sdfdsaf3123123sdfasdfasdfasdfasdfasdfasdfasdfasfasfdasdf&apos;))</span><br><span class="line"> 42 # print(hash(&apos;12sdfdsaf31231asdfasdfsadfsadfasdfasdf23&apos;))</span><br><span class="line"> 43 #</span><br><span class="line"> 44 # name=&apos;alex&apos;</span><br><span class="line"> 45 # print(hash(name))</span><br><span class="line"> 46 # print(hash(name))</span><br><span class="line"> 47 #</span><br><span class="line"> 48 #</span><br><span class="line"> 49 # print(&apos;---&gt;before&apos;,hash(name))</span><br><span class="line"> 50 # name=&apos;sb&apos;</span><br><span class="line"> 51 # print(&apos;=-=&gt;after&apos;,hash(name))</span><br><span class="line"> 52 </span><br><span class="line"> 53 </span><br><span class="line"> 54 # print(help(all))</span><br><span class="line"> 55 </span><br><span class="line"> 56 # print(bin(10))#10进制-&gt;2进制</span><br><span class="line"> 57 # print(hex(12))#10进制-&gt;16进制</span><br><span class="line"> 58 # print(oct(12))#10进制-&gt;8进制</span><br><span class="line"> 59 </span><br><span class="line"> 60 </span><br><span class="line"> 61 </span><br><span class="line"> 62 # print(isinstance(1,int))</span><br><span class="line"> 63 # print(isinstance(&apos;abc&apos;,str))</span><br><span class="line"> 64 # print(isinstance([],list))</span><br><span class="line"> 65 # print(isinstance(&#123;&#125;,dict))</span><br><span class="line"> 66 # print(isinstance(&#123;1,2&#125;,set))</span><br><span class="line"> 67 </span><br><span class="line"> 68 name=&apos;哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈粥少陈&apos;</span><br><span class="line"> 69 # print(globals())</span><br><span class="line"> 70 # print(__file__)</span><br><span class="line"> 71 #</span><br><span class="line"> 72 # def test():</span><br><span class="line"> 73 #     age=&apos;1111111111111111111111111111111111111111111111111111111111111&apos;</span><br><span class="line"> 74 #     print(globals())</span><br><span class="line"> 75 #     print(locals())</span><br><span class="line"> 76 #</span><br><span class="line"> 77 # test()</span><br><span class="line"> 78 </span><br><span class="line"> 79 # l=[1,3,100,-1,2]</span><br><span class="line"> 80 # print(max(l))</span><br><span class="line"> 81 # print(min(l))</span><br><span class="line"> 82 #</span><br><span class="line"> 83 #</span><br><span class="line"> 84 # print(list(zip((&apos;a&apos;,&apos;n&apos;,&apos;c&apos;),(1,2,3))))</span><br><span class="line"> 85 # print(list(zip((&apos;a&apos;,&apos;n&apos;,&apos;c&apos;),(1,2,3,4))))</span><br><span class="line"> 86 # print(list(zip((&apos;a&apos;,&apos;n&apos;,&apos;c&apos;,&apos;d&apos;),(1,2,3))))</span><br><span class="line"> 87 #</span><br><span class="line"> 88 p=&#123;&apos;name&apos;:&apos;alex&apos;,&apos;age&apos;:18,&apos;gender&apos;:&apos;none&apos;&#125;</span><br><span class="line"> 89 # print(list(zip(p.keys(),p.values())))</span><br><span class="line"> 90 # print(list(p.keys()))</span><br><span class="line"> 91 # print(list(p.values()))</span><br><span class="line"> 92 #</span><br><span class="line"> 93 # print(list(zip([&apos;a&apos;,&apos;b&apos;],&apos;12345&apos;)))</span><br><span class="line"> 94 </span><br><span class="line"> 95 </span><br><span class="line"> 96 # l=[1,3,100,-1,2]</span><br><span class="line"> 97 # print(max(l))</span><br><span class="line"> 98 # print(min(l))</span><br><span class="line"> 99 </span><br><span class="line">100 </span><br><span class="line">101 age_dic=&#123;&apos;alex_age&apos;:18,&apos;wupei_age&apos;:20,&apos;zsc_age&apos;:100,&apos;lhf_age&apos;:30&#125;</span><br><span class="line">102 </span><br><span class="line">103 # print(max(age_dic.values()))</span><br><span class="line">104 #</span><br><span class="line">105 # #默认比较的是字典的key</span><br><span class="line">106 # print(max(age_dic))</span><br><span class="line">107 #</span><br><span class="line">108 # for item in zip(age_dic.values(),age_dic.keys()): #[(18,&apos;alex_age&apos;)  (20,&apos;wupeiqi_age&apos;) () () ()]</span><br><span class="line">109 #     print(item)</span><br><span class="line">110 #</span><br><span class="line">111 # print(&apos;=======&gt;&apos;,list(max(zip(age_dic.values(),age_dic.keys()))))</span><br><span class="line">112 </span><br><span class="line">113 # l=[</span><br><span class="line">114 #     (5,&apos;e&apos;),</span><br><span class="line">115 #     (1,&apos;b&apos;),</span><br><span class="line">116 #     (3,&apos;a&apos;),</span><br><span class="line">117 #     (4,&apos;d&apos;),</span><br><span class="line">118 # ]</span><br><span class="line">119 # l1=[&apos;a10&apos;,&apos;b12&apos;,&apos;c10&apos;,100] #不同类型之间不能进行比较</span><br><span class="line">120 l1=[&apos;a10&apos;,&apos;a2&apos;,&apos;a10&apos;] #不同类型之间不能进行比较</span><br><span class="line">121 # print(list(max(l1)))</span><br><span class="line">122 # print(&apos;---&gt;&apos;,list(max(l1)))</span><br><span class="line">123 </span><br><span class="line">124 </span><br><span class="line">125 </span><br><span class="line">126 # l=[1,3,100,-1,2]</span><br><span class="line">127 # print(max(l))</span><br><span class="line">128 dic=&#123;&apos;age1&apos;:18,&apos;age2&apos;:10&#125;</span><br><span class="line">129 # print(max(dic)) #比较的是key</span><br><span class="line">130 # print(max(dic.values())) #比较的是key，但是不知道是那个key对应的</span><br><span class="line">131 </span><br><span class="line">132 # print(max(zip(dic.values(),dic.keys()))) #结合zip使用</span><br><span class="line">133 #</span><br><span class="line">134 #</span><br><span class="line">135 people=[</span><br><span class="line">136     &#123;&apos;name&apos;:&apos;alex&apos;,&apos;age&apos;:1000&#125;,</span><br><span class="line">137     &#123;&apos;name&apos;:&apos;wupei&apos;,&apos;age&apos;:10000&#125;,</span><br><span class="line">138     &#123;&apos;name&apos;:&apos;yuanhao&apos;,&apos;age&apos;:9000&#125;,</span><br><span class="line">139     &#123;&apos;name&apos;:&apos;linhaifeng&apos;,&apos;age&apos;:18&#125;,</span><br><span class="line">140 ]</span><br><span class="line">141 # max(people,key=lambda dic:dic[&apos;age&apos;])</span><br><span class="line">142 # print(&apos;周绍陈取出来没有&apos;,max(people,key=lambda dic:dic[&apos;age&apos;]))</span><br><span class="line">143 </span><br><span class="line">144 # ret=[]</span><br><span class="line">145 # for item in people:</span><br><span class="line">146 #     ret.append(item[&apos;age&apos;])</span><br><span class="line">147 # print(ret)</span><br><span class="line">148 # max(ret)</span><br><span class="line">149 </span><br><span class="line">150 </span><br><span class="line">151 # print(chr(97))</span><br><span class="line">152 # print(ord(&apos;a&apos;))</span><br><span class="line">153 </span><br><span class="line">154 # print(pow(3,3))  #3**3</span><br><span class="line">155 # print(pow(3,3,2))  #3**3%2</span><br><span class="line">156 </span><br><span class="line">157 </span><br><span class="line">158 </span><br><span class="line">159 # l=[1,2,3,4]</span><br><span class="line">160 # print(list(reversed(l)))</span><br><span class="line">161 # print(l)</span><br><span class="line">162 </span><br><span class="line">163 #</span><br><span class="line">164 # print(round(3.5))</span><br><span class="line">165 </span><br><span class="line">166 # print(set(&apos;hello&apos;))</span><br><span class="line">167 </span><br><span class="line">168 # l=&apos;hello&apos;</span><br><span class="line">169 # s1=slice(3,5)</span><br><span class="line">170 # s2=slice(1,4,2)</span><br><span class="line">171 # print(l[3:5])</span><br><span class="line">172 # print(l[s1])</span><br><span class="line">173 # print(l[s2])</span><br><span class="line">174 # print(s2.start)</span><br><span class="line">175 # print(s2.stop)</span><br><span class="line">176 # print(s2.step)</span><br><span class="line">177 </span><br><span class="line">178 </span><br><span class="line">179 </span><br><span class="line">180 l=[3,2,1,5,7]</span><br><span class="line">181 l1=[3,2,&apos;a&apos;,1,5,7]</span><br><span class="line">182 # print(sorted(l))</span><br><span class="line">183 # print(sorted(l1)) #排序本质就是在比较大小，不同类型之间不可以比较大小</span><br><span class="line">184 # people=[</span><br><span class="line">185 #     &#123;&apos;name&apos;:&apos;alex&apos;,&apos;age&apos;:1000&#125;,</span><br><span class="line">186 #     &#123;&apos;name&apos;:&apos;wupei&apos;,&apos;age&apos;:10000&#125;,</span><br><span class="line">187 #     &#123;&apos;name&apos;:&apos;yuanhao&apos;,&apos;age&apos;:9000&#125;,</span><br><span class="line">188 #     &#123;&apos;name&apos;:&apos;linhaifeng&apos;,&apos;age&apos;:18&#125;,</span><br><span class="line">189 # ]</span><br><span class="line">190 # print(sorted(people,key=lambda dic:dic[&apos;age&apos;]))</span><br><span class="line">191 name_dic=&#123;</span><br><span class="line">192     &apos;abyuanhao&apos;: 11900,</span><br><span class="line">193     &apos;alex&apos;:1200,</span><br><span class="line">194     &apos;wupei&apos;:300,</span><br><span class="line">195 &#125;</span><br><span class="line">196 print(sorted(name_dic))</span><br><span class="line">197 #</span><br><span class="line">198 # print(sorted(name_dic,key=lambda key:name_dic[key]))</span><br><span class="line">199 #</span><br><span class="line">200 # print(sorted(zip(name_dic.values(),name_dic.keys())))</span><br><span class="line">201 </span><br><span class="line">202 # print(str(&apos;1&apos;))</span><br><span class="line">203 # print(type(str(&#123;&apos;a&apos;:1&#125;)))</span><br><span class="line">204 # dic_str=str(&#123;&apos;a&apos;:1&#125;)</span><br><span class="line">205 # print(type(eval(dic_str)))</span><br><span class="line">206 </span><br><span class="line">207 # l=[1,2,3,4]</span><br><span class="line">208 # print(sum(l))</span><br><span class="line">209 # print(sum(range(5)))</span><br><span class="line">210 #</span><br><span class="line">211 #</span><br><span class="line">212 # print(type(1))</span><br><span class="line">213 #</span><br><span class="line">214 # msg=&apos;123&apos;</span><br><span class="line">215 #</span><br><span class="line">216 # if type(msg) is str:</span><br><span class="line">217 #     msg=int(msg)</span><br><span class="line">218 #     res=msg+1</span><br><span class="line">219 #     print(res)</span><br><span class="line">220 </span><br><span class="line">221 # def test():</span><br><span class="line">222 #     msg=&apos;撒旦法阿萨德防撒旦浪费艾丝凡阿斯蒂芬&apos;</span><br><span class="line">223 #     print(locals())</span><br><span class="line">224 #     print(vars())</span><br><span class="line">225 # test()</span><br><span class="line">226 # print(vars(int))</span><br><span class="line">227 </span><br><span class="line">228 #import------&gt;sys-----&gt;__import__()</span><br><span class="line">229 # import test</span><br><span class="line">230 # test.say_hi()</span><br><span class="line">231 </span><br><span class="line">232 # import &apos;test&apos;#报错</span><br><span class="line">233 module_name=&apos;test&apos;</span><br><span class="line">234 m=__import__(module_name)</span><br><span class="line">235 m.say_hi()</span><br></pre></td></tr></table></figure>
+
+<p> 2.文件处理读操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> 1 #!/usr/bin/env python</span><br><span class="line"> 2 # -*- coding:utf-8 -*-</span><br><span class="line"> 3 # f=open(&apos;陈粒&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line"> 4 # data=f.read()</span><br><span class="line"> 5 # print(data)</span><br><span class="line"> 6 # f.close()</span><br><span class="line"> 7 #</span><br><span class="line"> 8 # f=open(&apos;xxx&apos;)</span><br><span class="line"> 9 # data=f.read()</span><br><span class="line">10 # print(data)</span><br><span class="line">11 </span><br><span class="line">12 #r w a</span><br><span class="line">13 f=open(&apos;陈粒&apos;,&apos;r&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">14 # data=f.read()</span><br><span class="line">15 # print(data)</span><br><span class="line">16 # print(f.readable())</span><br><span class="line">17 # print(&apos;第1行&apos;,f.readline(),end=&apos;&apos;)</span><br><span class="line">18 # print(&apos;第2行&apos;,f.readline())</span><br><span class="line">19 # print(&apos;第3行&apos;,f.readline())</span><br><span class="line">20 # # for i in range(1):</span><br><span class="line">21 # #     pass</span><br><span class="line">22 # print(&apos;第4行&apos;,f.readline())</span><br><span class="line">23 # print(&apos;第5行&apos;,f.readline())</span><br><span class="line">24 # print(&apos;第6行&apos;,f.readline())</span><br><span class="line">25 # print(&apos;第7行&apos;,f.readline())</span><br><span class="line">26 </span><br><span class="line">27 data=f.readlines()</span><br><span class="line">28 print(data)</span><br><span class="line">29 f.close()</span><br></pre></td></tr></table></figure>
+
+<p>3.文件处理写操作 不追加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 1 #!/usr/bin/env python</span><br><span class="line"> 2 # -*- coding:utf-8 -*-</span><br><span class="line"> 3 f=open(&apos;陈粒&apos;,&apos;w&apos;,encoding=&apos;utf8&apos;)</span><br><span class="line"> 4 # f.read()</span><br><span class="line"> 5 f.write(&apos;11111111\n&apos;)</span><br><span class="line"> 6 f.write(&apos;222222222\n&apos;)</span><br><span class="line"> 7 f.write(&apos;333\n4444\n555\n&apos;)</span><br><span class="line"> 8 # f.writable()</span><br><span class="line"> 9 # f.writelines([&apos;555\n&apos;,&apos;6666\n&apos;])</span><br><span class="line">10 # f.writelines([&apos;555\n&apos;,&apos;6666\n&apos;,1]) # 文件内容只能是字符串，只能写字符串</span><br><span class="line">11 f.close()</span><br></pre></td></tr></table></figure>
+
+<p>4.文件处理写操作 追加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 #!/usr/bin/env python</span><br><span class="line">2 # -*- coding:utf-8 -*-</span><br><span class="line">3 f=open(&apos;陈粒&apos;,&apos;a&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">4 f.write(&apos;写到文件最后&apos;)</span><br></pre></td></tr></table></figure>
+
+<p>5.文件处理其他模式</p>
+<p><a href="javascript:void(0);" target="_blank" rel="noopener">![复制代码](https://common.cnblogs.com/images/copycode.gif</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"> 1 #!/usr/bin/env python</span><br><span class="line"> 2 # -*- coding:utf-8 -*-</span><br><span class="line"> 3 # f=open(&apos;陈粒&apos;,&apos;r+&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line"> 4 # data=f.read()</span><br><span class="line"> 5 # print(data)</span><br><span class="line"> 6 # f.write(&apos;123sb&apos;)</span><br><span class="line"> 7 #</span><br><span class="line"> 8 #</span><br><span class="line"> 9 #</span><br><span class="line">10 # f.write(&apos;sb&apos;)</span><br><span class="line">11 </span><br><span class="line">12 </span><br><span class="line">13 #文件修改</span><br><span class="line">14 # src_f=open(&apos;陈粒&apos;,&apos;r&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">15 # data=src_f.readlines()</span><br><span class="line">16 # src_f.close()</span><br><span class="line">17 # #</span><br><span class="line">18 # for i in data:</span><br><span class="line">19 #     print(i)</span><br><span class="line">20 # print(data)</span><br><span class="line">21 # dst_f=open(&apos;陈粒&apos;,&apos;w&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">22 # data=dst_f.readlines()</span><br><span class="line">23 # dst_f.writelines(data)</span><br><span class="line">24 # dst_f.write(data[0])</span><br><span class="line">25 # dst_f.close()</span><br><span class="line">26 </span><br><span class="line">27 # with open(&apos;陈粒.txt&apos;,&apos;w&apos;) as f:</span><br><span class="line">28 #     f.write(&apos;1111\n&apos;)</span><br><span class="line">29 </span><br><span class="line">30 </span><br><span class="line">31 # src_f=open(&apos;陈粒.txt&apos;,&apos;r&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">32 # dst_f=open(&apos;混吧&apos;,&apos;w&apos;,encoding=&apos;utf-8&apos;)</span><br><span class="line">33 # with open(&apos;陈粒.txt&apos;,&apos;r&apos;,encoding=&apos;utf-8&apos;) as src_f,\</span><br><span class="line">34 #         open(&apos;混吧&apos;,&apos;w&apos;,encoding=&apos;utf-8&apos;) as dst_f:</span><br><span class="line">35 #     data=src_f.read()</span><br><span class="line">36 #     dst_f.write(data)</span><br><span class="line">37 </span><br><span class="line">38 # f=open(&apos;陈粒.txt&apos;)</span><br><span class="line">39 # print(f.encoding) #查看文件编码</span><br></pre></td></tr></table></figure>
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/01/07/myarticle40/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2018/01/02/myarticle38/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

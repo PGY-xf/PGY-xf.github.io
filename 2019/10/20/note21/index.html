@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Python 3.8 正式发布，新特性全面解读 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Python 3.8 正式发布，新特性全面解读</h1>
+<article class="post markdown-style">
+  <p>我是PythonGao。 本文详细介绍 Python 3.8中的新功能，以及和与3.7相比。</p>
+<p><img src="//upload-images.jianshu.io/upload_images/14510093-7085403387f8f529?imageMogr2/auto-orient/strip%7CimageView2/2/w/500/format/webp" alt="img"></p>
+<p>image</p>
+<p>预览用户应该知道此文档在官方目前处于更新模式形式。随着Python 3.8向发布方向发展，它将会大幅更新，因此即使在阅读早期版本之后也值得检查。</p>
+<h2 id="新功能"><a href="#新功能" class="headerlink" title="新功能"></a>新功能</h2><p>编译的字节码文件的并行文件系统缓存<br> 新的 <code>PYTHONPYCACHEPREFIX设置</code>（也可用 ）将隐式字节码缓存配置为使用单独的并行文件系统树，而不是每个源目录中的默认子目录。<code>-X pycache_prefix__pycache__</code></p>
+<p>报告缓存的位置<code>sys.pycache_prefix</code>（None表示<strong>pycache</strong>子目录中的默认位置）。</p>
+<h2 id="其他语言变更"><a href="#其他语言变更" class="headerlink" title="其他语言变更"></a>其他语言变更</h2><p>一个<code>continue</code>说法是非法<code>finally</code>条款因与实施问题。在Python 3.8中，这一限制被取消了。</p>
+<p>该int类型现在具有<code>as_integer_ratio()</code>与现有<code>float.as_integer_ratio()</code>方法兼容的新方法.</p>
+<p>增加了对<code>\N{name}</code>的支持。</p>
+<p><code>Dict</code>和<code>dictviews</code>现在可以使用反向插入顺序进行迭代 <code>reversed()</code>。</p>
+<p>函数调用中允许关键字名称的语法进一步受到限制。特别是，f((keyword)=arg)不再允许。它从来没有打算在关键字参数赋值术语的左侧允许多于一个裸名称。见bpo-34641。</p>
+<p>现在允许Iterable解包，而不使用括号yield 和return语句。（由David Cuthbert和Jordan Chapman在bpo-32117中提供。）</p>
+<p>不是有效转义序列的反斜杠字符对DeprecationWarning从Python 3.6开始生成。在Python 3.8中它生成了一个SyntaxWarning代替。（由Serhiy Storchaka供稿于bpo-32912。）</p>
+<p>SyntaxWarning在某些情况下，编译器会在元组或列表之前错过逗号时生成。例如：</p>
+<pre style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: inherit; font-size: inherit; line-height: inherit;">
+
+1data = [
+ 2    (1, 2, 3) # oops, missing comma!
+ 3    (4, 5, 6)
+ 4]
+
+</pre>
+
+<p>子类之间的算术运算<code>datetime.date</code>或 <code>datetime.datetime</code>与<code>datetime.timedelta</code>对象现在返回子类的实例，而不是基类。这也会影响其实现（直接或间接）使用<code>datetime.timedelta</code>算术的操作的返回类型，例如 <code>datetime.datetime.astimezone()</code>。</p>
+<p>当Python解释器被Ctrl-C（SIGINT）中断并且KeyboardInterrupt未捕获到的结果异常时，Python进程现在通过SIGINT信号或正确的退出代码退出，以便调用进程可以检测到它因Ctrl而死亡-C。POSIX和Windows上的shell使用它来正确终止交互式会话中的脚本。</p>
+<p>。</p>
+<h2 id="改进的模块"><a href="#改进的模块" class="headerlink" title="改进的模块"></a>改进的模块</h2><p>现在的_asdict()方法<code>collections.namedtuple()</code>返回一个dict而不是一个<code>collections.OrderedDict</code>。这是有效的，因为自Python 3.7以来，常规dicts已经保证了排序。如果需要额外的功能OrderedDict，建议的补救措施是将结果转换为所需的类型：OrderedDict(nt._asdict())。<br> 该<code>unicodedata</code>模块已升级为使用Unicode 12.0.0 版本。</p>
+<h2 id="ASYNCIO"><a href="#ASYNCIO" class="headerlink" title="ASYNCIO"></a>ASYNCIO</h2><p>在Windows上，现在是默认的事件循环ProactorEventLoop。</p>
+<h2 id="gettext"><a href="#gettext" class="headerlink" title="gettext"></a>gettext</h2><p>添加<code>pgettext()</code>及其变体。</p>
+<h2 id="检查"><a href="#检查" class="headerlink" title="检查"></a>检查</h2><p>如果该属性是值为<code>docstrings</code>的位置，该<code>inspect.getdoc()</code>函数现在可以找到文档字符串。这提供了类似于我们已经有文件的选项，以及：<code>__slots__dictproperty()classmethod()staticmethod()</code></p>
+<pre style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: inherit; font-size: inherit; line-height: inherit;">
+
+1class AudioClip:
+ 2    **slots** = {'bit_rate': 'expressed in kilohertz to one decimal place',
+ 3                 'duration': 'in seconds, rounded up to an integer'}
+ 4    def **init**(self, bit_rate, duration):
+ 5        self.bit_rate = round(bit_rate / 1000.0, 1)
+ 6        self.duration = ceil(duration)
+
+</pre>
+
+<h2 id="GC"><a href="#GC" class="headerlink" title="GC"></a>GC</h2><p>get_objects()现在可以接收一个可选的生成参数，指示从中获取对象的生成。由Pablo Galindo 提供的 bpo-36016。</p>
+<h2 id="gzip"><a href="#gzip" class="headerlink" title="gzip"></a>gzip</h2><p>添加了mtime参数以gzip.compress()获得可重现的输出。（由Guo Ci Teo在bpo-34898供稿。）</p>
+<h2 id="idlelib和IDLE"><a href="#idlelib和IDLE" class="headerlink" title="idlelib和IDLE"></a>idlelib和IDLE</h2><p>超过N行的输出（默认为50）被压缩到一个按钮。可以在“设置”对话框的“常规”页面的PyShell部分中更改N. 右键单击输出可以挤压更少但可能超长的线条。通过双击按钮或通过右键单击按钮进入剪贴板或单独的窗口，可以扩展压缩输出。（由Tal Einat在bpo-1529353供稿。）</p>
+<p>上述更改已被移植到3.7维护版本。</p>
+<h2 id="json-tool"><a href="#json-tool" class="headerlink" title="json.tool"></a>json.tool</h2><p>添加选项–json-lines以将每个输入行解析为单独的JSON对象。（由Weipeng Hong在bpo-31553供稿。）</p>
+<h2 id="计算"><a href="#计算" class="headerlink" title="计算"></a>计算</h2><p>增加<code>math.dist()</code>了计算两点之间欧氏距离的新函数。<br> 扩展了<code>math.hypot()</code>处理多个维度的功能。以前，它只支持2-D案例。</p>
+<p>添加了新函数，<code>math.prod()</code>作为类似函数sum() 返回<code>“start”</code>值（默认值：1）乘以可迭代数字的乘积。</p>
+<h2 id="os-path"><a href="#os-path" class="headerlink" title="os.path"></a>os.path</h2><p><code>os.path</code>返回一个布尔值结果类似功能<code>exists()</code>，<code>lexists()</code>，<code>isdir()</code>， <code>isfile()</code>，<code>islink()</code>，和<code>ismount()</code>现在回到False代替升高<code>ValueError</code>或它的子类 <code>UnicodeEncodeError</code>，并<code>UnicodeDecodeError</code>为包含字符或字节在OS级不可表示的路径。</p>
+<p><code>expanduser()</code>在Windows上现在更喜欢 USERPROFILE 环境变量，不使用 HOME，通常不为常规用户帐户设置。</p>
+<h2 id="ncurses"><a href="#ncurses" class="headerlink" title="ncurses"></a>ncurses</h2><p>添加了一个新变量，其中包含底层<code>ncurses</code>库的结构化版本信息：ncurses_version。</p>
+<h2 id="pathlib"><a href="#pathlib" class="headerlink" title="pathlib"></a>pathlib</h2><p>pathlib.Path返回布尔结果类似方法 exists()，is_dir()， is_file()，is_mount()， is_symlink()，is_block_device()， is_char_device()，is_fifo()， is_socket()现在回到False而不是提高 ValueError或它的子类UnicodeEncodeError的包含字符的不可表示在操作系统级别路径。（由Serhiy Storchaka供稿于bpo-33721。）</p>
+<h2 id="shutil"><a href="#shutil" class="headerlink" title="shutil"></a>shutil</h2><p><code>shutil.copytree()</code>现在接受一个新的<code>dirs_exist_ok</code>关键字参数。</p>
+<h2 id="SSL"><a href="#SSL" class="headerlink" title="SSL"></a>SSL</h2><p>添加<code>SSLContext.post_handshake_auth</code>以启用和 <code>ssl.SSLSocket.verify_client_post_handshake()</code>启动TLS 1.3握手后身份验证。</p>
+<h2 id="统计"><a href="#统计" class="headerlink" title="统计"></a>统计</h2><p>添加<code>statistics.fmean()</code>为更快的浮点变体<code>statistics.mean()</code>。</p>
+<p>添加<code>statistics.multimode()</code>了返回最常见值的列表。</p>
+<p>添加<code>statistics.NormalDist</code>了一个用于创建和操作随机变量的正态分布的工具.</p>
+<pre style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: inherit; font-size: inherit; line-height: inherit;">
+
+1>>>
+ 2>>> temperature_feb = NormalDist.from_samples([4, 12, -3, 2, 7, 14])
+ 3>>> temperature_feb
+ 4NormalDist(mu=6.0, sigma=6.356099432828281)
+ 5
+ 6>>> temperature_feb.cdf(3)            # Chance of being under 3 degrees
+ 70.3184678262814532
+ 8>>> # Relative chance of being 7 degrees versus 10 degrees
+ 9>>> temperature_feb.pdf(7) / temperature_feb.pdf(10)
+ 101.2039930378537762
+ 11
+ 12>>> el_nino = NormalDist(4, 2.5)
+ 13>>> temperature_feb += el_nino        # Add in a climate effect
+ 14>>> temperature_feb
+ 15NormalDist(mu=10.0, sigma=6.830080526611674)
+ 16
+ 17>>> temperature_feb * (9/5) + 32      # Convert to Fahrenheit
+ 18NormalDist(mu=50.0, sigma=12.294144947901014)
+ 19>>> temperature_feb.samples(3)        # Generate random samples
+ 20[7.672102882379219, 12.000027119750287, 4.647488369766392]
+
+</pre>
+
+<h2 id="tar文件"><a href="#tar文件" class="headerlink" title="tar文件"></a>tar文件</h2><p>该tarfile模块现在默认为新档案的现代pax（POSIX.1-2001）格式，而不是之前的GNU特定格式。这通过标准化和可扩展格式的一致编码（UTF-8）提高了跨平台的可移植性，并提供了其他一些好处。</p>
+<h2 id="令牌化"><a href="#令牌化" class="headerlink" title="令牌化"></a>令牌化</h2><p>当提供没有尾随新行的输入时，tokenize模块现在隐式地发出NEWLINE令牌。此行为现在与C tokenizer在内部执行的操作相匹配。</p>
+<h2 id="Tkinter"><a href="#Tkinter" class="headerlink" title="Tkinter"></a>Tkinter</h2><p>添加的方法selection_from()， selection_present()， selection_range()和 selection_to() 在tkinter.Spinbox类。</p>
+<p>moveto() 在tkinter.Canvas课堂上添加了方法。</p>
+<h2 id="时间"><a href="#时间" class="headerlink" title="时间"></a>时间</h2><p>CLOCK_UPTIME_RAW为macOS 10.12 添加了新时钟。</p>
+<h2 id="unicodedata"><a href="#unicodedata" class="headerlink" title="unicodedata"></a>unicodedata</h2><p>新函数<code>is_normalized()</code>可用于验证字符串是否处于特定的正常形式。</p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>添加addModuleCleanup()并 addClassCleanup()进行unittest以支持setUpModule()和的 清理setUpClass()。</p>
+<h2 id="VENV"><a href="#VENV" class="headerlink" title="VENV"></a>VENV</h2><p>venv现在，Activate.ps1在PowerShell Core 6.1下，所有平台上都包含一个用于激活虚拟环境的脚本。</p>
+<h2 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h2><p>作为对DTD和外部实体检索的缓解，默认情况下， xml.dom.minidom和xml.sax模块不再处理外部实体。</p>
+<h2 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h2><ul>
+<li><p>subprocess现在，模块可以os.posix_spawn()在某些情况下使用该功能以获得更好的性能。目前，如果满足所有这些条件，它仅用于<code>macOS</code>和<code>Linux</code></p>
+<p>-close_fds为false;<br> 未设置preexec_fn，pass_fds，cwd和start_new_session参数;<br> 该可执行文件路径中包含一个目录。<br> -shutil.copyfile()，shutil.copy()，shutil.copy2()， shutil.copytree()并shutil.move()使用特定于平台的“快速复制”在Linux，MacOS的和Solaris，以更有效地复制文件系统调用。“快速复制”意味着复制操作发生在内核中，避免在Python中使用用户空间缓冲区，如“ outfd.write(infd.read())”。在Windows上shutil.copyfile()使用更大的默认缓冲区大小（1 MiB而不是16 KiB），并使用memoryview()基于a 的变体 - shutil.copyfileobj()。在同一分区中复制512 MiB文件的速度在Linux上约为+ 26％，在macOS上为+ 50％，在Windows上为+ 40％。此外，消耗的CPU周期更少。请参阅与平台相关的高效复制操作部分。</p>
+</li>
+<li><p>shutil.copytree()使用os.scandir()函数和依赖它的所有复制函数使用缓存os.stat()值。复制具有8000个文件的目录的速度在Linux上约为+ 9％，在Windows上为+ 20％，在Windows SMB共享上为+ 30％。此外，os.stat() 系统调用的数量减少了38％，使shutil.copytree()网络文件系统的速度更快。</p>
+<p>-pickle模块中的默认协议现在是协议4，首先在Python 3.4中引入。与Python 3.0以来提供的Protocol 3相比，它提供了更好的性能和更小的尺寸。<br> 删除了一个Py_ssize_t成员PyGC_Head。所有GC跟踪对象（例如元组，列表，字典）的大小减少了4或8个字节。</p>
+</li>
+<li><p>uuid.UUID现在用于<strong>slots__减少其内存占用。 -性能提升operator.itemgetter()了33％。优化参数处理并为单个非负整数索引的常见情况添加快速路径到元组（这是标准库中的典型用例）。 -加速字段查找collections.namedtuple()。它们现在的速度提高了两倍以上，使它们成为Python中最快的实例变量查找形式。 -list如果输入iterable具有已知长度（输入实现__len</strong>），则构造函数不会全局定位内部项缓冲区。这使得创建的列表平均减少12％。（由Raymond Hettinger和Pablo Galindo在bpo-33234中提供。）<br> -将类变量写入的速度加倍。更新非dunder属性时，会有不必要的更新插槽调用。（由Stefan Behnel，Pablo Galindo Salgado，Raymond Hettinger，Neil Schemenauer和Serhiy Storchaka供稿于bpo-36012。）<br> -减少转换传递给许多内置函数和方法的参数的开销。加快调用一些简单的内置函数和方法，最多可达20-50％。（由Serhiy Storchaka在bpo-23867， bpo-35582和bpo-36127供稿。）</p>
+</li>
+</ul>
+<h2 id="构建和C-API更改"><a href="#构建和C-API更改" class="headerlink" title="构建和C API更改"></a>构建和C API更改</h2><ul>
+<li>这些PyByteArray_Init()和PyByteArray_Fini()功能已被删除。他们没有做任何事情，因为Python 2.7.4和Python 3.2.0被排除在有限的API（稳定的ABI）之外，并且没有记录。</li>
+<li>结果PyExceptionClass_Name()现在是类型 而不是。const char *char *</li>
+<li>二元性<code>Modules/Setup.dist</code>和 <code>Modules/Setup</code>已被删除。以前，在更新CPython源代码树时，必须手动将Modules/Setup.dist（在源代码树内）复制到 Modules/Setup（在构建树内）以反映上游的任何更改。这对包装商来说是一个小小的好处，代价是CPython开发后开发人员经常烦恼，因为忘记复制文件可能会导致构建失败。</li>
+<li>现在构建系统总是从Modules/Setup源树内部读取。鼓励想要自定义该文件的人将其更改保存在CPython的git fork中或作为补丁文件，就像它们对源树的任何其他更改一样。</li>
+<li>将Python数转换为C整数的 <code>PyLong_AsLong()</code>函数和参数解析函数（如 PyArg_ParseTuple()整数转换格式单位）’i’ 现在将使用<code>__index__()</code>特殊方法而不是（ <em>int__()如果可用）。将使用int</em>()方法但没有 <em>index</em>()方法（如<code>Decimal和 Fraction）</code>为对象发出弃用警告。 <code>PyNumber_Check()</code>现在将返回 1实现的对象__index**()。</li>
+<li>堆分配的类型对象现在将增加它们PyObject_Init()（和它的并行宏PyObject_INIT）中的引用计数而不是in PyType_GenericAlloc()。可能需要调整修改实例分配或释放的类型。</li>
+</ul>
+<h2 id="不支持"><a href="#不支持" class="headerlink" title="不支持"></a>不支持</h2><ul>
+<li>不建议使用的方法<code>getchildren()</code>，<code>getiterator()</code>在<code>ElementTree</code>模块现在发出 <code>DeprecationWarning</code>来代替<code>PendingDeprecationWarning</code>。它们将在Python 3.9中删除。</li>
+<li>传递一个不是<code>concurrent.futures.ThreadPoolExecutorto</code>的实例的对象已 <code>asyncio.loop.set_default_executor()</code>被弃用，并且将在Python 3.9中被禁止。</li>
+<li>该<code>**getitem**()</code>方法<code>xml.dom.pulldom.DOMEventStream</code>， <code>wsgiref.util.FileWrapper</code>并fileinput.FileInput已被弃用。</li>
+</ul>
+<p>这些方法的实现忽略了它们的索引参数，而是返回下一个项目。</p>
+<ul>
+<li><p>该<code>typing.NamedTuple</code>已否决了，<code>_field_types</code>赞成的属性<code>__annotations</code>__具有相同信息的属性。<br> ast类Num，Str，Bytes，<code>NameConstant</code>和 <code>Ellipsis</code>被标记是过时的，并将在未来的Python版本中删除。Constant应该用来代替。</p>
+</li>
+<li><p>下面的函数和方法弃用在gettext 模块：<code>lgettext()</code>，<code>ldgettext()</code>， lngettext()和ldngettext()。它们返回编码的字节，如果翻译的字符串存在编码问题，则可能会出现意外的与Unicode相关的异常。在Python 3中使用返回Unicode字符串的替代方法要好得多。这些功能已经被打破了很长时间。</p>
+</li>
+<li><p>功能<code>bind_textdomain_codeset()</code>，方法 <code>output_charset()</code>和 <code>set_output_charset()</code>，以及代码集 的功能参数<code>translation()</code>和<code>install()</code>也不赞成使用，因为它们仅用于为l*gettext()功能。</p>
+<p>-该<code>isAlive()</code>方法<code>threading.Thread</code>已被弃用。</p>
+</li>
+</ul>
+<p>许多带有整数参数的内置函数和扩展函数现在将为Decimals，Fractions和任何其他对象发出弃用警告， 这些对象只能在丢失的情况下转换为整数（例如，具有<strong>int__() 方法但没有__index</strong>()方法）。在将来的版本中，它们将是错误的。</p>
+<h2 id="API和功能删除"><a href="#API和功能删除" class="headerlink" title="API和功能删除"></a>API和功能删除</h2><h3 id="从Python-3-8中删除了以下功能和API："><a href="#从Python-3-8中删除了以下功能和API：" class="headerlink" title="从Python 3.8中删除了以下功能和API："></a>从<code>Python 3.8</code>中删除了以下功能和API：</h3><ul>
+<li><code>macpath</code>已删除在<code>Python 3.7</code>中弃用的模块。<br> 该函数<code>platform.popen()</code>已被删除，自Python 3.3以来已被弃用：os.popen()改为使用。</li>
+<li>该pyvenv脚本已被删除， 以帮助消除关于 脚本绑定的Python解释器的混淆。python3.8 -<code>m venvpyvenv</code></li>
+<li><code>parse_qs，parse_qsl</code>和<code>escape</code>从除去cgi 模块。它们已从Python 3.2或更早版本弃用。</li>
+<li><code>filemode</code>功能已从<code>tarfile</code>模块中删除。自Python 3.3以来，它没有记录和弃用。<br> 该<code>XMLParser</code>构造不再接受<code>HTML</code>参数。它从未产生过影响，在Python 3.4中已被弃用。所有其他参数现在都是仅关键字。</li>
+<li>删除了doctype()方法XMLParser。</li>
+<li><code>unicode_internal</code>编解码器被删除。</li>
+</ul>
+<h2 id="移植"><a href="#移植" class="headerlink" title="移植"></a>移植</h2><p>本节列出了先前描述的更改以及可能需要更改代码的其他错误修正。</p>
+<h2 id="Python行为的变化"><a href="#Python行为的变化" class="headerlink" title="Python行为的变化"></a>Python行为的变化</h2><ul>
+<li>屈服表达式（both yield和子句）现在在理解和生成器表达式中是不允许的（除了最左边的子句中的可迭代表达式）</li>
+<li>编译器现在生成一个<code>SyntaxWarning</code>何时身份检查 与某些类型的文字（例如字符串，整数）一起使用。这些通常可以在<code>CPython</code>中偶然使用，但不受语言规范的保证。警告建议用户使用相等测试。</li>
+</ul>
+<h2 id="Python-API的变化"><a href="#Python-API的变化" class="headerlink" title="Python API的变化"></a>Python API的变化</h2><ul>
+<li>该函数<code>platform.popen()</code>已被删除，自Python 3.3以来已被弃用：os.popen()改为使用。</li>
+<li><code>statistics.mode()</code>给定多模态数据时，该函数不再引发异常。相反，它返回输入数据中遇到的第一个模式。<br> 该类的<code>selection()</code>方法 <code>tkinter.ttk.Treeview</code>不再需要参数。在Python 3.6中不推荐使用带有参数来更改选择。使用专门的方法，如<code>selection_set()</code>更改选择。</li>
+<li>writexml()，toxml()并且toprettyxml()所述的方法 xml.dom.minidom模块，和xml.etree现在保存由用户指定的属性顺序。（<br> -dbm.dumb使用flags打开的数据库’r’现在是只读的。 dbm.dumb.open()带有标志’r’，’w’如果不存在则不再创建数据库。</li>
+<li>将不再调用<code>doctype()</code>子类中定义的方法， <code>XMLParser</code>并且将导致发出a RuntimeWarning而不是a <code>DeprecationWarning</code>。<code>doctype()</code>在目标上定义用于处理XML doctype声明的方法。</li>
+<li>一个RuntimeError是现在时引发自定义的元类不提供<strong>classcell__传入的名称空间项 type.__new</strong>。A DeprecationWarning是在Python 3.6-3.7中发出的。</li>
+<li>在cProfile.Profile类现在可以作为一个上下文管理器。</li>
+<li><code>shutil.copyfile()</code>，<code>shutil.copy()</code>，<code>shutil.copy2()</code>， <code>shutil.copytree()</code>并<code>shutil.move()</code>使用特定于平台的“快速复制”的系统调用</li>
+<li><code>shutil.copyfile()</code>Windows上的默认缓冲区大小从16 KiB更改为1 MiB。</li>
+<li><code>PyGC_Head</code>结构完全改变了。触及<code>struct</code>成员的所有代码都应该被重写。</li>
+<li><code>PyInterpreterState</code>结构已被移入“内部”头文件（特别是Include / internal / pycore_pystate.h）。<code>opaque PyInterpreterState</code>仍然可用作公共API（和稳定的ABI）的一部分。文档表明struct的字段都不公开，所以我们希望没有人使用它们。但是，如果您确实依赖于一个或多个私有字段而没有其他选择，那么请打开一个BPO问题。我们将努力帮助您进行调整（可能包括向公共API添加访问器功能）。</li>
+<li>ASYNCIO任务现在可以命名，或者通过将name关键字参数<code>asyncio.create_task()</code>或create_task()事件循环的方法，或者通过调用<code>set_name()</code>任务对象的方法。任务名称在repr()输出中可见，<code>asyncio.Task</code>也可以使用该<code>get_name()</code>方法检索。</li>
+<li><code>mmap.flush()</code>方法现在返回None成功并在所有平台下引发错误异常。以前，它的行为是平台依赖的：成功时返回非零值; 在Windows下错误返回零。成功返回零值; 在Unix下出现异常错误。</li>
+<li>该函数<code>math.factorial()</code>不再接受非int类的参数。</li>
+<li><code>xml.dom.minidom和xml.sax</code>模块默认不再处理外部实体。</li>
+<li>从只读dbm数据库（dbm.dumb， dbm.gnu或dbm.ndbm）中删除密钥会引发error（dbm.dumb.error， dbm.gnu.error或dbm.ndbm.error）而不是KeyError。</li>
+<li><code>expanduser()</code>在Windows上现在更喜欢 USERPROFILE 环境变量，不使用 HOME，通常不为常规用户帐户设置。</li>
+</ul>
+<p>使用#在分析或建筑价值的形式变体（例如 PyArg_ParseTuple()，<code>Py_BuildValue()</code>，<code>PyObject_CallFunction()</code>没有等）<code>PY_SSIZE_T_CLEAN</code>定义提出了DeprecationWarning现在。它将在3.10或4.0中删除。阅读解析参数并为细节构建值。（由Inada Naoki在bpo-36381供稿。）</p>
+<h2 id="C-API的变化"><a href="#C-API的变化" class="headerlink" title="C API的变化"></a>C API的变化</h2><p>-堆分配类型的实例（例如用其创建的实例 <code>PyType_FromSpec()</code>）保存对其类型对象的引用。增加这些类型对象的引用计数已从 <code>PyType_GenericAlloc()</code>更低级别的函数移动， <code>PyObject_Init()</code>并且<code>PyObject_INIT()</code>。这使得通过<code>PyType_FromSpec()</code>托管代码中的其他类行为创建类型。</p>
+<p>静态分配的类型不受影响。</p>
+<p>对于绝大多数情况，应该没有副作用。但是，在分配实例（可能是为了解决bug）之后手动增加引用计数的类型现在可能变得不朽。为避免这种情况，这些类需要在实例释放期间在类型对象上调用<code>Py_DECREF</code>。</p>
+<p>要将这些类型正确移植到3.8，请应用以下更改：</p>
+<p><code>Py_INCREF</code>分配实例后删除类型对象 - 如果有的话。这可能打完电话后发生的<code>PyObject_New()</code>， <code>PyObject_NewVar()</code>，<code>PyObject_GC_New()</code>， <code>PyObject_GC_NewVar()</code>，或使用任何其他自定义分配器 <code>PyObject_Init()</code>或<code>PyObject_INIT()</code>。</p>
+<p>例：</p>
+<pre style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; color: inherit; font-size: inherit; line-height: inherit;">
+
+1static foo_struct *
+ 2foo_new(PyObject *type) {
+ 3    foo_struct *foo = PyObject_GC_New(foo_struct, (PyTypeObject *) type);
+ 4    if (foo == NULL)
+ 5        return NULL;
+ 6#if PY_VERSION_HEX < 0x03080000
+ 7    // Workaround for Python issue 35810; no longer necessary in Python 3.8
+ 8    PY_INCREF(type)
+ 9#endif
+ 10    return foo;
+ 11}
+
+</pre>
+
+<p>确保 <code>tp_dealloc</code>堆分配类型的所有自定义函数都减少了类型的引用计数。</p>
+<p>例：</p>
+<pre style="margin: 0px; padding: 0px; max-width: 100%; box-sizing: border-box !important; word-wrap: break-word !important; font-size: inherit; line-height: inherit;">
+
+1 static void  2foo_dealloc(foo_struct *instance) {  3    PyObject *type = Py_TYPE(instance);  4    PyObject_GC_Del(instance);  5#if PY_VERSION_HEX >= 0x03080000  6    // This was not needed before Python 3.8 (Python issue 35810)  7    Py_DECREF(type);  8#endif  9}
+
+</pre>
+
+<h2 id="CPython字节码更改"><a href="#CPython字节码更改" class="headerlink" title="CPython字节码更改"></a>CPython字节码更改</h2><p>通过移动将块堆栈展开到编译器中的逻辑，简化了解释器循环。编译器现在发出显式指令，用于调整值堆栈并调用清理代码<code>break</code>，<code>continue</code>和 <code>return</code>。</p>
+<p>删除操作码<code>BREAK_LOOP，CONTINUE_LOOP</code>， <code>SETUP_LOOP和SETUP_EXCEPT</code>。增加了新的操作码<code>ROT_FOUR，BEGIN_FINALLY，CALL_FINALLY</code>和 <code>POP_FINALLY。改变了</code>END_FINALLY<code>和</code>WITH_CLEANUP_START<code>。 添加了新的操作码，</code>END_ASYNC_FOR`用于处理在等待循环中的下一个项目时引发的异常。</p>
+<p>推荐：<br> <a href="https://www.jianshu.com/p/e5ee57797376" target="_blank" rel="noopener">Google Python 编码规范</a></p>
+<p><a href="https://www.jianshu.com/p/e5ee57797376" target="_blank" rel="noopener">用 Python 给自己找个合适的妹子</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+
+    
+    <p>last update time 2019-10-30</p>
+    
+    
+        <a class="extend next post-next" href="/2019/10/16/note20/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

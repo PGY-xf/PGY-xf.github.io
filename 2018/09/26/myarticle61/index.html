@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Scrapy爬虫框架 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Scrapy爬虫框架</h1>
+<article class="post markdown-style">
+  <h2 id="Scrapy"><a href="#Scrapy" class="headerlink" title="Scrapy"></a><strong>Scrapy</strong></h2><ul>
+<li>scrapy是python开发的一个快速，高层次的屏幕爬取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。</li>
+<li>Scrapy用途广泛，可以用于数据挖掘、监测和自动化测试。 </li>
+<li>Scrapy吸引人的地方在于它是一个框架，任何人都可以根据需求方便的修改。它也提供了多种类型爬虫的基类，如BaseSpider、sitemap爬虫等 </li>
+</ul>
+<h3 id="创建爬虫项目："><a href="#创建爬虫项目：" class="headerlink" title="创建爬虫项目："></a>创建爬虫项目：</h3><p>​    1&gt; 首先切换路径：cd 一个路径</p>
+<p>​    2&gt; 创建工程： scrapy startproject 工程名</p>
+<p>​    3&gt;切换工程： cd 工程名</p>
+<p>​    4&gt; 创建爬虫：scrapy genspider 爬虫名 网址</p>
+<p>​    5&gt;启动爬虫：scrapy crawl 爬虫名</p>
+<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><ul>
+<li>Scrapy是一个为爬取网站数据、提取结构性数据而设计的应用程序框架，它可以应用在广泛领域：Scrapy 常应用在包括数据挖掘，信息处理或存储历史数据等一系列的程序中。通常我们可以很简单的通过 Scrapy 框架实现一个爬虫，抓取指定网站的内容或图片</li>
+<li>尽管Scrapy原本是设计用来屏幕抓取（更精确的说，是网络抓取），但它也可以用来访问API来提取数据。 </li>
+</ul>
+<h3 id="Scrapy架构"><a href="#Scrapy架构" class="headerlink" title="Scrapy架构"></a>Scrapy架构</h3><ul>
+<li><strong>Scrapy Engine(引擎)</strong>：负责Spider、ItemPipeline、Downloader、Scheduler中间的通讯，信号、数据传递等 </li>
+<li><strong>Scheduler(调度器)</strong>：它负责接受引擎发送过来的Request请求，并按照一定的方式进行整理排列，入队，当引擎需要时，交还给引擎。 </li>
+<li><strong>Downloader（下载器）</strong>：负责下载Scrapy Engine(引擎)发送的所有Requests请求，并将其获取到的Responses交还给Scrapy Engine(引擎)，由引擎交给Spider来处理。 </li>
+<li><strong>Spider（爬虫）</strong>：它负责处理所有Responses,从中分析提取数据，获取Item字段需要的数据，并将需要跟进的URL提交给引擎，再次进入Scheduler(调度器)。 </li>
+<li><strong>Item Pipeline(管道)</strong>：它负责处理Spider中获取到的Item，并进行进行后期处理（详细分析、过滤、存储等）的地方。 </li>
+<li><strong>Downloader Middlewares（下载中间件）</strong>：一个可以自定义扩展下载功能的组件。 </li>
+<li><strong>Spider Middlewares（Spider中间件）</strong>：一个可以自定扩展和操作引擎和Spider中间通信的功能组件。 </li>
+</ul>
+<h3 id="创建爬虫流程"><a href="#创建爬虫流程" class="headerlink" title="创建爬虫流程"></a>创建爬虫流程</h3><p>创建Scrapy 爬虫 一共需要四步： </p>
+<ul>
+<li><p>1.新建项目 ：新建一个新的爬虫项目 </p>
+</li>
+<li><p>2.明确目标 （编写items.py）：明确你想要抓取的目标 </p>
+</li>
+<li><p>3.制作爬虫 （spiders/xxspider.py）：制作爬虫开始爬取网页 </p>
+</li>
+<li><p>4.存储内容 （pipelines.py）：设计管道存储爬取内容 </p>
+<p>具体如下：</p>
+</li>
+</ul>
+<h5 id="选择网站"><a href="#选择网站" class="headerlink" title="选择网站"></a>选择网站</h5><p>​    选择一个网站，如果你需要从某个网站提取一些信息，但是网站不提供API或者其他可编程的访问机制，那么Scrapy可以帮助你提取信息。 </p>
+<h5 id="定义数据"><a href="#定义数据" class="headerlink" title="定义数据"></a>定义数据</h5><p>​    定义你要抓取的数据，第一件事情就是定义你要抓取的数据，在Scrapy这个是通过定义Scrapy Items来实现的 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.item <span class="keyword">import</span> Item， Field</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Torrent</span><span class="params">(Item)</span>:</span></span><br><span class="line">    url = Field()</span><br><span class="line">    name = Field()</span><br><span class="line">    description = Field()</span><br><span class="line">    size = Field()</span><br></pre></td></tr></table></figure>
+
+<h5 id="撰写蜘蛛"><a href="#撰写蜘蛛" class="headerlink" title="撰写蜘蛛"></a>撰写蜘蛛</h5><p>​    撰写一个蜘蛛来抓取数据</p>
+<p>​    下一步是写一个指定起始网址的蜘蛛，包含follow链接规则和数据提取规则。</p>
+<p>例如：</p>
+<ul>
+<li>/tor/\d+. ：来提取规则 </li>
+<li>Xpath ：从页面的HTML Source里面选取要要抽取的数据，选取众多数据页面中的一个。根据页面HTML 源码，建立XPath</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MininovaSpider</span><span class="params">(CrawlSpider)</span>:</span></span><br><span class="line">    name = <span class="string">'参考阅读4'</span></span><br><span class="line">    allowed_domains = [<span class="string">'参考阅读4'</span>]</span><br><span class="line">    start_urls = [<span class="string">'参考阅读1'</span>]</span><br><span class="line">    rules = [Rule(SgmlLinkExtractor(allow=[<span class="string">'/tor/\d+'</span>]), <span class="string">'parse_torrent'</span>)]</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse_torrent</span><span class="params">(self， response)</span>:</span></span><br><span class="line">        x = HtmlXPathSelector(response)</span><br><span class="line">        torrent = TorrentItem()</span><br><span class="line">        torrent[<span class="string">'url'</span>] = response.url</span><br><span class="line">        torrent[<span class="string">'name'</span>] = x.select(<span class="string">"//h1/text()"</span>).extract()</span><br><span class="line">        torrent[<span class="string">'description'</span>] = x.select(<span class="string">"//div[@id='description']"</span>).extract()</span><br><span class="line">        torrent[<span class="string">'size'</span>] = x.select(<span class="string">"//div[@id='info-left']/p[2]/text()[2]"</span>).extract()</span><br><span class="line">        <span class="keyword">yield</span> torrent</span><br></pre></td></tr></table></figure>
+
+<h5 id="运行蜘蛛"><a href="#运行蜘蛛" class="headerlink" title="运行蜘蛛"></a>运行蜘蛛</h5><p>​    运行蜘蛛来抓取数据 </p>
+<p>​    我们需要创建一个运行文件，放在setting同级目录下，用来单独运行蜘蛛： </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scrapy.cmdline <span class="keyword">import</span> execute</span><br><span class="line">execute(<span class="string">'scrapy crawl 所创建的py文件名'</span>.split())</span><br><span class="line">运行这个文件，可以看到相应的数据就输出了出来</span><br></pre></td></tr></table></figure>
+
+<h5 id="Review数据"><a href="#Review数据" class="headerlink" title="Review数据"></a>Review数据</h5><p>​    查看一下数据：scraped_data.json。</p>
+<p>​    关注一下数据，你会发现，所有字段都是lists（除了url是直接赋值），这是因为selectors返回的就是lists格式，如果你想存储单独数据或者在数据上增加一些解释或者清洗，可以使用Item Loaders</p>
+<h3 id="Scrapy优势特征"><a href="#Scrapy优势特征" class="headerlink" title="Scrapy优势特征"></a>Scrapy优势特征</h3><p>Scrapy提供了许多强大的特性，让它更容易和高效的抓取： </p>
+<p>​    1&gt;内建 selecting and extracting，支持从HTML，XML提取数据 </p>
+<p>​    2&gt;内建Item Loaders，支持数据清洗和过滤消毒，使用预定义的一个过滤器集合，可以在所有蜘蛛间公用 </p>
+<p>​    3&gt;内建多格式generating feed exports支持(JSON， CSV， XML)，可以在后端存储为多种方式(FTP， S3， local filesystem) </p>
+<p>​    4&gt;针对抓取对象，具有自动图像(或者任何其他媒体)下载automatically downloading images的管道线 </p>
+<p>​    5&gt;支持扩展抓取extending Scrap，使用signals来自定义插入函数或者定义好的API(middlewares， extensions， and pipelines) </p>
+<p>​    6&gt;大范围的内建中间件和扩展，基于但不限于cookies and session handling</p>
+<p>​    HTTP compression</p>
+<p>​    HTTP authentication</p>
+<p>​    HTTP cache</p>
+<p>​    user-agent spoofing</p>
+<p>​    robots.txt</p>
+<p>​    crawl depth restriction</p>
+<p>​    and more</p>
+<p>​    7&gt;强壮的编码支持和自动识别机制，可以处理多种国外的、非标准的、不完整的编码声明等等 </p>
+<p>​    8&gt;可扩展的统计采集stats collection，针对数十个采集蜘蛛，在监控蜘蛛性能和识别断线断路？方面很有用处 </p>
+<p>​    9&gt;一个可交互的XPaths脚本命令平台接口Interactive shell console，在调试撰写蜘蛛上是非常有用 </p>
+<p>​    10&gt;一个系统服务级别的设计，可以在产品中非常容易的部署和运行你的蜘蛛</p>
+<p>​    11&gt;内建的Web service，可以监视和控制你的机器人</p>
+<p>​    12&gt;一个Telnet控制台Telnet console，可以钩入一个Python的控制台在你的抓取进程中，以便内视或者调试你的爬虫</p>
+<p>​    13&gt;支持基于Sitemap的网址发现的爬行抓取</p>
+<p>​    14&gt;具备缓存DNS和resolver功能</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/10/08/myarticle62/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-06</p>
+    
+    
+        <a class="extend next post-next" href="/2018/09/10/myarticle60/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

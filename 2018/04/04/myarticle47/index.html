@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>整理大型网站架构必知必会的几个服务器知识 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">整理大型网站架构必知必会的几个服务器知识</h1>
+<article class="post markdown-style">
+  <p>最近看书及系统开发部署过程中的一些心得，再对照自己之前的从业经验，很多都是听闻而已，当然也有一些已经很熟悉，有的正在搞，有的未来希望可以着手付诸实施，留此存照。</p>
+<h2 id="1、负载均衡服务器"><a href="#1、负载均衡服务器" class="headerlink" title="1、负载均衡服务器"></a>1、负载均衡服务器</h2><p>负载均衡服务器主要作用是实现某些类型服务器的规模扩展。比如对于系统前端的web服务器和后端的数据库服务器，想通过加服务器实现N+1横向扩展，通过多台服务器负载分担压力，负载均衡必不可少。</p>
+<h2 id="2、web服务器"><a href="#2、web服务器" class="headerlink" title="2、web服务器"></a>2、web服务器</h2><p>最常见，内存要求不是很高但cpu要求较高，主要用于部署各种web应用，如带界面的web页面、不带界面的web服务、wcf等等。</p>
+<h2 id="3、缓存服务器"><a href="#3、缓存服务器" class="headerlink" title="3、缓存服务器"></a>3、缓存服务器</h2><p>大中型网站，分布式缓存已是标配，缓存服务器专门用于部署分布式缓存，一般而言对内存和带宽要求较高。</p>
+<h2 id="4、消息队列服务器"><a href="#4、消息队列服务器" class="headerlink" title="4、消息队列服务器"></a>4、消息队列服务器</h2><p>队列是系统解耦利器，也是大中型分布式系统标配，没有队列，业务系统很容易高度耦合，系统吞吐量也会很快遭遇瓶颈。</p>
+<h2 id="5、文件服务器"><a href="#5、文件服务器" class="headerlink" title="5、文件服务器"></a>5、文件服务器</h2><p>分布式文件系统，专门用于存储业务系统需要的各种文件如图片、多媒体文件等。</p>
+<h2 id="6、索引服务器"><a href="#6、索引服务器" class="headerlink" title="6、索引服务器"></a>6、索引服务器</h2><p>用于网站全文索引，搜索必备。对内存和CPU要求较高，大型网站，通常还需要支持主从备份和容错，甚至多实例索引集群。</p>
+<h2 id="7、搜索服务器"><a href="#7、搜索服务器" class="headerlink" title="7、搜索服务器"></a>7、搜索服务器</h2><p>通常需要部署多台，否则查询多了性能撑不住，对内存要求不高。有的中小型站点，索引和搜索服务器在物理和逻辑上都是同一台服务器。</p>
+<h2 id="8、作业服务器"><a href="#8、作业服务器" class="headerlink" title="8、作业服务器"></a>8、作业服务器</h2><p>主要用于后端应用程序大批量大数据量复杂业务逻辑的定时作业，大多数互联网公司标配，某些企业的定时调度框架是直接部署在web服务器上的，可以减少这里的所谓作业服务器。</p>
+<h2 id="9、数据库服务器"><a href="#9、数据库服务器" class="headerlink" title="9、数据库服务器"></a>9、数据库服务器</h2><p>主要用于存储和查询数据。数据库已是各种系统实际上的标配，内存和CPU都要求极高，网络和硬件要求也不低。大中型网站还需要支持数据库的主从备份和容错，甚至多实例的数据库集群。</p>
+<p>通常，大中型的互联网应用会经历一个从单一的数据库服务器,到Master/Slave主从服务器,再到垂直分区（分库），然后再到水平分区（分表，sharding）的过程。而在这个过程中，Master/Slave以及分库相对比较容易，对应用的影响也不是很大，但是分表会引起一些棘手的问题，比如不能跨越多个分区join查询数据，如何实现DB负载等等，这个时候就需要一个通用的DAL框架来屏蔽底层数据存储对业务逻辑的影响，使得底层数据的访问对应用完全透明化。</p>
+<h2 id="10、nosql服务器"><a href="#10、nosql服务器" class="headerlink" title="10、nosql服务器"></a>10、nosql服务器</h2><p>海量数据处理的兴起，各种nosql产品层出不穷，nosql服务器主要用于处理海量数据，支持存储、查询、分片等。</p>
+<p>web应用中，有两个一直是不好实现横向扩展或者由于历史遗留问题实现代价非常大的东西，如你所知，就是：A、数据库  B、网络带宽。</p>
+<p>而某些nosql的出现很可能解决这个历史遗留难题，现在已经有nosql产品弥补了关系型数据库天生不支持横向扩展的缺点，在特定场景下正在替代关系型数据库。</p>
+<h2 id="11、其他"><a href="#11、其他" class="headerlink" title="11、其他"></a>11、其他</h2><p>需求不断变化和应用需要，某些互联网企业还可能衍生出基于安全的授权/证书服务器，全局唯一的流水号服务器，会话服务器等等。</p>
+<p>参考：</p>
+<p>&lt;&lt;大型网站技术架构&gt;&gt;</p>
+<p>&lt;&lt;构建高性能web站点&gt;&gt;</p>
+<p><a href="http://www.cnblogs.com/terryli/archive/2008/04/06/1139121.html" target="_blank" rel="noopener">http://www.cnblogs.com/terryli/archive/2008/04/06/1139121.html</a></p>
+<p><a href="http://www.cnblogs.com/ejiyuan/archive/2010/10/29/1796292.html" target="_blank" rel="noopener">http://www.cnblogs.com/ejiyuan/archive/2010/10/29/1796292.html</a></p>
+<p><a href="http://kb.cnblogs.com/page/99549/" target="_blank" rel="noopener">http://kb.cnblogs.com/page/99549/</a></p>
+<p><a href="http://highscalability.com/blog/2014/7/21/stackoverflow-update-560m-pageviews-a-month-25-servers-and-i.html" target="_blank" rel="noopener">http://highscalability.com/blog/2014/7/21/stackoverflow-update-560m-pageviews-a-month-25-servers-and-i.html</a></p>
+<p><a href="http://www.infoq.com/articles/perera-data-storage-haystack" target="_blank" rel="noopener">http://www.infoq.com/articles/perera-data-storage-haystack</a></p>
+<p><a href="http://lethain.com/introduction-to-architecting-systems-for-scale/" target="_blank" rel="noopener">http://lethain.com/introduction-to-architecting-systems-for-scale/</a></p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2018/04/12/myarticle48/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-05</p>
+    
+    
+        <a class="extend next post-next" href="/2018/03/26/myarticle46/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>

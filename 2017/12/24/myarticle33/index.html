@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  
+  <title>Python 列表排序 [ Pandsflies ]</title>
+  
+    <!-- stylesheets list from config.yml -->
+    
+      <link rel="stylesheet" href="/css/iLiKE.css">
+    
+  
+  
+  
+  <script src="//cdn1.lncld.net/static/js/3.1.1/av-min.js"></script>
+    <script id="leancloud">
+      AV.init({
+          appId: "6E5zTbTljdUbVW2WkXPsXGJk-gzGzoHsz",
+          appKey: "0vsyDKfNpeSECAI70J794ugv"
+      });
+    </script>
+
+</head></html>
+<body>
+    <div class="header">
+        <div class="container">
+    <div class="menu">
+      <div class="menu-left">
+        <a href="/">
+          <img src="/favicon.ico"></img>
+        </a>
+      </div>
+      <div class="menu-right">
+        
+          
+          
+          
+          
+          
+          
+          <a href="/">Home</a>
+        
+          
+          
+          
+          
+          
+          
+          <a href="/archives">Archives</a>
+        
+          
+          
+          
+          
+          
+          <a href="/about">Resume</a>
+        
+          
+          
+          
+          
+          
+          <a href="/E-BOOK">E-book</a>
+        
+      </div>
+    </div>
+</div>
+    </div>
+    <div class="container">
+        <h1 class="post-title">Python 列表排序</h1>
+<article class="post markdown-style">
+  <p>list3= [91, 95, 97, 99, 92, 93, 96, 98]</p>
+<p>要求对list3进行排序：[91, 92, 93, 95, 96, 97, 98, 99]</p>
+<p>操作：</p>
+<p><strong>第一种：（永久性排序）</strong></p>
+<p>list3.sort()   # 格式：列表名.sort() ，这个类型的排序修改了列表元素地排列顺序，再也无法恢复到原来的排列顺序。</p>
+<p>print(list3)</p>
+<p>&gt;&gt;&gt;[91, 92, 93, 95, 96, 97, 98, 99]</p>
+<p><strong>第二种：（暂时性）</strong></p>
+<p>print(sorted(list3))    #使用sorted()函数，暂时就是让你能够按特定顺序显示列表元素，同时不影响列表中的原始排列顺序。</p>
+<p>&gt;&gt;&gt;[91, 92, 93, 95, 96, 97, 98, 99]</p>
+<p>排序方式：从小到大，从大到小(<strong>reverse=True</strong>)</p>
+<p>list3.sort()  #不填写时默认从小到大</p>
+<p>print(list3)</p>
+<p>&lt;&lt;&lt;[91, 92, 93, 95, 96, 97, 98, 99]</p>
+<p>list3.sort(reverse=True)   #”reverse=True”表示排序从大到小</p>
+<p>print(list3)</p>
+<p>&lt;&lt;&lt;[99, 98, 97, 96, 95, 93, 92, 91]</p>
+<p>print(sorted(list3))  #按数字从小到大排序</p>
+<p>print(sorted(list3,reverse=True))   #按数字从大到小排序</p>
+<p>&lt;&lt;&lt;[91, 92, 93, 95, 96, 97, 98, 99]</p>
+<p>&lt;&lt;&lt;[99, 98, 97, 96, 95, 93, 92, 91]</p>
+<p>反转列表元素的排列顺序：<strong>reverse()</strong></p>
+<p>list3= [91, 95, 97, 99, 92, 93, 96, 98]</p>
+<p>list3.reverse()    #永久性地修改列表元素的排列顺序，但可随时恢复到原来的排列顺序，为此只需对列表再次调用<em>reverse()</em>即可</p>
+<p>print(list3)</p>
+<p>&gt;&gt;&gt;[98, 96, 93, 92, 99, 97, 95, 91]</p>
+
+</article>
+
+    <div class="pagenator post-pagenator">
+    
+    
+        <a class="extend prev post-prev" href="/2017/12/26/myarticle34/">prev</a>
+    
+
+    
+    <p>last update time 2019-09-04</p>
+    
+    
+        <a class="extend next post-next" href="/2017/12/18/myarticle32/">next</a>
+    
+    </div>
+
+    </div>
+    <div class="footer">
+        <div class="container">
+    <div class="social">
+	<ul class="social-list">
+		
+			
+				
+				
+				<li>
+					<a href="mailto:1178752402@qq.com" title="email" target="_blank">
+					<i class="fa fa-email"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://github.com/CaiChenghan" title="github" target="_self">
+					<i class="fa fa-github"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+			
+				
+				<li>
+					<a href="https://www.jianshu.com/u/565c8e790605" title="jianshu" target="_self">
+					<i class="fa fa-jianshu"></i>
+					</a>
+				</li>
+			
+		
+			
+		
+			
+		
+			
+		
+	</ul>
+</div>
+    <div class="copyright">
+        <span>
+            
+            
+            
+                © 小飞 2017 - 2019
+            
+        </span>
+    </div>
+    <div class="power">
+        <span>
+            Powered by <a href="https://hexo.io">Hexo</a> & <a href="https://github.com/CaiChenghan/iLiKE">iLiKE Theme</a>
+        </span>
+    </div>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+    <!--page counter part-->
+<script>
+function addCount (Counter) {
+    url=$('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url",url);
+    query.find({
+        success: function(results) {
+            if (results.length>0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); //get recent result
+                counter.increment("time");
+                counter.save();
+            } else {
+                var newcounter=new Counter();
+                newcounter.set("title",title);
+                newcounter.set("url",url);
+                newcounter.set("time",1);
+                newcounter.save(null,{
+                    success: function(newcounter) {
+                        //alert('New object created');
+                    }, error: function(newcounter,error) {
+                        alert('Failed to create');
+                    }
+                })
+            }
+        },
+        error: function(error) {
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+$(function() {
+    var Counter=AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+    var query=new AV.Query(Counter);
+    query.descending("time");
+    // the sum of popular posts
+    query.limit(10); 
+    query.find({
+        success: function(results) {
+                for(var i=0;i<results.length;i++) {
+                    var counter=results[i];
+                    title=counter.get("title");
+                    url=counter.get("url");
+                    time=counter.get("time");
+                    // add to the popularlist widget
+                    showcontent=title+" ("+time+")";
+                    //notice the "" in href
+                    $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+                }
+            },
+        error: function(error) {
+            alert("Error:"+error.code+" "+error.message);
+        }
+    });
+});
+</script>
+</div>
+    </div>
+</body>
+</html>
